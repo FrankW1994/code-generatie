@@ -28,7 +28,7 @@ public class UserApiService {
     public User getUserById(Long userId) {
 
         for (User user : users){
-            if (user.getId() == userId){
+            if (user.getId().equals(userId)){
                 return user;
             }
         }
