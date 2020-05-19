@@ -39,7 +39,7 @@ public interface TransactionsApi {
     @RequestMapping(value = "/transactions/{transactionId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Transaction> getTransaction(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("transactionId") Long transactionId
+    ResponseEntity<Transaction> getTransaction(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("transactionId") String transactionId
 );
 
 

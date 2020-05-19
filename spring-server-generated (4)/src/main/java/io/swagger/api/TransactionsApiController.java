@@ -1,5 +1,9 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.core.JsonParser;
+import io.swagger.service.TransactionApiService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.threeten.bp.LocalDate;
 import io.swagger.model.Transaction;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,12 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
@@ -28,10 +26,11 @@ import java.util.Map;
 public class TransactionsApiController implements TransactionsApi {
 
     private static final Logger log = LoggerFactory.getLogger(TransactionsApiController.class);
-
     private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
+
+    @Autowired
+    private TransactionApiService transactionApiService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public TransactionsApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -39,19 +38,21 @@ public class TransactionsApiController implements TransactionsApi {
         this.request = request;
     }
 
-    public ResponseEntity<Transaction> getTransaction(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("transactionId") Long transactionId
-) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
+    public ResponseEntity<Transaction> getTransaction(@Min(0L)@ApiParam(value = "",required = true, allowableValues="") @PathVariable("transactionId") String id) {
+        if(Integer.parseInt(id) > 5)
+        {
+            return new ResponseEntity("Id not > 5", HttpStatus.BAD_REQUEST);
+        }
+        if (id != null) {
             try {
-                return new ResponseEntity<Transaction>(objectMapper.readValue("{\n  \"ibanSender\" : \"NL00RABO0000000000\",\n  \"ibanReceiver\" : \"NL00INGB0000000000\",\n  \"transactionId\" : 12345678,\n  \"nameSender\" : \"Frank Wester\",\n  \"transactionDate\" : \"06-05-2020\",\n  \"transferAmount\" : 20\n}", Transaction.class), HttpStatus.NOT_IMPLEMENTED);
+                Transaction myTransaction = transactionApiService.getTransaction(id);
+             return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(myTransaction), Transaction.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
-        return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<Transaction>(HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
@@ -65,7 +66,8 @@ public class TransactionsApiController implements TransactionsApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<Transaction>>(objectMapper.readValue("[ {\n  \"ibanSender\" : \"NL00RABO0000000000\",\n  \"ibanReceiver\" : \"NL00INGB0000000000\",\n  \"transactionId\" : 12345678,\n  \"nameSender\" : \"Frank Wester\",\n  \"transactionDate\" : \"06-05-2020\",\n  \"transferAmount\" : 20\n}, {\n  \"ibanSender\" : \"NL00RABO0000000000\",\n  \"ibanReceiver\" : \"NL00INGB0000000000\",\n  \"transactionId\" : 12345678,\n  \"nameSender\" : \"Frank Wester\",\n  \"transactionDate\" : \"06-05-2020\",\n  \"transferAmount\" : 20\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                List<Transaction> myList = transactionApiService.getTransactions();
+                return new ResponseEntity<List<Transaction>>(objectMapper.readValue(objectMapper.writeValueAsString(myList), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<Transaction>>(HttpStatus.INTERNAL_SERVER_ERROR);

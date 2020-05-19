@@ -33,6 +33,18 @@ public class Transaction   {
   @JsonProperty("transferAmount")
   private Double transferAmount = null;
 
+  public Transaction(String iban) {
+    this.ibanSender = iban;
+  }
+
+  public Transaction(Integer id, String ibanSender, String ibanReceiver, String transactionDate, Double transferAmount) {
+    this.transactionId = id;
+    this.ibanSender = ibanSender;
+    this.ibanReceiver = ibanReceiver;
+    this.transactionDate = transactionDate;
+    this.transferAmount = transferAmount;
+  }
+
   public Transaction ibanSender(String ibanSender) {
     this.ibanSender = ibanSender;
     return this;
