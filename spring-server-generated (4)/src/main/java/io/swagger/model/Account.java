@@ -22,6 +22,22 @@ public class Account   {
   @JsonProperty("IBAN")
   private String IBAN = null;
 
+  public Account()
+  {}
+
+  public Account(Long userId, String IBAN, RankEnum rank, StatusEnum status, Double balance, String currency) {
+    this.userId = userId;
+    this.IBAN = IBAN;
+    this.rank = rank;
+    this.status = status;
+    this.balance = balance;
+    this.currency = currency;
+  }
+
+  public Account(String nlfout) {
+    this.IBAN = nlfout;
+  }
+
   /**
    * Gets or Sets rank
    */

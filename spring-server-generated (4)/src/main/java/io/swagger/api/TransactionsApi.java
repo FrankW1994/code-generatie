@@ -9,37 +9,31 @@ import org.threeten.bp.LocalDate;
 import io.swagger.model.Transaction;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
-import java.util.Map;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 @Api(value = "transactions", description = "the transactions API")
 public interface TransactionsApi {
 
-    @ApiOperation(value = "Getting a transaction", nickname = "getTransaction", notes = "", response = Transaction.class, authorizations = {
+    @ApiOperation(value = "Find a transaction specific by transactionId", nickname = "getTransactionById", notes = "", response = Transaction.class, authorizations = {
         @Authorization(value = "ApiKeyAuth")    }, tags={ "transactions", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Succesful request.", response = Transaction.class),
-        @ApiResponse(code = 400, message = "Bad request. transaction ID must be an integer and larger than 0."),
+        @ApiResponse(code = 400, message = "Bad request. transaction ID must be an number(LONG) and larger than 0."),
         @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
         @ApiResponse(code = 404, message = "A transaction with the specified ID was not found."),
         @ApiResponse(code = 500, message = "Unexpected error.") })
     @RequestMapping(value = "/transactions/{transactionId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Transaction> getTransaction(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("transactionId") String transactionId
+    ResponseEntity<Transaction> getTransaction(@ApiParam(value = "Id of the transaction to return", required=true) @PathVariable("transactionId") Long transactionId
 );
 
 
@@ -59,20 +53,21 @@ public interface TransactionsApi {
 ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateStart", required = false) LocalDate transactionSearchDateStart
 ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateEnd", required = false) LocalDate transactionSearchDateEnd
 ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
-,@ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Long maxNumberOfResults
+,@ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
 );
 
 
-    @ApiOperation(value = "transfering funds from one account to an other", nickname = "transferFunds", notes = "", response = Long.class, authorizations = {
+
+    @ApiOperation(value = "transfering funds from one account to an other", nickname = "transferFunds", notes = "", response = Transaction.class, authorizations = {
         @Authorization(value = "ApiKeyAuth")    }, tags={ "transactions", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Funds transfered", response = Long.class),
+        @ApiResponse(code = 200, message = "Funds transfered", response = Transaction.class),
         @ApiResponse(code = 500, message = "Unexpected error.") })
     @RequestMapping(value = "/transactions",
-        produces = { "text/plain" }, 
+        produces = { "application/json" },
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Long> transferFunds(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Transaction body
+    ResponseEntity<Transaction> transferFunds(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Transaction body
 );
 
 }

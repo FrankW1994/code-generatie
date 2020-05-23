@@ -3,6 +3,7 @@ package io.swagger.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -14,15 +15,15 @@ import javax.validation.constraints.*;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
-public class Transaction   {
+public class Transaction {
+  @JsonProperty("transactionId")
+  private Long transactionId = null;
+
   @JsonProperty("ibanSender")
   private String ibanSender = null;
 
   @JsonProperty("ibanReceiver")
   private String ibanReceiver = null;
-
-  @JsonProperty("transactionId")
-  private Integer transactionId = null;
 
   @JsonProperty("nameSender")
   private String nameSender = null;
@@ -33,14 +34,18 @@ public class Transaction   {
   @JsonProperty("transferAmount")
   private Double transferAmount = null;
 
+  public Transaction()
+  {}
+
   public Transaction(String iban) {
     this.ibanSender = iban;
   }
 
-  public Transaction(Integer id, String ibanSender, String ibanReceiver, String transactionDate, Double transferAmount) {
+  public Transaction(Long id, String ibanSender, String ibanReceiver, String nameSender, String transactionDate, Double transferAmount) {
     this.transactionId = id;
     this.ibanSender = ibanSender;
     this.ibanReceiver = ibanReceiver;
+    this.nameSender = nameSender;
     this.transactionDate = transactionDate;
     this.transferAmount = transferAmount;
   }
@@ -52,11 +57,12 @@ public class Transaction   {
 
   /**
    * Get ibanSender
+   *
    * @return ibanSender
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public String getIbanSender() {
+
+  public String getIbanSender() {
     return ibanSender;
   }
 
@@ -71,11 +77,12 @@ public class Transaction   {
 
   /**
    * Get ibanReceiver
+   *
    * @return ibanReceiver
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public String getIbanReceiver() {
+
+  public String getIbanReceiver() {
     return ibanReceiver;
   }
 
@@ -83,24 +90,25 @@ public class Transaction   {
     this.ibanReceiver = ibanReceiver;
   }
 
-  public Transaction transactionId(Integer transactionId) {
+  public Transaction transactionId(Long transactionId) {
     this.transactionId = transactionId;
     return this;
   }
-
   /**
    * Get transactionId
+   *
    * @return transactionId
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public Integer getTransactionId() {
+  public Long getTransactionId() {
     return transactionId;
   }
 
-  public void setTransactionId(Integer transactionId) {
+  public void setTransactionId(Long transactionId) {
     this.transactionId = transactionId;
   }
+
+
 
   public Transaction nameSender(String nameSender) {
     this.nameSender = nameSender;
@@ -207,4 +215,5 @@ public class Transaction   {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
