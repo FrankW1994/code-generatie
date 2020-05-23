@@ -1,0 +1,25 @@
+Index: spring-server-generated (4)/src/main/java/io/swagger/api/LoginApiController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package io.swagger.api;\r\n\r\nimport io.swagger.model.ApiKey;\r\nimport io.swagger.model.Login;\r\nimport com.fasterxml.jackson.databind.ObjectMapper;\r\nimport io.swagger.annotations.*;\r\nimport io.swagger.service.LoginApiService;\r\nimport org.slf4j.Logger;\r\nimport org.slf4j.LoggerFactory;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.web.bind.annotation.CookieValue;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestHeader;\r\nimport org.springframework.web.bind.annotation.RequestParam;\r\nimport org.springframework.web.bind.annotation.RequestPart;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\nimport javax.validation.constraints.*;\r\nimport javax.validation.Valid;\r\nimport javax.servlet.http.HttpServletRequest;\r\nimport java.io.IOException;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n@javax.annotation.Generated(value = \"io.swagger.codegen.v3.generators.java.SpringCodegen\", date = \"2020-05-18T09:28:40.437Z[GMT]\")\r\n@Controller\r\npublic class LoginApiController implements LoginApi {\r\n\r\n    private static final Logger log = LoggerFactory.getLogger(LoginApiController.class);\r\n\r\n    private final ObjectMapper objectMapper;\r\n\r\n    private final HttpServletRequest request;\r\n\r\n    @org.springframework.beans.factory.annotation.Autowired\r\n    public LoginApiController(ObjectMapper objectMapper, HttpServletRequest request) {\r\n        this.objectMapper = objectMapper;\r\n        this.request = request;\r\n    }\r\n\r\n    /*\r\n\r\n     public ResponseEntity<User> getUserById(@ApiParam(value = \"Id of the user to return\",required=true) @PathVariable(\"userId\") Long userId\r\n    ) {\r\n        String accept = request.getHeader(\"Accept\");\r\n        if (accept != null && accept.contains(\"application/json\")) {\r\n            try {\r\n                return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getUserById(userId)), User.class), HttpStatus.OK);\r\n\r\n     */\r\n\r\n\r\n    public ResponseEntity<ApiKey> userLogin(@ApiParam(value = \"Api key to return\" ,required=true )  @Valid @RequestBody Login body\r\n) {\r\n        String accept = request.getHeader(\"Accept\");\r\n        if (accept != null && accept.contains(\"application/json\")) {\r\n            try {\r\n                //return new ResponseEntity<ApiKey>(objectMapper.readValue(\"{\\n  \\\"apiKey\\\" : \\\"abcdef12345\\\"\\n}\", ApiKey.class), HttpStatus.NOT_IMPLEMENTED);\r\n                return new ResponseEntity<ApiKey>(objectMapper.readValue(objectMapper.writeValueAsString(LoginApiService.userLogin(body)), ApiKey.class), HttpStatus.OK);\r\n            } catch (IOException e) {\r\n                log.error(\"Couldn't serialize response for content type application/json\", e);\r\n                return new ResponseEntity<ApiKey>(HttpStatus.INTERNAL_SERVER_ERROR);\r\n            }\r\n        }\r\n\r\n        return new ResponseEntity<ApiKey>(HttpStatus.NOT_IMPLEMENTED);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- spring-server-generated (4)/src/main/java/io/swagger/api/LoginApiController.java	(revision 2580a0df869dffb3eb4109f07229dce5381b8807)
++++ spring-server-generated (4)/src/main/java/io/swagger/api/LoginApiController.java	(date 1590237073812)
+@@ -52,13 +52,13 @@
+      */
+ 
+ 
+-    public ResponseEntity<ApiKey> userLogin(@ApiParam(value = "Api key to return" ,required=true )  @Valid @RequestBody Login body
++    public ResponseEntity<ApiKey> userLogin(@ApiParam(value = "Api key to return" ,required=true )  @PathVariable("credentials")  Login body
+ ) {
+         String accept = request.getHeader("Accept");
+         if (accept != null && accept.contains("application/json")) {
+             try {
+                 //return new ResponseEntity<ApiKey>(objectMapper.readValue("{\n  \"apiKey\" : \"abcdef12345\"\n}", ApiKey.class), HttpStatus.NOT_IMPLEMENTED);
+-                return new ResponseEntity<ApiKey>(objectMapper.readValue(objectMapper.writeValueAsString(LoginApiService.userLogin(body)), ApiKey.class), HttpStatus.OK);
++                return new ResponseEntity<ApiKey>(objectMapper.readValue(objectMapper.writeValueAsString(LoginApiService.userLogin(credentials)), ApiKey.class), HttpStatus.OK);
+             } catch (IOException e) {
+                 log.error("Couldn't serialize response for content type application/json", e);
+                 return new ResponseEntity<ApiKey>(HttpStatus.INTERNAL_SERVER_ERROR);

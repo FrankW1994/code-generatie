@@ -11,7 +11,7 @@ public class UserApiService {
     public UserApiService() {
         User customer = new User();
         customer.setId((long) 1);
-        customer.setFirsname("Frank");
+        customer.setFirstname("Frank");
         customer.setLastname("Wester");
         customer.setPassword("test");
         customer.setEmail("frank@test.nl");
@@ -23,7 +23,7 @@ public class UserApiService {
         users.add(customer);
         User employee = new User();
         employee.setId((long) 2);
-        employee.setFirsname("Billy");
+        employee.setFirstname("Billy");
         employee.setLastname("Bob");
         employee.setPassword("test");
         employee.setEmail("billy@test.nl");
@@ -38,6 +38,14 @@ public class UserApiService {
     public List<User> getUsers()
     {
         return users;
+    }
+
+    public postUser(Object userObject)
+    {
+        User user = new User();
+        user.equals(userObject);
+        users.add(user);
+        return Https
     }
 
 
