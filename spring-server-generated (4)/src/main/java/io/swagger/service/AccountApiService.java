@@ -1,5 +1,6 @@
 package io.swagger.service;
 
+import io.swagger.api.NotFoundException;
 import io.swagger.model.Account;
 import io.swagger.model.Transaction;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static io.swagger.model.Account.RankEnum.CURRENT;
 import static io.swagger.model.Account.RankEnum.SAVING;
@@ -20,7 +22,7 @@ public class AccountApiService {
 
     Account accError = new Account("NLFOUT");
 
-    AccountApiService()
+    public AccountApiService()
     {}
 
     List<Account> accounts = new ArrayList<>(
@@ -38,7 +40,8 @@ public class AccountApiService {
                 return account;
             }
         }
-        return accError;
+        throw new NoSuchElementException("Account NLXXINHOXXXXXXXX does not exists");
+      //  return accError;
     }
 
     public void updateNewBalanceServiceAccounts(Account receiver, Account sender) {
@@ -57,8 +60,14 @@ public class AccountApiService {
         }
     }
 
-    public List<Account> getAccounts() { return accounts;
-    }
+    public List<Account> getAccounts() {
+
+        if(accounts.size() == 0)
+        {
+            throw new IllegalStateException("List is empty..");
+        }
+
+        return accounts;  }
 
     public List<Account> FilterOnRankOfAccounts(String rankOfAccount) {
         List<Account> ofTypeRank = new ArrayList<>();

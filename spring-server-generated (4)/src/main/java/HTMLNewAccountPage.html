@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Create new account</title>
+    <script src="/newaccountSketch.js" type="application/javascript">
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <ul>
+        <li class="nav">
+            <a href="newaccountSketch.js" rel="external" title="Make new account"> New Account </a>
+        </li>
+        <li class="nav">
+            <a href="newaccountSketch.js" rel="external" title="My Transactions overview"> My Transactions </a>
+        </li>
+        <li class="nav">
+            <a href="newaccountSketch.js" rel="external" title="Send Transaction">Send Transactions </a>
+        </li>
+    </ul>
+</nav>
+
+<section>
+    <input name="iban">
+    <h1>Create a new Account</h1>
+    <h2>Your userID: 2398&422578</h2>
+    <h2>Your new IBAN:  NLXXINHOXXXXXXXX</h2>
+    <h2>Select type of account: (Rank)</h2>
+    <form action="/HTMLNewAccountPage.html">
+        <label for="type">Choose a type:</label>
+        <select name="type" id="type">
+        <option value="Current">Current</option>
+        <option value="Saving">Saving</option>
+        </select>
+    </form>
+    <h2>The status: Active</h2>
+    <h2>Your balance:   0</h2>
+    <h2>Select currency:</h2>
+    <form action="/HTMLNewAccountPage.html">
+        <label for="currency">Choose a currency:</label>
+        <select name="currency" id="currency">
+            <option value="EUR">EUR</option>
+            <option value="DOL">DOL</option>
+        </select>
+        <br><br>
+        <button type="button" id="submit" onclick="makeNewAccount(currency.value, type.value)">Submit</button>
+
+        <p id="demo">Here is your input: </p>
+
+    </form>
+</section>
+</body>
+</html>

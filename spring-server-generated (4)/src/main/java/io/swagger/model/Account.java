@@ -147,6 +147,10 @@ public class Account   {
   }
 
   public void setIBAN(String IBAN) {
+    if(!IBAN.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d"))
+    {
+      throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX");
+    }
     this.IBAN = IBAN;
   }
 
