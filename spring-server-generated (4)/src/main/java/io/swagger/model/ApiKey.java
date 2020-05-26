@@ -2,27 +2,34 @@ package io.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 /**
  * ApiKey
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
+@Data
+@NoArgsConstructor
+@Entity
 public class ApiKey   {
   @JsonProperty("apiKey")
+  @Id
   private String apiKey = null;
 
   public ApiKey apiKey(String apiKey) {
     this.apiKey = apiKey;
     return this;
   }
-
+  public ApiKey(String key) {
+    this.apiKey = key;
+  }
   /**
    * Get apiKey
    * @return apiKey

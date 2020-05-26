@@ -116,7 +116,7 @@ public class TransactionApiService {
             sender.setBalance(Sbalance);
 
             // UPDATE accounts in database
-            accountApiService.updateNewBalanceServiceAccounts(receiver, sender);
+  //          accountApiService.updateNewBalanceServiceAccounts(receiver, sender);
 
             return transaction;
         }catch(Exception ex){

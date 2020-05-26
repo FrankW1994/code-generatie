@@ -35,18 +35,18 @@ class AccountsApiControllerTest {
         service = new AccountApiService();
         account = new Account(15L, "NL11INHO11116111", CURRENT, ACTIVE, 2300.00D, "EUR"); }
 
-    @Test
-    public void getAllAccountsShouldReturnJsonArray() throws Exception {
-        Account account = new Account();
-        Exception exception = assertThrows(IllegalStateException.class, () -> service.getAccounts()); // ask the service for list
-        assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX", exception.getMessage());
+//    @Test
+//    public void getAllAccountsShouldReturnJsonArray() throws Exception {
+//        Account account = new Account();
+//        Exception exception = assertThrows(IllegalStateException.class, () -> service.getAccounts()); // ask the service for list
+//        assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX", exception.getMessage());
 
 
   //      service  = mock(AccountApiService.class);
   //      given(service.getAccounts()).willReturn(Arrays.asList(account));
   //      this.mvc.perform(get("api/accounts"))
    //             .andExpect(status().isOk());
-    }
+ //   }
 
 
     @Test

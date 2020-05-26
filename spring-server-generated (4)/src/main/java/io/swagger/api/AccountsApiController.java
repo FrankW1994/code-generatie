@@ -97,46 +97,50 @@ public class AccountsApiController implements AccountsApi {
 ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                List<Account> accountsList = new ArrayList<>();
-
-                if(rankOfAccount != null)
-                {
-                    List<Account> rankfilter = accountApiService.FilterOnRankOfAccounts(rankOfAccount);
-                    for(Account a : rankfilter) {
-                        accountsList.add(a);
-                    }
-                }
-                if(statusOfAccount != null)
-                {
-                    List<Account> statusfilter = accountApiService.FilterOnStatusOfAccounts(statusOfAccount);
-                    for(Account a : statusfilter) {
-                        accountsList.add(a);
-                    }
-                }
-                if(balance != null)
-                {
-                    for(Account a : accountApiService.FilterOnBalanceAccounts(balance))
-                    {
-                        accountsList.add(a);
-                    }
-                }
-                if(userId != null)
-                {
-                    for(Account a : accountApiService.FilterOnUserIdAccounts(userId))
-                    {
-                        accountsList.add(a);
-                    }
-                }
-                if(accountsList.size() == 0)
-                {
-                    accountsList = accountApiService.getAccounts();
-                }
-                return new ResponseEntity<List<Account>>(objectMapper.readValue(objectMapper.writeValueAsString(accountsList), List.class), HttpStatus.OK);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Account>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            List<Account> accounts = accountApiService.getAllAccounts();
+            return ResponseEntity
+                    .status(200)
+                    .body(accounts);
+//            try {
+//                List<Account> accountsList = new ArrayList<>();
+//
+//                if(rankOfAccount != null)
+//                {
+//                    List<Account> rankfilter = accountApiService.FilterOnRankOfAccounts(rankOfAccount);
+//                    for(Account a : rankfilter) {
+//                        accountsList.add(a);
+//                    }
+//                }
+//                if(statusOfAccount != null)
+//                {
+//                    List<Account> statusfilter = accountApiService.FilterOnStatusOfAccounts(statusOfAccount);
+//                    for(Account a : statusfilter) {
+//                        accountsList.add(a);
+//                    }
+//                }
+//                if(balance != null)
+//                {
+//                    for(Account a : accountApiService.FilterOnBalanceAccounts(balance))
+//                    {
+//                        accountsList.add(a);
+//                    }
+//                }
+//                if(userId != null)
+//                {
+//                    for(Account a : accountApiService.FilterOnUserIdAccounts(userId))
+//                    {
+//                        accountsList.add(a);
+//                    }
+//                }
+//                if(accountsList.size() == 0)
+//                {
+//                    accountsList = accountApiService.getAccounts();
+//                }
+//                return new ResponseEntity<List<Account>>(objectMapper.readValue(objectMapper.writeValueAsString(accountsList), List.class), HttpStatus.OK);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<List<Account>>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
         }
         return new ResponseEntity<List<Account>>(HttpStatus.NOT_IMPLEMENTED);
     }

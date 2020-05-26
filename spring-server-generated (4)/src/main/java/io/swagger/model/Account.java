@@ -6,19 +6,36 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Account
  */
+@Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"userId", "IBAN"})})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 public class Account   {
   @JsonProperty("userId")
   private Long userId = null;
 
+  @Id
+//  @SequenceGenerator(name = "account_seq", initialValue = 1000001, allocationSize = 1)
+//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+  @GeneratedValue(generator ="system-uuid")
+  @GenericGenerator(name="system-uuid", strategy = "uuid")
   @JsonProperty("IBAN")
   private String IBAN = null;
 
