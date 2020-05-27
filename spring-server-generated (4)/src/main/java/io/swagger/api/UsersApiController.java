@@ -2,6 +2,7 @@ package io.swagger.api;
 
 import io.swagger.model.Transaction;
 import io.swagger.service.UserApiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.threeten.bp.LocalDate;
 import io.swagger.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,9 @@ public class UsersApiController implements UsersApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+
+    @Autowired
+    private UserApiService userApiService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public UsersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -77,6 +81,10 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<List<User>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+
+
+    
     public ResponseEntity<List<User>> getUsers(@ApiParam(value = "") @Valid @RequestParam(value = "firstname", required = false) String firstname
 ,@ApiParam(value = "") @Valid @RequestParam(value = "lastname", required = false) String lastname
 ,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) LocalDate registrationDateStart
@@ -87,7 +95,7 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                List<User> users = UserApiService.getUsers();
+                List<User> users = userApiService.getUsers();
                 return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(users), List.class), HttpStatus.OK);
                 //return new ResponseEntity<List<User>>(objectMapper.readValue("[ {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n}, {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
