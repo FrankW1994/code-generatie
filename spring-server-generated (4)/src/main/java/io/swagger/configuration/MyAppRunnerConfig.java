@@ -2,9 +2,10 @@ package io.swagger.configuration;
 
 import io.swagger.dao.RepositoryAccount;
 import io.swagger.dao.RepositoryApiKey;
+import io.swagger.dao.RepositoryTransaction;
 import io.swagger.model.Account;
 import io.swagger.model.ApiKey;
-import org.springframework.beans.factory.annotation.Value;
+import io.swagger.model.Transaction;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -21,12 +22,14 @@ import static io.swagger.model.Account.StatusEnum.BLOCKED;
 @ConditionalOnProperty(prefix = "guitarshop.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MyAppRunnerConfig implements ApplicationRunner {
 
-    private RepositoryAccount guitarRepository;
+    private RepositoryAccount repositoryAccount;
+    private RepositoryTransaction repositoryTransaction;
     private PropertyConfig properties;
     private RepositoryApiKey apiKeyRepository;
 
-    public MyAppRunnerConfig(RepositoryAccount guitarRepository, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
-        this.guitarRepository = guitarRepository;
+    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
+        this.repositoryAccount = accountRepository;
+        this.repositoryTransaction = repositoryTransaction;
         this.properties = properties;
         this.apiKeyRepository = apiKeyRepository;
     }
@@ -45,11 +48,28 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         for(Account a : accounts)
         {
-            guitarRepository.save(a);
+            repositoryAccount.save(a);
         }
      //   accounts.forEach(guitarRepository::save);
 
-        guitarRepository.findAll().forEach(System.out::println);
+        repositoryAccount.findAll().forEach(System.out::println);
+
+        List<Transaction> transactions = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction(1L, "NL11INHO11111111", "NL22INHO222222", "GPOSSEL", "03/04/2020", 140D),
+                        new Transaction(2L, "NL77INHO77777777", "NL22INHO222222", "SBOERE", "03/04/2020", 9D),
+                        new Transaction(3L, "NL33INHO33333333", "NL44INHO444444", "TWUBBEN", "01/01/2020", 100D)
+                )
+        );
+
+        for(Transaction t : transactions)
+        {
+            repositoryTransaction.save(t);
+        }
+        //   accounts.forEach(guitarRepository::save);
+
+        repositoryTransaction.findAll().forEach(System.out::println);
+
 
         System.out.println("Application name: " + properties.getApplicationName());
 

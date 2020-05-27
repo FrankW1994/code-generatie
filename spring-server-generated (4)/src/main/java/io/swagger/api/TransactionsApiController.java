@@ -64,7 +64,7 @@ public class TransactionsApiController implements TransactionsApi {
                 List<Transaction> myList = new ArrayList<Transaction>();
                 if(username != null)
                 {
-                    myList.add(transactionApiService.getTransactionsFromName(username));
+     //               myList.add(transactionApiService.getTransactionsFromName(username));
                 }
                 if(userId != null)
                 {
@@ -73,21 +73,21 @@ public class TransactionsApiController implements TransactionsApi {
                 }
                 if(IBAN != null)
                 {
-                    for(Transaction a : transactionApiService.getTransactionsFromIBAN(IBAN))
-                    {
-                        myList.add(a);
-                    }
+//                    for(Transaction a : transactionApiService.getTransactionsFromIBAN(IBAN))
+//                    {
+//                        myList.add(a);
+//                    }a
                 }
                 if((transactionSearchDateStart != null) || (transactionSearchDateEnd != null))
                 {
-                    myList.add(transactionApiService.getTransactionsFromDates(transactionSearchDateStart, transactionSearchDateEnd));
+    //                myList.add(transactionApiService.getTransactionsFromDates(transactionSearchDateStart, transactionSearchDateEnd));
                 }
                 if(transactionAmount != null)
                 {
-                    List<Transaction> matches = transactionApiService.getTransactionsFromAmount(transactionAmount);
-                    for(Transaction a : matches) {
-                        myList.add(a);
-                    }
+//                    List<Transaction> matches = transactionApiService.getTransactionsFromAmount(transactionAmount);
+//                    for(Transaction a : matches) {
+//                        myList.add(a);
+//                    }
                 }
                 if(maxNumberOfResults != null)
                 {
@@ -108,21 +108,21 @@ public class TransactionsApiController implements TransactionsApi {
         return new ResponseEntity<List<Transaction>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Transaction> transferFunds(@ApiParam(value = "") @Valid @RequestBody Transaction body)
-    {
+    public ResponseEntity<Transaction> transferFunds(@ApiParam(value = "") @Valid @RequestBody Transaction body) {
         String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json"))
-        {
+        if (accept != null && accept.contains("application/json")) {
             try {
-                Transaction NEWtransaction = transactionApiService.makeTransaction(mapTransactionData(body));
-                return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(NEWtransaction), Transaction.class), HttpStatus.OK);
-        }catch (Exception e) {
+                //             Transaction NEWtransaction = transactionApiService.makeTransaction(mapTransactionData(body));
+                //            return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(NEWtransaction), Transaction.class), HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-    }else{
-            return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED); }
+        } else {
+            return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED);
+        }
+        return null;
     }
 
     protected Transaction mapTransactionData(Transaction body)

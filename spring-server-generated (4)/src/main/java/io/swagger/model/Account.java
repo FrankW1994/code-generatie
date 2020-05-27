@@ -32,8 +32,6 @@ public class Account   {
   private Long userId = null;
 
   @Id
-//  @SequenceGenerator(name = "account_seq", initialValue = 1000001, allocationSize = 1)
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
   @GeneratedValue(generator ="system-uuid")
   @GenericGenerator(name="system-uuid", strategy = "uuid")
   @JsonProperty("IBAN")
