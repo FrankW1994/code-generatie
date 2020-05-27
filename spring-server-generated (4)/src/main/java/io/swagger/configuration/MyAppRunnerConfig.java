@@ -26,6 +26,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
     private RepositoryTransaction repositoryTransaction;
     private PropertyConfig properties;
     private RepositoryApiKey apiKeyRepository;
+    String test;
 
     public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
         this.repositoryAccount = accountRepository;
