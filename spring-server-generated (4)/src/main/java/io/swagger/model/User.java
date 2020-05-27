@@ -113,6 +113,19 @@ public class User   {
     return this;
   }
 
+  public User(Long id, String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.password = password;
+    this.phone = phone;
+    this.birthdate = birthdate;
+    this.registrationdate = registrationdate;
+    this.rank = rank;
+    this.status = status;
+  }
+
   /**
    * Get id
    * @return id
