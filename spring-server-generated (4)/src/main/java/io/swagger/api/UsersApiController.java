@@ -81,10 +81,6 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<List<User>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-
-
-
-    
     public ResponseEntity<List<User>> getUsers(@ApiParam(value = "") @Valid @RequestParam(value = "firstname", required = false) String firstname
 ,@ApiParam(value = "") @Valid @RequestParam(value = "lastname", required = false) String lastname
 ,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) LocalDate registrationDateStart
@@ -95,9 +91,8 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                List<User> users = userApiService.getUser();
+                List<User> users = userApiService.getUser(accept);
                 return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(users), List.class), HttpStatus.OK);
-                //return new ResponseEntity<List<User>>(objectMapper.readValue("[ {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n}, {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<User>>(HttpStatus.INTERNAL_SERVER_ERROR);

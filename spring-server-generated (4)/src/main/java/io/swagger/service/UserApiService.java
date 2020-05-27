@@ -26,9 +26,14 @@ public class UserApiService {
 
     public List<User> getUser(String query)
     {
+        ArrayList<User> result = new ArrayList<>();
+
         for (User user : users)
         {
-
+            if (user.toString().equals(query))
+            {
+                result.add(user);
+            }
         }
 
         return result;
