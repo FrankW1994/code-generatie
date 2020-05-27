@@ -1,5 +1,7 @@
 package io.swagger.api;
 
+import io.swagger.model.Transaction;
+import io.swagger.service.UserApiService;
 import org.threeten.bp.LocalDate;
 import io.swagger.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,7 +87,9 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<User>>(objectMapper.readValue("[ {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n}, {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                List<User> users = UserApiService.getUsers();
+                return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(users), List.class), HttpStatus.OK);
+                //return new ResponseEntity<List<User>>(objectMapper.readValue("[ {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n}, {\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<User>>(HttpStatus.INTERNAL_SERVER_ERROR);

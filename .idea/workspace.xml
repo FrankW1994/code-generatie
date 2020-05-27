@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="688ed2f9-3ef3-49eb-8a3a-85c8d55ce52f" name="Default Changelist" comment="" />
+    <list default="true" id="688ed2f9-3ef3-49eb-8a3a-85c8d55ce52f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
