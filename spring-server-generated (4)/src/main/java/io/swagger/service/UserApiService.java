@@ -24,19 +24,21 @@ public class UserApiService {
         return users;
     }
 
-    public List<User> getUser(String query)
+    public List<User> getUser(List<String> queries)
     {
-        ArrayList<User> result = new ArrayList<>();
-
-        for (User user : users)
+        List<String> usedQueries = new ArrayList<>();
+        List<User> result = new ArrayList<>();
+        for (String query : queries)
         {
-            if (user.toString().equals(query))
-            {
-                result.add(user);
+            if (!query.isEmpty()){
+                usedQueries.add(query);
             }
         }
 
-        return result;
+        for (User user : users)
+        {
+
+        }
     }
 
 //    public postUser(Object userObject)

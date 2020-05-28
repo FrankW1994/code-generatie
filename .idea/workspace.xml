@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" afterDir="false" />
     </list>
@@ -28,6 +29,11 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="swagger-spring/invalid/Web" />
+    </ignored-facets>
   </component>
   <component name="ProjectId" id="1cJCGoaIIFQAFnxB2NzclsYR6Ux" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -89,6 +95,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="get userrs" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590666898452">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590666898452" />
     <state x="535" y="88" key="CommitChangelistDialog2" timestamp="1590237418719">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -109,5 +119,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590580052836" />
+    <state x="640" y="222" key="RollbackChangesDialog" timestamp="1590666996704">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590666996704" />
   </component>
 </project>

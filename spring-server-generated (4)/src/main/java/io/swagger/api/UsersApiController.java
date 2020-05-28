@@ -24,6 +24,8 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
@@ -83,15 +85,25 @@ public class UsersApiController implements UsersApi {
 
     public ResponseEntity<List<User>> getUsers(@ApiParam(value = "") @Valid @RequestParam(value = "firstname", required = false) String firstname
 ,@ApiParam(value = "") @Valid @RequestParam(value = "lastname", required = false) String lastname
-,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) LocalDate registrationDateStart
-,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateEnd", required = false) LocalDate registrationDateEnd
+,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) String registrationDateStart
+,@ApiParam(value = "") @Valid @RequestParam(value = "registrationDateEnd", required = false) String registrationDateEnd
 ,@ApiParam(value = "", allowableValues = "Customer, Employee, Admin") @Valid @RequestParam(value = "RankOfUser", required = false) String rankOfUser
 ,@ApiParam(value = "", allowableValues = "Active, Blocked") @Valid @RequestParam(value = "StatusOfUser", required = false) String statusOfUser
 ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                List<User> users = userApiService.getUser(accept);
+                List<String> queries = new ArrayList<>(
+                        Arrays.asList(
+                                firstname,
+                                lastname,
+                                registrationDateStart,
+                                registrationDateEnd,
+                                rankOfUser,
+                                statusOfUser
+                        )
+                );
+                List<User> users = userApiService.getUser(queries);
                 return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(users), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
