@@ -93,17 +93,17 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                List<String> queries = new ArrayList<>(
-                        Arrays.asList(
-                                firstname,
-                                lastname,
-                                registrationDateStart,
-                                registrationDateEnd,
-                                rankOfUser,
-                                statusOfUser
-                        )
-                );
-                List<User> users = userApiService.getUser(queries);
+//                List<String> queries = new ArrayList<>(
+//                        Arrays.asList(
+//                                firstname,
+//                                lastname,
+//                                registrationDateStart,
+//                                registrationDateEnd,
+//                                rankOfUser,
+//                                statusOfUser
+//                        )
+//                );
+                List<User> users = userApiService.getUser();
                 return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(users), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);

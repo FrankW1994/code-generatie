@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="688ed2f9-3ef3-49eb-8a3a-85c8d55ce52f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyApplicationRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/dao/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" afterDir="false" />
     </list>
