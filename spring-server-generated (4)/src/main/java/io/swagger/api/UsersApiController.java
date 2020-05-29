@@ -54,7 +54,7 @@ public class UsersApiController implements UsersApi {
         if (accept != null && accept.contains("application/json")) {
             try {
                 User user = new User((long)body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPassword(), body.getPhone(), body.getBirthdate(), body.getRegistrationdate(), body.getRank(), body.getStatus());
-                User checkUser = UserApiService.postUser(user);
+                User checkUser = userApiService.postUser(user);
                 if (user != null)
                 {
                     return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(checkUser), User.class), HttpStatus.CREATED);
