@@ -112,6 +112,7 @@ public class User   {
     this.id = id;
     return this;
   }
+  public User(){}
 
   public User(Long id, String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
     this.id = id;

@@ -7,7 +7,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23-5-2020_14_31__Default_Changelist_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/api/UsersApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyApplicationRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyApplicationRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,22 +103,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="535" y="88" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590237418719" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1590757106521">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1590759316239">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590757106521" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1590757106520">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1590759316238">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590757106520" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1590757106520">
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316238" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1590759316238">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590757106520" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1590757106520">
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316238" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1590759316239">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590757106520" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590759316239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1590759316239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1590759316239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1590759316239">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
     <state x="640" y="222" key="RollbackChangesDialog" timestamp="1590666996704">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
