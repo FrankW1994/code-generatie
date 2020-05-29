@@ -34,7 +34,7 @@ public class UserApiService {
 
     public List<User> getUser(){return users;}
 
-    public static User postUser(User user)
+    public User postUser(User user)
     {
         if (user.getFirstname().isEmpty() || user.getLastname().isEmpty() || user.getPassword().isEmpty() || user.getId() == null || user.getEmail().isEmpty() ||
                 user.getPhone().isEmpty() || user.getBirthdate().isEmpty() || user.getRank() == null || user.getStatus() == null)
