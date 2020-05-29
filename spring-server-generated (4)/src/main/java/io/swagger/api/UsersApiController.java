@@ -1,5 +1,6 @@
 package io.swagger.api;
 
+import io.swagger.model.Account;
 import io.swagger.model.Transaction;
 import io.swagger.service.UserApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,17 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+                User user = new User(body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPassword(), body.getPhone(), body.getRegistrationdate(), body.getBirthdate(), body.getRank(), body.getStatus());
+                User chrckUser = UserApiService.postUser(user);
+                if (user != null)
+                {
+                    return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(user), User.class), HttpStatus.CREATED);
+                }
+                else {
+
+                }
+
+                //return new ResponseEntity<Account>(objectMapper.readValue(objectMapper.writeValueAsString(NEWAccount), Account.class), HttpStatus.CREATED);
                 return new ResponseEntity<User>(objectMapper.readValue("{\n  \"id\" : 102,\n  \"firstname\" : \"Henk\",\n  \"lastname\" : \"De Jong\",\n  \"email\" : \"H.DJong@gmail.com\",\n  \"password\" : \"Wachtwoord123\",\n  \"phone\" : \"+31-638288204\",\n  \"birthdate\" : \"12-03-1989\",\n  \"registrationdate\" : \"20-11-2019\",\n  \"rank\" : \"Customer\",\n  \"status\" : \"Active\"\n}", User.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);

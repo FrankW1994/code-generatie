@@ -24,8 +24,11 @@ public class UserApiService {
         return users;
     }
 
-    public List<User> getUser(){return users}
+    public List<User> getUser(){return users;}
 
-
+    public static User postUser(User user)
+    {
+        return user;
+    }
 
 }
