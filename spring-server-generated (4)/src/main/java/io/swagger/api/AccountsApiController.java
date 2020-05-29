@@ -14,15 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 @Controller
 public class AccountsApiController implements AccountsApi {
@@ -81,13 +76,13 @@ public class AccountsApiController implements AccountsApi {
         if (accept != null && accept.contains("application/json")) {
             try {
                 Account NEWAccount = new Account(body.getUserId(), body.getIBAN(), body.getRank(), body.getStatus(), body.getBalance(), body.getCurrency());
-                return new ResponseEntity<Account>(objectMapper.readValue(objectMapper.writeValueAsString(NEWAccount), Account.class), HttpStatus.CREATED);
+                Account a = accountApiService.addAccount(NEWAccount);
+                return new ResponseEntity<Account>(objectMapper.readValue(objectMapper.writeValueAsString(a), Account.class), HttpStatus.CREATED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Account>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
         return new ResponseEntity<Account>(HttpStatus.NOT_IMPLEMENTED);
     }
 

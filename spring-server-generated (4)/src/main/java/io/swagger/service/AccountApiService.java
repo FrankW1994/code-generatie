@@ -22,16 +22,16 @@ public class AccountApiService {
 
     public Account getAccountFromIBAN(String ibanReceiver) {
             return repositoryAccount.findOne(ibanReceiver);
-
     }
 
     public List<Account> getAllAccounts() {
             return (List<Account>) repositoryAccount.findAll();
     }
 
-    public void addAccount(Account body) {
+    public Account addAccount(Account body) {
         repositoryAccount.save(body);
         System.out.println(body);
+        return body;
     }
 
     public void updateNewBalanceServiceAccounts(double NewBalance, Long userId) {
