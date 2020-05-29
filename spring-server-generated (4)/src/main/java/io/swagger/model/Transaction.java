@@ -25,8 +25,8 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 public class Transaction {
   @Id
-  @SequenceGenerator(name = "transaction_seq", initialValue = 1000001, allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
+  @SequenceGenerator(name="transaction_seq", initialValue = 1000001)
+  @GeneratedValue(strategy =GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("transactionId")
   private Long transactionId = null;
 
@@ -48,12 +48,7 @@ public class Transaction {
   public Transaction()
   {}
 
-  public Transaction(String iban) {
-    this.ibanSender = iban;
-  }
-
-  public Transaction(Long id, String ibanSender, String ibanReceiver, String nameSender, String transactionDate, Double transferAmount) {
-    this.transactionId = id;
+  public Transaction(String ibanSender, String ibanReceiver, String nameSender, String transactionDate, double transferAmount) {
     this.ibanSender = ibanSender;
     this.ibanReceiver = ibanReceiver;
     this.nameSender = nameSender;
@@ -61,9 +56,7 @@ public class Transaction {
     this.transferAmount = transferAmount;
   }
 
-  public Transaction ibanSender(String ibanSender) {
-    this.ibanSender = ibanSender;
-    return this;
+  public Transaction(Long transactionId, String ibanSender, String ibanReceiver, String nameSender, String transactionDate, Double transferAmount) {
   }
 
   /**
@@ -89,6 +82,7 @@ public class Transaction {
   /**
    * Get ibanReceiver
    *
+   * @return ibanReceiver
    * @return ibanReceiver
    **/
   @ApiModelProperty(value = "")

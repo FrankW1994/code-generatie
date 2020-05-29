@@ -46,42 +46,26 @@ public class MyAppRunnerConfig implements ApplicationRunner {
                 )
         );
 
-        for(Account a : accounts)
-        {
-            repositoryAccount.save(a);
-        }
-     //   accounts.forEach(guitarRepository::save);
-
-        repositoryAccount.findAll().forEach(System.out::println);
+        accounts.forEach(repositoryAccount::save);
 
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
-                        new Transaction(1L, "NL11INHO11111111", "NL22INHO222222", "GPOSSEL", "03/04/2020", 140D),
-                        new Transaction(2L, "NL77INHO77777777", "NL22INHO222222", "SBOERE", "03/04/2020", 9D),
-                        new Transaction(3L, "NL33INHO33333333", "NL44INHO444444", "TWUBBEN", "01/01/2020", 100D)
+                        new Transaction("NL11INHO11111111", "NL22INHO222222", "GPOSSEL", "03/04/2020", 140D),
+                        new Transaction("NL77INHO77777777", "NL22INHO222222", "SBOERE", "03/04/2020", 9D),
+                        new Transaction("NL33INHO33333333", "NL44INHO444444", "TWUBBEN", "01/01/2020", 100D)
                 )
         );
 
-        for(Transaction t : transactions)
-        {
-            repositoryTransaction.save(t);
-        }
-        //   accounts.forEach(guitarRepository::save);
-
-        repositoryTransaction.findAll().forEach(System.out::println);
-
-
+        transactions.forEach(repositoryTransaction::save);
+        //       repositoryAccount.findAll().forEach(System.out::println);
         System.out.println("Application name: " + properties.getApplicationName());
-
     /*
     Generate random API Keys
-     */
+    */
         for (int i = 0; i < 5; i++) {
             UUID uuid = UUID.randomUUID();
             apiKeyRepository.save(new ApiKey(uuid.toString()));
         }
-
-        apiKeyRepository.findAll().forEach(System.out::println);
     }
 
 }

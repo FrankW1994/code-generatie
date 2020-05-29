@@ -64,12 +64,14 @@ public class TransactionsApiController implements TransactionsApi {
                 List<Transaction> myList = new ArrayList<Transaction>();
                 if(username != null)
                 {
-     //               myList.add(transactionApiService.getTransactionsFromName(username));
+                    for(Transaction a : transactionApiService.getTransactionsFromName(username)) {
+                        myList.add(a);
+                    }
                 }
                 if(userId != null)
                 {
-                    // Account/userId is not mentioned in Transaction
-            //        myList.add(transactionApiService.getTransactionsFromUserId(userId));
+            //         Account/userId is not mentioned in Transaction
+            //       myList.add(transactionApiService.getTransactionsFromUserId(userId));
                 }
                 if(IBAN != null)
                 {
@@ -112,8 +114,8 @@ public class TransactionsApiController implements TransactionsApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                //             Transaction NEWtransaction = transactionApiService.makeTransaction(mapTransactionData(body));
-                //            return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(NEWtransaction), Transaction.class), HttpStatus.OK);
+                Transaction NEWtransaction = transactionApiService.makeTransaction(mapTransactionData(body));
+                return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(NEWtransaction), Transaction.class), HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,7 +124,6 @@ public class TransactionsApiController implements TransactionsApi {
         } else {
             return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED);
         }
-        return null;
     }
 
     protected Transaction mapTransactionData(Transaction body)
@@ -130,5 +131,4 @@ public class TransactionsApiController implements TransactionsApi {
         Transaction transaction = new Transaction(body.getTransactionId(), body.getIbanSender(), body.getIbanReceiver(), body.getNameSender(), body.getTransactionDate(), body.getTransferAmount());
         return transaction;
     }
-
 }

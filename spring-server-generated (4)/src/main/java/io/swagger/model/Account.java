@@ -137,7 +137,7 @@ public class Account   {
   @ApiModelProperty(example = "2", required = true, value = "")
       @NotNull
 
-    public Long getUserId() {
+  public Long getUserId() {
     return userId;
   }
 

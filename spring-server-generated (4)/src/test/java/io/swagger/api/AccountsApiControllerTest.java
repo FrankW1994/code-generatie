@@ -33,21 +33,8 @@ class AccountsApiControllerTest {
     public void setup()
     {
         service = new AccountApiService();
-        account = new Account(15L, "NL11INHO11116111", CURRENT, ACTIVE, 2300.00D, "EUR"); }
-
-//    @Test
-//    public void getAllAccountsShouldReturnJsonArray() throws Exception {
-//        Account account = new Account();
-//        Exception exception = assertThrows(IllegalStateException.class, () -> service.getAccounts()); // ask the service for list
-//        assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX", exception.getMessage());
-
-
-  //      service  = mock(AccountApiService.class);
-  //      given(service.getAccounts()).willReturn(Arrays.asList(account));
-  //      this.mvc.perform(get("api/accounts"))
-   //             .andExpect(status().isOk());
- //   }
-
+        account = new Account(15L, "NL11INHO11116111", CURRENT, ACTIVE, 2300.00D, "EUR");
+    }
 
     @Test
     public void AccountMustExcistsBeforeDeleteThrowException() {
@@ -69,7 +56,5 @@ class AccountsApiControllerTest {
         Exception exception = assertThrows(NoSuchElementException.class, () -> service.getAccountFromIBAN("NL77INHO77787777")); // if iban is not found return notfound
         assertEquals("Account NLXXINHOXXXXXXXX does not exists", exception.getMessage());
     }
-
-
 
 }
