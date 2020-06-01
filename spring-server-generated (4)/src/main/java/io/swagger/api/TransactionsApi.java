@@ -30,7 +30,7 @@ public interface TransactionsApi {
         @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
         @ApiResponse(code = 404, message = "A transaction with the specified ID was not found."),
         @ApiResponse(code = 500, message = "Unexpected error.") })
-    @RequestMapping(value = "/transactions/{transactionId}",
+    @RequestMapping(value = "/{transactionId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Transaction> getTransactions(@ApiParam(value = "Id of the transaction to return", required=true) @PathVariable("transactionId") Long transactionId
@@ -44,7 +44,7 @@ public interface TransactionsApi {
         @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
         @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
         @ApiResponse(code = 500, message = "Unexpected error.") })
-    @RequestMapping(value = "/transactions",
+    @RequestMapping(value = "",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
@@ -63,7 +63,7 @@ public interface TransactionsApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Funds transfered", response = Transaction.class),
         @ApiResponse(code = 500, message = "Unexpected error.") })
-    @RequestMapping(value = "/transactions",
+    @RequestMapping(value = "",
         produces = { "application/json" },
         consumes = { "application/json" },
         method = RequestMethod.POST)

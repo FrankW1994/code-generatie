@@ -64,4 +64,16 @@ public class TransactionApiService {
     public List<Transaction> getTransactionsFromName(String username) {
         return repositoryTransaction.findAllWithUsername(username);
     }
+
+    public List<Transaction> getTransactionsFromUserId(String userId) {
+        return repositoryTransaction.getTransactionsFromUserId(userId);
+    }
+
+    public List<Transaction> getTransactionsFromIBAN(String iban) {
+        return repositoryTransaction.getTransactionsFromIBAN(iban);
+    }
+
+    public List<Transaction> getTransactionsFromAmount(Double transactionAmount) {
+        return repositoryTransaction.getTransactionsFromAmount(transactionAmount);
+    }
 }

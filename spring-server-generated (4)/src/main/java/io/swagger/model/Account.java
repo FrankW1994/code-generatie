@@ -8,16 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 /**
  * Account
@@ -35,6 +30,7 @@ public class Account   {
   @GeneratedValue(generator ="system-uuid")
   @GenericGenerator(name="system-uuid", strategy = "uuid")
   @JsonProperty("IBAN")
+  @Column(name = "IBAN")
   private String IBAN = null;
 
   public Account()

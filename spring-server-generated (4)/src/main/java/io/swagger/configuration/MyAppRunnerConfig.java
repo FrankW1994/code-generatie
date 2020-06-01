@@ -59,7 +59,6 @@ public class MyAppRunnerConfig implements ApplicationRunner {
         transactions.forEach(repositoryTransaction::save);
 
         repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
-        //       repositoryAccount.findAll().forEach(System.out::println);
 
         System.out.println("Application name: " + properties.getApplicationName());
     /*

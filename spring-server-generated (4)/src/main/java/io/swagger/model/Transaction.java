@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
@@ -22,6 +23,7 @@ import javax.validation.constraints.*;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"transactionId"})})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Validated
+@Data
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 public class Transaction {
   @Id
