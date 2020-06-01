@@ -2,6 +2,7 @@ package io.swagger.api;
 
 import io.swagger.service.TransactionApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.threeten.bp.LocalDate;
 import io.swagger.model.Transaction;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 @Controller
+@RequestMapping("transactions")
 public class TransactionsApiController implements TransactionsApi {
 
     private static final Logger log = LoggerFactory.getLogger(TransactionsApiController.class);
@@ -36,7 +39,8 @@ public class TransactionsApiController implements TransactionsApi {
         this.request = request;
     }
 
-    public ResponseEntity<Transaction> getTransaction(@ApiParam(value = "Id of the transaction to return", required = true) @PathVariable("transactionId") Long transactionId) {
+ //   @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Transaction> getTransactions(@ApiParam(value = "Id of the transaction to return", required = true) @PathVariable("transactionId") Long transactionId) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -49,6 +53,7 @@ public class TransactionsApiController implements TransactionsApi {
         return new ResponseEntity<Transaction>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
 ,@ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId
 ,@ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
@@ -110,6 +115,7 @@ public class TransactionsApiController implements TransactionsApi {
         return new ResponseEntity<List<Transaction>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+   // @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Transaction> transferFunds(@ApiParam(value = "") @Valid @RequestBody Transaction body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
