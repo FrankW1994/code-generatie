@@ -40,12 +40,12 @@ public class TransactionsApiController implements TransactionsApi {
         this.transactionApiService = transactionApiService;
     }
 
-    @RequestMapping(value = "{transactionId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{transactionId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTransactions(@ApiParam(value = "Id of the transaction to return", required = true) @PathVariable("transactionId") Long transactionId)
     {
         String accept = request.getHeader("Accept");
         Transaction transaction = transactionApiService.getTransaction(transactionId);
-        if (accept != null && accept.contains("application/json")) {
+        if (accept != null) {
             try {
                 return ResponseEntity.status(HttpStatus.OK).body(transaction);
                 //     return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(transactionApiService.getTransaction(transactionId)), Transaction.class), HttpStatus.OK);
@@ -56,7 +56,7 @@ public class TransactionsApiController implements TransactionsApi {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Transaction>> searchTansaction
         (@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username,
          @ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId,
@@ -67,7 +67,7 @@ public class TransactionsApiController implements TransactionsApi {
          @ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults)
         {
             String accept = request.getHeader("Accept");
-            if (accept != null && accept.contains("application/json")) {
+            if (accept != null) {
                 try {
                     List<Transaction> myList = new ArrayList<Transaction>();
                     if (username != null) {
@@ -110,7 +110,7 @@ public class TransactionsApiController implements TransactionsApi {
             return new ResponseEntity<List<Transaction>>(HttpStatus.NOT_IMPLEMENTED);
         }
 
-    @RequestMapping(
+    @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -19,7 +19,7 @@ import static io.swagger.model.Account.StatusEnum.ACTIVE;
 import static io.swagger.model.Account.StatusEnum.BLOCKED;
 
 @Component
-@ConditionalOnProperty(prefix = "guitarshop.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
+//@ConditionalOnProperty(prefix = "guitarshop.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MyAppRunnerConfig implements ApplicationRunner {
 
     private RepositoryAccount repositoryAccount;
