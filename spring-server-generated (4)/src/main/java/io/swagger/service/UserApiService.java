@@ -16,6 +16,8 @@ public class UserApiService {
     @Autowired
     private RepositoryUser repositoryUser;
 
+    //public UserApiService{}
+
     User userError = new User(500L);
 
     List<User> users = new ArrayList<>(
@@ -41,10 +43,7 @@ public class UserApiService {
         return userError;
     }
     public User postUser(User user){
-        repositoryUser.PostUser(user.getId(), user.getFirstname(), user.getLastname(),
-                user.getEmail(), user.getPassword(), user.getPhone(),user.getBirthdate(),
-                user.getRegistrationdate(), user.getRank(), user.getStatus());
+        repositoryUser.save(user);
         return user;
     }
-
 }
