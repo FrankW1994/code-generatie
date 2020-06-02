@@ -1,18 +1,22 @@
 package io.swagger.dao;
 
+
+
+import org.springframework.data.jpa.repository.Modifying;
 import io.swagger.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public interface RepositoryUser extends CrudRepository<User, Long> {
 
-    @Query("INSERT INRO User(id, firstname, lastname, email, password, phone, birthday, registrationdate, rank, status) " +
-            "Values(':id', ':firstname', ':lastname', ':email', ':password', ':phone', ':birthday', ':registrationdate', ':rank', ':status')")
+    @Query("INSERT INTO User (id, firstname, lastname, email, password, phone, birthday, registrationdate, rank, status) VALUES" +
+            "(:id, :firstname, :lastname, :email, :password, :phone, :birthday, :registrationdate, :rank, :status)")
     List<User> PostUser(@Param("id") long id, @Param("firstname") String firstname, @Param("lastname") String lastname,
                         @Param("email") String email, @Param("password") String password, @Param("phone") String phone,
                         @Param("birthday") String birthday, @Param("registrationdate") String registrationdate,

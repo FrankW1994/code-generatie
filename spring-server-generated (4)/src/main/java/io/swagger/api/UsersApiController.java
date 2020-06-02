@@ -25,19 +25,17 @@ import java.util.List;
 public class UsersApiController implements UsersApi {
 
     private static final Logger log = LoggerFactory.getLogger(UsersApiController.class);
-
     private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
-
-    @Autowired
-    private UserApiService userApiService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public UsersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
+
+    @Autowired
+    private UserApiService userApiService;
 
     public ResponseEntity<User> addUser(@ApiParam(value = "created users" ,required=true )  @Valid @RequestBody User body
     ) {
