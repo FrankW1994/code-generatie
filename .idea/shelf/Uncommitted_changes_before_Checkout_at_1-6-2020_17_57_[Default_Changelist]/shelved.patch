@@ -1,0 +1,71 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c987c342-192f-4650-9871-1501e3817324\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyAppRunnerConfig.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyAppRunnerConfig.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyApplicationRunner.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Login-out\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"InvalidFacetManager\">\r\n    <ignored-facets>\r\n      <facet id=\"swagger-spring/invalid/Web\" />\r\n    </ignored-facets>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1cJCGoaIIFQAFnxB2NzclsYR6Ux\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Swagger2SpringBoot\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"io.swagger.Swagger2SpringBoot\" />\r\n      <module name=\"swagger-spring\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"io.swagger.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Swagger2SpringBoot\" />\r\n        <item itemvalue=\"Application.Swagger2SpringBoot\" />\r\n        <item itemvalue=\"Application.Swagger2SpringBoot\" />\r\n        <item itemvalue=\"Application.Swagger2SpringBoot\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"688ed2f9-3ef3-49eb-8a3a-85c8d55ce52f\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1590237215408</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1590237215408</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"get userrs\">\r\n      <created>1590237419126</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1590237419126</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"merge frank\">\r\n      <created>1590770682584</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1590770682584</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ORDER\">\r\n      <list>\r\n        <option value=\"0\" />\r\n        <option value=\"2\" />\r\n        <option value=\"3\" />\r\n        <option value=\"1\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"get userrs\" />\r\n    <MESSAGE value=\"merge frank\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"merge frank\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"765\" y=\"226\" key=\"#com.intellij.ide.util.MemberChooser\" timestamp=\"1590666898452\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"765\" y=\"226\" key=\"#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590666898452\" />\r\n    <state x=\"535\" y=\"88\" key=\"CommitChangelistDialog2\" timestamp=\"1590770682086\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"535\" y=\"88\" key=\"CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590770682086\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.center\" timestamp=\"1590759316238\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316238\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.left\" timestamp=\"1590759316238\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316238\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.right\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.bottom\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.center\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.left\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.right\" timestamp=\"1590759316239\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"348\" key=\"GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590759316239\" />\r\n    <state x=\"640\" y=\"222\" key=\"RollbackChangesDialog\" timestamp=\"1590666996704\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"640\" y=\"222\" key=\"RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040\" timestamp=\"1590666996704\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 2ea779e02aee2f2653aab0e3f19b23539c7bc7ae)
++++ .idea/workspace.xml	(date 1590771905429)
+@@ -1,12 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="c987c342-192f-4650-9871-1501e3817324" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyAppRunnerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyAppRunnerConfig.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/configuration/MyApplicationRunner.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/model/User.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-server-generated (4)/src/main/java/io/swagger/service/UserApiService.java" afterDir="false" />
+-    </list>
++    <list default="true" id="c987c342-192f-4650-9871-1501e3817324" name="Default Changelist" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -93,7 +88,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1590770682584</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="merge frank">
++      <created>1590771458628</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1590771458628</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.History.Properties">
+@@ -119,10 +121,10 @@
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590666898452" />
+-    <state x="535" y="88" key="CommitChangelistDialog2" timestamp="1590770682086">
++    <state x="535" y="88" key="CommitChangelistDialog2" timestamp="1590771458065">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state x="535" y="88" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590770682086" />
++    <state x="535" y="88" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590771458065" />
+     <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1590759316239">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+@@ -155,9 +157,17 @@
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590759316239" />
++    <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1590771360902">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590771360902" />
+     <state x="640" y="222" key="RollbackChangesDialog" timestamp="1590666996704">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state x="640" y="222" key="RollbackChangesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590666996704" />
++    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590771462792">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590771462792" />
+   </component>
+ </project>
+\ No newline at end of file
