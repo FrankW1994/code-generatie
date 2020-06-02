@@ -50,8 +50,8 @@ public class TransactionApiService {
             sender.setBalance(Sbalance);
 
             // UPDATE accounts in database with included new balance
-            accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getUserId());
-            accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getUserId());
+            accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
+            accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
 
             // now the transaction was successful save the transaction
             return repositoryTransaction.save(transaction);
