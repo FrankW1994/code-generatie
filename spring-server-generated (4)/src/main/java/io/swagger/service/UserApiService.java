@@ -1,6 +1,9 @@
 package io.swagger.service;
 
+import io.swagger.dao.RepositoryAccount;
+import io.swagger.dao.RepositoryUser;
 import io.swagger.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +12,9 @@ import java.util.List;
 
 @Service
 public class UserApiService {
+
+    @Autowired
+    private RepositoryUser repositoryUser;
 
     User userError = new User(500L);
 
@@ -34,6 +40,11 @@ public class UserApiService {
         }
         return userError;
     }
-
+    public User postUser(User user){
+        repositoryUser.PostUser(user.getId(), user.getFirstname(), user.getLastname(),
+                user.getEmail(), user.getPassword(), user.getPhone(),user.getBirthdate(),
+                user.getRegistrationdate(), user.getRank(), user.getStatus());
+        return user;
+    }
 
 }

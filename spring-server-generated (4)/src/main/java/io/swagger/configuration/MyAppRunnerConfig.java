@@ -3,9 +3,11 @@ package io.swagger.configuration;
 import io.swagger.dao.RepositoryAccount;
 import io.swagger.dao.RepositoryApiKey;
 import io.swagger.dao.RepositoryTransaction;
+import io.swagger.dao.RepositoryUser;
 import io.swagger.model.Account;
 import io.swagger.model.ApiKey;
 import io.swagger.model.Transaction;
+import io.swagger.model.User;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,12 +26,14 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
     private RepositoryAccount repositoryAccount;
     private RepositoryTransaction repositoryTransaction;
+    private RepositoryUser repositoryUser;
     private PropertyConfig properties;
     private RepositoryApiKey apiKeyRepository;
 
-    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
+    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, RepositoryUser repositoryUser, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
         this.repositoryAccount = accountRepository;
         this.repositoryTransaction = repositoryTransaction;
+        this.repositoryUser = repositoryUser;
         this.properties = properties;
         this.apiKeyRepository = apiKeyRepository;
     }
@@ -59,6 +63,14 @@ public class MyAppRunnerConfig implements ApplicationRunner {
         transactions.forEach(repositoryTransaction::save);
 
         repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
+
+        List<User> users =
+                Arrays.asList(
+                        new User((long) 1, "Bill", "Nye", "billnye@email.com", "test", "0612345678", "20-11-1990", "20-10-2019", User.RankEnum.EMPLOYEE, User.StatusEnum.ACTIVE),
+                        new User((long) 2, "Henk", "Anders", "henkanders@email.com", "test","0687654321", "25-10-1994", "05-02-2020", User.RankEnum.CUSTOMER, User.StatusEnum.ACTIVE),
+                        new User((long) 3, "Klaas", "Vaak", "klaasvaak@email.com", "test", "0600112233", "02-12-1993", "10-03-2020", User.RankEnum.CUSTOMER, User.StatusEnum.ACTIVE));
+
+        users.forEach(repositoryUser::save);
 
         System.out.println("Application name: " + properties.getApplicationName());
     /*
