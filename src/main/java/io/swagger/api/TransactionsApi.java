@@ -48,7 +48,7 @@ public interface TransactionsApi {
         @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
         @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
         @ApiResponse(code = 500, message = "Unexpected error.") })
-    @RequestMapping(value = "transactions",
+    @RequestMapping(value = "/transactions",
         produces = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
