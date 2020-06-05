@@ -12,10 +12,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static io.swagger.model.Account.RankEnum.CURRENT;
 import static io.swagger.model.Account.RankEnum.SAVING;
@@ -46,7 +43,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
         List<Account> accounts = new ArrayList<>(
                 Arrays.asList(
                         new Account(1L, "NL77INHO77777777", CURRENT, ACTIVE, 1660.00D, "EUR"),
-                        new Account(2L, "NL22INHO222222", SAVING, ACTIVE, 5504.00D, "EUR"),
+                        new Account(2L, "NL22INHO22222222", SAVING, ACTIVE, 5504.00D, "EUR"),
                         new Account(3L, "NL33INHO33333333", CURRENT, BLOCKED, 604.00D, "EUR"),
                         new Account(14L, "NL11INHO11111111", CURRENT, ACTIVE, 1700.00D, "EUR")
                 )
@@ -56,15 +53,15 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
-                        new Transaction("NL11INHO11111111", "NL22INHO222222", "GPOSSEL", "03/04/2020", 140D),
-                        new Transaction("NL77INHO77777777", "NL22INHO222222", "SBOERE", "03/04/2020", 9D),
-                        new Transaction("NL33INHO33333333", "NL44INHO444444", "TWUBBEN", "01/01/2020", 100D)
+                        new Transaction("NL11INHO11111111", "NL22INHO222222", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
+                        new Transaction("NL77INHO77777777", "NL22INHO222222", "SBOERE", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 9D),
+                        new Transaction("NL33INHO33333333", "NL44INHO444444", "TWUBBEN", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 100D)
                 )
         );
 
         transactions.forEach(repositoryTransaction::save);
 
-        repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
+        //     repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
 
         List<User> users =
                 Arrays.asList(

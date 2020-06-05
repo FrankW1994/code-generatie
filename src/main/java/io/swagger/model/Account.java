@@ -28,8 +28,6 @@ public class Account {
   private Long userId = null;
 
   @Id
-  @GeneratedValue(generator ="system-uuid")
-  @GenericGenerator(name="system-uuid", strategy = "uuid")
   @JsonProperty("IBAN")
   @Column(name = "IBAN")
   private String IBAN = null;
@@ -55,7 +53,7 @@ public class Account {
    */
   public enum RankEnum {
     CURRENT("Current"),
-    
+
     SAVING("Saving");
 
     private String value;
@@ -94,7 +92,7 @@ public class Account {
    */
   public enum StatusEnum {
     ACTIVE("Active"),
-    
+
     BLOCKED("Blocked");
 
     private String value;
@@ -130,9 +128,9 @@ public class Account {
   /**
    * Get userId
    * @return userId
-  **/
+   **/
   @ApiModelProperty(example = "2", required = true, value = "")
-      @NotNull
+  @NotNull
 
   public Long getUserId() {
     return userId;
@@ -150,11 +148,11 @@ public class Account {
   /**
    * Get IBAN
    * @return IBAN
-  **/
+   **/
   @ApiModelProperty(example = "NLxxINHO0xxxxxxxxx", required = true, value = "")
-      @NotNull
+  @NotNull
 
-    public String getIBAN() {
+  public String getIBAN() {
     return IBAN;
   }
 
@@ -174,10 +172,10 @@ public class Account {
   /**
    * Get rank
    * @return rank
-  **/
+   **/
   @ApiModelProperty(example = "Current", value = "")
-  
-    public RankEnum getRank() {
+
+  public RankEnum getRank() {
     return rank;
   }
 
@@ -194,9 +192,9 @@ public class Account {
    * Get balance
    * minimum: 0
    * @return balance
-  **/
+   **/
   @ApiModelProperty(example = "100", required = true, value = "")
-      @NotNull
+  @NotNull
 
   @DecimalMin("0")  public Double getBalance() {
     return balance;
@@ -214,10 +212,10 @@ public class Account {
   /**
    * Get currency
    * @return currency
-  **/
+   **/
   @ApiModelProperty(example = "EUR", value = "")
-  
-    public String getCurrency() {
+
+  public String getCurrency() {
     return currency;
   }
 
@@ -233,10 +231,10 @@ public class Account {
   /**
    * Get status
    * @return status
-  **/
+   **/
   @ApiModelProperty(example = "Active", value = "")
-  
-    public StatusEnum getStatus() {
+
+  public StatusEnum getStatus() {
     return status;
   }
 
@@ -255,11 +253,11 @@ public class Account {
     }
     Account account = (Account) o;
     return Objects.equals(this.userId, account.userId) &&
-        Objects.equals(this.IBAN, account.IBAN) &&
-        Objects.equals(this.rank, account.rank) &&
-        Objects.equals(this.balance, account.balance) &&
-        Objects.equals(this.currency, account.currency) &&
-        Objects.equals(this.status, account.status);
+            Objects.equals(this.IBAN, account.IBAN) &&
+            Objects.equals(this.rank, account.rank) &&
+            Objects.equals(this.balance, account.balance) &&
+            Objects.equals(this.currency, account.currency) &&
+            Objects.equals(this.status, account.status);
   }
 
   @Override
@@ -271,7 +269,7 @@ public class Account {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Account {\n");
-    
+
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    IBAN: ").append(toIndentedString(IBAN)).append("\n");
     sb.append("    rank: ").append(toIndentedString(rank)).append("\n");

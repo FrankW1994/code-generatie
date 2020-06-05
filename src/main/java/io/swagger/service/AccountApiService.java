@@ -34,29 +34,37 @@ public class AccountApiService {
 
     // Get /accounts/Iban
     public Account getAccountFromIBAN(String ibanReceiver) {
-        return repositoryAccount.findOne(ibanReceiver);
+
+        List<Account> allAccounts = (List<Account>) repositoryAccount.findAll();
+        for(Account a : allAccounts)
+        {
+            if(a.getIBAN().equals(ibanReceiver))
+            { return a; }
+        }
+
+        return null;
     }
 
     // Delete /accounts/Iban
-    public Account deleteAccountFromIBAN(String ibanReceiver){
-        return repositoryAccount.DeleteAccount(ibanReceiver);
+    public void deleteAccountFromIBAN(String ibanReceiver){
+        repositoryAccount.DeleteAccount(ibanReceiver);
     }
 
     // Post /accounts/iban/deposit
     public Account depositAccount(String ibanReceiver, double deposit){
         double balance = repositoryAccount.GetBalance(ibanReceiver) + deposit;
-        return repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
+        repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
+        return repositoryAccount.findOne(ibanReceiver);
     }
 
     // Post /accounts/iban/deposit
     public Account withdrawAccount(String ibanReceiver, double withdraw){
         double balance = repositoryAccount.GetBalance(ibanReceiver) - withdraw;
-        return repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
+        repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
+        return repositoryAccount.findOne(ibanReceiver);
     }
 
     public void updateNewBalanceServiceAccounts(double NewBalance, String IBAN) {
         repositoryAccount.UpdateNewBalance(NewBalance, IBAN);
     }
-
-
 }

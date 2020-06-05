@@ -3,10 +3,16 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.service.AccountApiService;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -23,6 +29,7 @@ public class Transaction {
   @SequenceGenerator(name="transaction_seq", initialValue = 1000001)
   @GeneratedValue(strategy =GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("transactionId")
+  @Column(unique=true, nullable=false)
   private Long transactionId = null;
 
   @JsonProperty("ibanSender")
@@ -35,15 +42,16 @@ public class Transaction {
   private String nameSender = null;
 
   @JsonProperty("transactionDate")
-  private String transactionDate = null;
+  private Timestamp transactionDate = null;
 
   @JsonProperty("transferAmount")
   private Double transferAmount = null;
 
+
   public Transaction()
   {}
 
-  public Transaction(String ibanSender, String ibanReceiver, String nameSender, String transactionDate, double transferAmount) {
+  public Transaction(String ibanSender, String ibanReceiver, String nameSender, Timestamp transactionDate, double transferAmount) {
     this.ibanSender = ibanSender;
     this.ibanReceiver = ibanReceiver;
     this.nameSender = nameSender;
@@ -51,8 +59,14 @@ public class Transaction {
     this.transferAmount = transferAmount;
   }
 
-  public Transaction(Long transactionId, String ibanSender, String ibanReceiver, String nameSender, String transactionDate, Double transferAmount) {
+  public Transaction(String ibanSender, String ibanReceiver, String nameSender, Double transferAmount) {
+    this.ibanSender = ibanSender;
+    this.ibanReceiver = ibanReceiver;
+    this.nameSender = nameSender;
+    this.transactionDate = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+    this.transferAmount = transferAmount;
   }
+
 
   /**
    * Get ibanSender
@@ -118,10 +132,10 @@ public class Transaction {
   /**
    * Get nameSender
    * @return nameSender
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public String getNameSender() {
+
+  public String getNameSender() {
     return nameSender;
   }
 
@@ -129,7 +143,7 @@ public class Transaction {
     this.nameSender = nameSender;
   }
 
-  public Transaction transactionDate(String transactionDate) {
+  public Transaction transactionDate(Timestamp transactionDate) {
     this.transactionDate = transactionDate;
     return this;
   }
@@ -137,14 +151,14 @@ public class Transaction {
   /**
    * Get transactionDate
    * @return transactionDate
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public String getTransactionDate() {
+
+  public Timestamp getTransactionDate() {
     return transactionDate;
   }
 
-  public void setTransactionDate(String transactionDate) {
+  public void setTransactionDate(Timestamp transactionDate) {
     this.transactionDate = transactionDate;
   }
 
@@ -156,10 +170,10 @@ public class Transaction {
   /**
    * Get transferAmount
    * @return transferAmount
-  **/
+   **/
   @ApiModelProperty(value = "")
-  
-    public Double getTransferAmount() {
+
+  public Double getTransferAmount() {
     return transferAmount;
   }
 
@@ -178,11 +192,11 @@ public class Transaction {
     }
     Transaction transaction = (Transaction) o;
     return Objects.equals(this.ibanSender, transaction.ibanSender) &&
-        Objects.equals(this.ibanReceiver, transaction.ibanReceiver) &&
-        Objects.equals(this.transactionId, transaction.transactionId) &&
-        Objects.equals(this.nameSender, transaction.nameSender) &&
-        Objects.equals(this.transactionDate, transaction.transactionDate) &&
-        Objects.equals(this.transferAmount, transaction.transferAmount);
+            Objects.equals(this.ibanReceiver, transaction.ibanReceiver) &&
+            Objects.equals(this.transactionId, transaction.transactionId) &&
+            Objects.equals(this.nameSender, transaction.nameSender) &&
+            Objects.equals(this.transactionDate, transaction.transactionDate) &&
+            Objects.equals(this.transferAmount, transaction.transferAmount);
   }
 
   @Override
@@ -194,7 +208,7 @@ public class Transaction {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Transaction {\n");
-    
+
     sb.append("    ibanSender: ").append(toIndentedString(ibanSender)).append("\n");
     sb.append("    ibanReceiver: ").append(toIndentedString(ibanReceiver)).append("\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");

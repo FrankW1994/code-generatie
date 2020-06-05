@@ -15,12 +15,12 @@ public interface RepositoryAccount extends CrudRepository<Account, String> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE Account a SET a.balance = :balance WHERE a.IBAN = :IBAN")
-    Account UpdateNewBalance(@Param("balance") double newBalance, @Param("IBAN") String IBAN);
+    void UpdateNewBalance(@Param("balance") double newBalance, @Param("IBAN") String IBAN);
 
     @Transactional
     @Modifying
     @Query("delete from Account a where a.IBAN =:IBAN")
-    Account DeleteAccount(@Param("IBAN") String IBAN);
+    void DeleteAccount(@Param("IBAN") String IBAN);
 
     @Transactional
     @Modifying

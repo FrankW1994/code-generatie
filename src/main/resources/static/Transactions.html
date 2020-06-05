@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        th, td, p, input, h3 {
+            font:15px 'Segoe UI';
+        }
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+    </style>
+
+    <script src="TransactionsJSON.js"></script>
+</head>
+<body>
+<form id="transaction-form">
+    <input id="ibanSender"> ibanSender </input> <br><br>
+    <input id="ibanReceiver"> ibanReceiver </input> <br><br>
+    <input id="nameSender"> nameSender </input> <br><br>
+    <input id="transferAmount"> transferAmount </input> <br><br>
+    <h2>Make a new transaction</h2>
+    <button id="btn_sendTransaction" type="submit" role="button" class="btn btn-success btn-lg">Send new Transactions</button>
+</form>
+<div class="row">
+    <div class="form-group col-xs-12">
+        <h2>Show all Transactions</h2>
+        <button id="btn_allTransactions" type="submit" class="btn btn-success btn-lg">Show all Transactions</button>
+    </div>
+</div>
+<section id="result-success">
+    <h4>
+        <div id="result" class="col-lg-12 text-center"></div>
+    </h4>
+    <table id="showData" border='1' class="col-lg-12 text-center"> </table>
+</section>
+</body>
+</html>
