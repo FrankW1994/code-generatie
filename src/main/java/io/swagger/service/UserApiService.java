@@ -16,8 +16,7 @@ public class UserApiService {
     private RepositoryUser repositoryUser;
 
     public UserApiService(){}
-    User userError = new User(500L, "Error", "Error", "Error 500", "Error 500", "Error 500", "Error 500", "Error 500", User.RankEnum.CUSTOMER, User.StatusEnum.BLOCKED);
-
+    User userError = new User();
     public List<User> getUsers(){
         return (List<User>) repositoryUser.findAll();
     }

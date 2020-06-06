@@ -20,6 +20,7 @@ public class User {
   @SequenceGenerator(name="transaction_seq", initialValue = 1000001)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("id")
+  @Column(unique = true, nullable = false)
   private Long id = null;
 
   @JsonProperty("firstname")
@@ -44,8 +45,7 @@ public class User {
   private String registrationdate = null;
 
 
-  public User(Long id, String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
-    this.id = id;
+  public User(String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;

@@ -2,18 +2,18 @@
 
     $('body').on('click', '#submit', function(){
 
-        let firstname = $("#firstname").value;
-        let lastname = $("#lastname").value;
-        let email = $("#email").value;
-        let password = $("#password").value;
-        let rPassword = $("#rPassword").value;
-        let phone = $("#phone").value;
-        let birthdate = $("#birthdate").value;
-        let registrationdate = $("#registrationdate").value;
-        let rank = $("#rank").value;
-        let status = $("#status").value;
+        let firstname = $("#firstname").val();
+        let lastname = $("#lastname").val();
+        let email = $("#email").val();
+        let password = $("#password").val();
+        let rPassword = $("#rPassword").val();
+        let phone = $("#phone").val();
+        let birthdate = $("#birthdate").val();
+        let registrationdate = $("#registrationdate").val();
+        let rank = $("#rank").val();
+        let status = $("#status").val();
 
-        if ($("#password").value !== $("rPassword").value){
+        if (password !== rPassword){
             alert("Passwords don't match!");
             return;
         }
@@ -27,20 +27,32 @@
        xhr.setRequestHeader("Accept", "application/json");
        xhr.setRequestHeader("Content-type", "application/json");
        xhr.onload = (e) => {
-           alert(xhr.status);
+           switch (xhr.status) {
+               case 201:
+                   alert("Successful added User.");
+                   $(location).attr('href', 'http://localhost:8080/user/AllUsers.html');
+                   break;
+               case 401:
+                   alert("Unauthorized action.");
+                   break;
+               case 500:
+               case 501:
+                   alert("Internal server error!");
+                   break;
+               default:
+                    alert(xhr.status);
+                    break;
+           }
        }
 
-       console.log($("#birthdate").value);
-
        let data = JSON .stringify({
-           "id": null,
            "firstname": firstname,
            "lastname": lastname,
            "email": email,
            "password": password,
            "phone": phone,
            "birthdate": birthdate,
-           "registrationdate": null,
+           "registrationdate": new Date().toLocaleDateString(),
            "rank": rank,
            "status": status
         });

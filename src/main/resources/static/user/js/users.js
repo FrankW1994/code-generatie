@@ -31,7 +31,7 @@ $(document).ready(function (){
                         editUrlStr +=  arrayData[j][0] + "=" + arrayData[j][1];
                     }
 
-                    row.insertCell(j).innerHTML = "<a class='edit' href='updateUsers.html?"+ editUrlStr +"'>edit</a>";
+                    row.insertCell(j).innerHTML = "<a class='edit' href='UpdateUsers.html?"+ editUrlStr +"'>edit</a>";
                     row.insertCell(j+1).innerHTML = "<a class='delete' rel='"+ responsData[i].id +"' href=''>delete</a>";
                 }
             }
