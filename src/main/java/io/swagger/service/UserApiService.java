@@ -40,8 +40,12 @@ public class UserApiService {
             System.out.println(nfe);
         }
         if (!userIdLong.equals(null)) {
-            repositoryUser.delete(userIdLong);
-            return HttpStatus.OK;
+            try {
+                repositoryUser.delete(userIdLong);
+                return HttpStatus.OK;
+            } catch (Exception e){
+                return HttpStatus.NOT_FOUND;
+            }
         }
         return HttpStatus.NOT_ACCEPTABLE;
     }

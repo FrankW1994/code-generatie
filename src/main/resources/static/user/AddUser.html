@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/addUser.js"></script>
+</head>
+<body>
+<form>
+    <nav class="nav">
+        <ul>
+            <li class="nav">
+                <a href="GetAllAccounts.html" rel="external" title="Make new account"> New Account </a>
+            </li>
+            <li class="nav">
+                <a href="" rel="external" title="My Transactions overview"> My Transactions </a>
+            </li>
+            <li class="nav">
+                <a href="MakeTransactions.html" rel="external" title="Send Transaction">Send Transaction</a>
+            </li>
+        </ul>
+        <div style="clear: both;"></div>
+    </nav>
+</form>
+<form>
+    <section id="create">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Create Transaction</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 ">
+                    <form name="createTransaction" id="createTransaction" >
+                        <div id="result-add" class="row control-group">
+                            <label for="firstname">firstname: </label>
+                            <input type="text" name="firstname" id="firstname" class="form-control" value="s">
+
+                            <label for="lastname">lastname: </label>
+                            <input type="text" name="lastname" id="lastname" class="form-control" value="b">
+
+                            <label for="email">email: </label>
+                            <input type="email" name="email" id="email" class="form-control" value="sb@gmail.com">
+
+                            <label for="password">password: </label>
+                            <input type="password" name="password" id="password" class="form-control" value="sb">
+
+                            <label for="rPassword">repeat password: </label>
+                            <input type="password" name="rPassword" id="rPassword" class="form-control" value="sb">
+
+                            <label for="phone">phone: </label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="06-111111111">
+
+                            <label for="birthdate">birthdate: </label>
+                            <input type="date" name="birthdate" id="birthdate" class="form-control" value="2000-09-29">
+
+                            <label for="rank">rank: </label>
+                            <select name="rank" id="rank" class="form-control">
+                                <option value="Customer">CUSTOMER</option>
+                                <option value="Employee">EMPLOYEE</option>
+                                <option value="Admin" disabled>ADMIN</option>
+                            </select>
+
+                            <label for="status">status: </label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="Active">ACTIVE</option>
+                                <option value="Blocked">BLOCKED</option>
+                            </select>
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button id="submit" type="submit" class="btn btn-success btn-lg">Insert User</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+<section id="result-success">
+    <h4>
+        <div id="result" class="col-lg-12 text-center"></div>
+    </h4>
+</section>
+</body>
+</html>

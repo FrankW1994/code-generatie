@@ -42,6 +42,7 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+                System.out.println(body);
                 User user = new User((long)body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPassword(), body.getPhone(), body.getBirthdate(), body.getRegistrationdate(), body.getRank(), body.getStatus());
                 User checkUser = userApiService.postUser(user);
                 if (user != null)
@@ -60,13 +61,18 @@ public class UsersApiController implements UsersApi {
     public ResponseEntity<Void> deleteUser(@ApiParam(value = "The userId that needs to be deleted",required=true) @PathVariable("userId") String userId
 ) {
         String accept = request.getHeader("Accept");
+        if (accept != null) {
+
+                return new ResponseEntity<Void>(userApiService.delete(userId));
+
+        }
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<User> getUserById(@ApiParam(value = "Id of the user to return",required=true) @PathVariable("userId") Long userId
     ) {
         String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
+        if (accept != null /*&& accept.contains("application/json")*/) {
             try {
                 return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getById(userId)), User.class), HttpStatus.OK);
             } catch (IOException e) {
