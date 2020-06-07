@@ -106,6 +106,7 @@ public class UsersApiController implements UsersApi {
     public ResponseEntity<User> updateUser(@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body
             , @ApiParam(value = "userId that need to be updated",required=true) @PathVariable("userId") String userId
     ) {
+        System.out.println(userId);
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {

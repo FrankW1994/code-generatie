@@ -22,6 +22,7 @@ public class UserApiService {
     }
 
     public User postUser(User user){
+
         repositoryUser.save(user);
         return user;
     }
@@ -49,16 +50,15 @@ public class UserApiService {
         return HttpStatus.NOT_ACCEPTABLE;
     }
 
-    public User update(String userId, User userNewDetails){
-        Long userIdLong;
+    public User update(String userId, User body){
         try {
-            userIdLong = Long.parseLong(userId);
+            body.setId(Long.parseLong(userId));
+            repositoryUser.updateUser(body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPhone(), body.getBirthdate(), body.getRank(), body.getStatus());
         }
         catch (NumberFormatException nfe){
             System.out.println(nfe);
             return userError;
         }
-//        User userUpdated = repositoryUser.update(userIdLong, userNewDetails);
         return userError;
     }
 

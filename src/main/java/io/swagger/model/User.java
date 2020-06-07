@@ -44,7 +44,6 @@ public class User {
   @JsonProperty("registrationdate")
   private String registrationdate = null;
 
-
   public User(String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -57,8 +56,14 @@ public class User {
     this.status = status;
   }
 
-  public User(Long id) {
-    this.id = id;
+  public User(String firstname, String lastname, String email, String phone, String birthdate, RankEnum rank, StatusEnum status) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.phone = phone;
+    this.birthdate = birthdate;
+    this.rank = rank;
+    this.status = status;
   }
 
   public User() {
