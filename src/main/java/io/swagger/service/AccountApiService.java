@@ -67,4 +67,15 @@ public class AccountApiService {
     public void updateNewBalanceServiceAccounts(double NewBalance, String IBAN) {
         repositoryAccount.UpdateNewBalance(NewBalance, IBAN);
     }
+
+    public Double getBalanceOfAccount(String ibanSender) {
+        List<Account> allAccounts = (List<Account>) repositoryAccount.findAll();
+        for(Account a : allAccounts)
+        {
+            if(a.getIBAN().equals(ibanSender))
+            { return a.getBalance(); }
+        }
+
+        return null;
+    }
 }

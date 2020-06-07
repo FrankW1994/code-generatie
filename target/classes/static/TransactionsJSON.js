@@ -28,6 +28,10 @@ window.addEventListener("load", function () {
             "nameSender": document.getElementById('nameSender').value,
             "transferAmount": document.getElementById('transferAmount').value
         }, ));
+
+        //  xhr.send(document)
+        // xhr.send(new Int8Array());
+        // xhr.send(document);
     });
 });
 

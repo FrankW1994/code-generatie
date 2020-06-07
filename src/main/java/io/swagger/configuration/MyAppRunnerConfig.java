@@ -10,6 +10,7 @@ import io.swagger.model.Transaction;
 import io.swagger.model.User;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -20,7 +21,7 @@ import static io.swagger.model.Account.StatusEnum.ACTIVE;
 import static io.swagger.model.Account.StatusEnum.BLOCKED;
 
 @Component
-//@ConditionalOnProperty(prefix = "guitarshop.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "swagger2springboot.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MyAppRunnerConfig implements ApplicationRunner {
 
     private RepositoryAccount repositoryAccount;
@@ -53,9 +54,9 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
-                        new Transaction("NL11INHO11111111", "NL22INHO222222", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
-                        new Transaction("NL77INHO77777777", "NL22INHO222222", "SBOERE", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 9D),
-                        new Transaction("NL33INHO33333333", "NL44INHO444444", "TWUBBEN", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 100D)
+                        new Transaction("NL11INHO11111111", "NL22INHO22222222", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
+                        new Transaction("NL77INHO77777777", "NL22INHO22222222", "SBOERE", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 9D),
+                        new Transaction("NL33INHO33333333", "NL44INHO44444444", "TWUBBEN", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 100D)
                 )
         );
 

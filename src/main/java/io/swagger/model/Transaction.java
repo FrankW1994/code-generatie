@@ -97,10 +97,21 @@ public class Transaction {
   @ApiModelProperty(value = "")
 
   public String getIbanReceiver() {
+
+    if(!ibanReceiver.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d"))
+    {
+      throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX");
+    }
+
     return ibanReceiver;
   }
 
   public void setIbanReceiver(String ibanReceiver) {
+
+    if(!ibanReceiver.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d"))
+    {
+      throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX");
+    }
     this.ibanReceiver = ibanReceiver;
   }
 
@@ -178,6 +189,7 @@ public class Transaction {
   }
 
   public void setTransferAmount(Double transferAmount) {
+    if (transferAmount < 0) throw new IllegalArgumentException("Amount cannot be below zero");
     this.transferAmount = transferAmount;
   }
 

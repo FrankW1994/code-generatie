@@ -21,35 +21,35 @@ public interface TransactionsApi {
 
     @ApiOperation(value = "Getting a list of transactions", nickname = "getTransactions", notes = "", response = Transaction.class, responseContainer = "List", tags={ "transactions", })
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Succesful request.", response = Transaction.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad request. Account ID must be an integer and larger than 0."),
-        @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
-        @ApiResponse(code = 404, message = "An account with the specified ID was not found."),
-        @ApiResponse(code =500, message = "Unexpected error.") })
+            @ApiResponse(code = 200, message = "Succesful request.", response = Transaction.class, responseContainer = "List"),
+            @ApiResponse(code = 400, message = "Bad request. Account ID must be an integer and larger than 0."),
+            @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
+            @ApiResponse(code = 404, message = "An account with the specified ID was not found."),
+            @ApiResponse(code =500, message = "Unexpected error.") })
     @RequestMapping(value = "/transactions/{accountId}",
-        produces = { "application/json" },
-        method = RequestMethod.GET)
+            produces = { "application/json" },
+            method = RequestMethod.GET)
     ResponseEntity<List<Transaction>> getTransactions(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("accountId") Long accountId
-);
+    );
 
-        @ApiOperation(value = "Getting a transaction by seach", nickname = "searchTansaction", notes = "", response = Transaction.class, responseContainer = "List", authorizations = {
-        @Authorization(value = "ApiKeyAuth")    }, tags={ "transactions", })
+    @ApiOperation(value = "Getting a transaction by seach", nickname = "searchTansaction", notes = "", response = Transaction.class, responseContainer = "List", authorizations = {
+            @Authorization(value = "ApiKeyAuth")    }, tags={ "transactions", })
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Succesful request.", response = Transaction.class, responseContainer = "List"),
-        @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
-        @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
-        @ApiResponse(code = 500, message = "Unexpected error.") })
+            @ApiResponse(code = 200, message = "Succesful request.", response = Transaction.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
+            @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
+            @ApiResponse(code = 500, message = "Unexpected error.") })
     @RequestMapping(value = "transactions",
-        produces = { "application/json" },
-        method = RequestMethod.GET)
+            produces = { "application/json" },
+            method = RequestMethod.GET)
     ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
-, @ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId
-, @ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
-, @ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateStart", required = false) LocalDate transactionSearchDateStart
-, @ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateEnd", required = false) LocalDate transactionSearchDateEnd
-, @ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
-, @ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
-);
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateStart", required = false) LocalDate transactionSearchDateStart
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateEnd", required = false) LocalDate transactionSearchDateEnd
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
+            ,@ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
+    );
 
 
     @ApiOperation(value = "Making a transaction", nickname = "transferFunds", notes = "", response = Transaction.class, responseContainer = "List", authorizations = {

@@ -22,8 +22,9 @@ public interface RepositoryAccount extends CrudRepository<Account, String> {
     @Query("delete from Account a where a.IBAN =:IBAN")
     void DeleteAccount(@Param("IBAN") String IBAN);
 
-    @Transactional
-    @Modifying
-    @Query("SELECT a.balance FROM Account a where a.IBAN =:IBAN")
+    @Query(value = "select a.balance from Account a where a.IBAN =:IBAN", nativeQuery = true)
     double GetBalance(@Param("IBAN") String IBAN);
+
+  //  @Query("select a from Account a where a.IBAN =:IBAN")
+ //   Account findOneFromIBANSender(@Param("IBAN") String ibanSender);
 }
