@@ -20,6 +20,7 @@ public class User {
   @SequenceGenerator(name="transaction_seq", initialValue = 1000001)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("id")
+  @Column(unique = true, nullable = false)
   private Long id = null;
 
   @JsonProperty("firstname")
@@ -43,9 +44,7 @@ public class User {
   @JsonProperty("registrationdate")
   private String registrationdate = null;
 
-
-  public User(Long id, String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
-    this.id = id;
+  public User(String firstname, String lastname, String email, String password, String phone, String birthdate, String registrationdate, RankEnum rank, StatusEnum status) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
@@ -57,8 +56,14 @@ public class User {
     this.status = status;
   }
 
-  public User(Long id) {
-    this.id = id;
+  public User(String firstname, String lastname, String email, String phone, String birthdate, RankEnum rank, StatusEnum status) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.phone = phone;
+    this.birthdate = birthdate;
+    this.rank = rank;
+    this.status = status;
   }
 
   public User() {

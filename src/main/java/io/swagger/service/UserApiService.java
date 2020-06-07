@@ -3,10 +3,10 @@ package io.swagger.service;
 import io.swagger.dao.RepositoryUser;
 import io.swagger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -15,34 +15,51 @@ public class UserApiService {
     @Autowired
     private RepositoryUser repositoryUser;
 
-    //public UserApiService{}
-
-    User userError = new User(500L);
-
-    List<User> users = new ArrayList<>(
-            Arrays.asList(
-                    new User(1L, "admin", "admin", "admin@employee.com", "admin", "+31615141324", "02-92-2000", "02-02-2020", User.RankEnum.ADMIN,  User.StatusEnum.ACTIVE),
-                    new User(2L, "employee", "employee", "employee@employee.com", "employee", "+31615141324", "02-92-2000", "02-02-2020", User.RankEnum.EMPLOYEE,  User.StatusEnum.ACTIVE),
-                    new User(3L, "customer", "customer", "customer@customer.com", "customer", "+31615141324", "02-92-2000", "02-02-2020", User.RankEnum.CUSTOMER,  User.StatusEnum.ACTIVE),
-                    new User(4L, "henk", "De Jong", "henk@De Jong.com", "henk", "+31615141324", "02-92-2000", "02-02-2020", User.RankEnum.CUSTOMER,  User.StatusEnum.ACTIVE)
-            )
-    );
-
+    public UserApiService(){}
+    User userError = new User();
     public List<User> getUsers(){
-        return users;
+        return (List<User>) repositoryUser.findAll();
     }
 
-    public User getUserById(Long userId) {
-
-        for (User user : users){
-            if (user.getId().equals(userId)){
-                return user;
-            }
-        }
-        return userError;
-    }
     public User postUser(User user){
+
         repositoryUser.save(user);
         return user;
     }
+
+    public User getById(Long userId) {
+        return repositoryUser.findOne(userId);
+    }
+
+    public HttpStatus delete(String userId){
+        Long userIdLong = null;
+        try {
+            userIdLong = Long.parseLong(userId);
+        }
+        catch (NumberFormatException nfe){
+            System.out.println(nfe);
+        }
+        if (!userIdLong.equals(null)) {
+            try {
+                repositoryUser.delete(userIdLong);
+                return HttpStatus.OK;
+            } catch (Exception e){
+                return HttpStatus.NOT_FOUND;
+            }
+        }
+        return HttpStatus.NOT_ACCEPTABLE;
+    }
+
+    public User update(String userId, User body){
+        try {
+            body.setId(Long.parseLong(userId));
+            repositoryUser.updateUser(body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPhone(), body.getBirthdate(), body.getRank(), body.getStatus());
+        }
+        catch (NumberFormatException nfe){
+            System.out.println(nfe);
+            return userError;
+        }
+        return userError;
+    }
+
 }

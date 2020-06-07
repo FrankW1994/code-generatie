@@ -42,11 +42,11 @@ public class UsersApiController implements UsersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                User user = new User((long)body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPassword(), body.getPhone(), body.getBirthdate(), body.getRegistrationdate(), body.getRank(), body.getStatus());
-                User checkUser = userApiService.postUser(user);
-                if (user != null)
+                if (body != null && body.getFirstname() != null)
                 {
-                    return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(checkUser), User.class), HttpStatus.CREATED);
+                    System.out.println(body);
+
+                    return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.postUser(body)), User.class), HttpStatus.CREATED);
                 }
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -60,15 +60,20 @@ public class UsersApiController implements UsersApi {
     public ResponseEntity<Void> deleteUser(@ApiParam(value = "The userId that needs to be deleted",required=true) @PathVariable("userId") String userId
 ) {
         String accept = request.getHeader("Accept");
+        if (accept != null) {
+
+                return new ResponseEntity<Void>(userApiService.delete(userId));
+
+        }
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<User> getUserById(@ApiParam(value = "Id of the user to return",required=true) @PathVariable("userId") Long userId
     ) {
         String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
+        if (accept != null /*&& accept.contains("application/json")*/) {
             try {
-                return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getUserById(userId)), User.class), HttpStatus.OK);
+                return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getById(userId)), User.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,7 +91,7 @@ public class UsersApiController implements UsersApi {
 , @ApiParam(value = "", allowableValues = "Active, Blocked") @Valid @RequestParam(value = "StatusOfUser", required = false) String statusOfUser
 ) {
         String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
+        if (accept != null /*&& accept.contains("application/json")*/) {
             try {
                 return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getUsers()), List.class), HttpStatus.OK);
             } catch (IOException e) {
@@ -98,11 +103,22 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<List<User>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> updateUser(@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body
-, @ApiParam(value = "userId that need to be updated",required=true) @PathVariable("userId") String userId
-) {
+    public ResponseEntity<User> updateUser(@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body
+            , @ApiParam(value = "userId that need to be updated",required=true) @PathVariable("userId") String userId
+    ) {
+        System.out.println(userId);
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        if (accept != null && accept.contains("application/json")) {
+            try {
+                return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.update(userId, body)), User.class), HttpStatus.OK);
+            } catch (IOException e) {
+                log.error("Couldn't serialize response for content type application/json", e);
+                return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<User>(HttpStatus.NOT_IMPLEMENTED);
     }
+
 
 }

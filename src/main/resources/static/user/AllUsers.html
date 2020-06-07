@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/users.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://localhost:8080/">Bank api</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="AllUsers.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="AddUser.html">Add Users</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <section id="result-success">
+        <table id="result" class="col-lg-12 text-center table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>id</th>
+                    <th>firstname</th>
+                    <th>lastname</th>
+                    <th>email</th>
+                    <th>password</th>
+                    <th>phone</th>
+                    <th>birthdate</th>
+                    <th>registration</th>
+                    <th>rank</th>
+                    <th>status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+        <a href="AddUser.html"><button class="btn btn-success btn-lg"> add</button></a>
+        <h2 id="errorMessage"></h2>
+
+
+
+    </section>
+</body>
+</html>

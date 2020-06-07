@@ -6,6 +6,7 @@
 package io.swagger.api;
 
 import io.swagger.annotations.*;
+import io.swagger.model.Transaction;
 import io.swagger.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +58,11 @@ public interface UsersApi {
 
     @ApiOperation(value = "returns list of users", nickname = "getUsers", notes = "", response = User.class, responseContainer = "List", authorizations = {
         @Authorization(value = "ApiKeyAuth")    }, tags={ "users", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "succesful operation", response = User.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "invalid operation") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Succesful request.", response = User.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
+            @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
+            @ApiResponse(code = 500, message = "Unexpected error.") })
     @RequestMapping(value = "/users",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -72,17 +75,18 @@ public interface UsersApi {
 );
 
 
-    @ApiOperation(value = "Updated user", nickname = "updateUser", notes = "Updates the current logged in user.", authorizations = {
-        @Authorization(value = "ApiKeyAuth")    }, tags={ "users", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful deleted user"),
-        @ApiResponse(code = 400, message = "Invalid user supplied"),
-        @ApiResponse(code = 404, message = "User not found") })
+    @ApiOperation(value = "Updated user", nickname = "updateUser", notes = "Updates the current logged in user.", response = User.class, responseContainer = "List", authorizations = {
+            @Authorization(value = "ApiKeyAuth")    }, tags={ "users", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful user update", response = User.class, responseContainer = "List"),
+            @ApiResponse(code = 400, message = "Invalid user supplied"),
+            @ApiResponse(code = 404, message = "User not found") })
     @RequestMapping(value = "/users/{userId}",
-        consumes = { "application/json" },
-        method = RequestMethod.PUT)
-    ResponseEntity<Void> updateUser(@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body
-, @ApiParam(value = "userId that need to be updated",required=true) @PathVariable("userId") String userId
-);
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
+    ResponseEntity<User> updateUser(@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body
+            ,@ApiParam(value = "userId that need to be updated",required=true) @PathVariable("userId") String userId
+    );
 
 }
