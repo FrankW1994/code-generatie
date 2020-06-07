@@ -50,6 +50,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+
+
+
+
+
         <!--SpringFox dependencies -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -61,13 +75,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox-version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.joschi.jackson</groupId>
             <artifactId>jackson-datatype-threetenbp</artifactId>
             <version>2.6.4</version>
         </dependency>
-    <!-- Bean Validation API support -->
+        <!-- Bean Validation API support -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -108,6 +121,10 @@
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.3.3.RELEASE</version>
+        </dependency>
     </dependencies>
 </project>

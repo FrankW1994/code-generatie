@@ -1,16 +1,12 @@
 package io.swagger.configuration;
 
-import io.swagger.dao.RepositoryAccount;
-import io.swagger.dao.RepositoryApiKey;
-import io.swagger.dao.RepositoryTransaction;
-import io.swagger.dao.RepositoryUser;
-import io.swagger.model.Account;
-import io.swagger.model.ApiKey;
-import io.swagger.model.Transaction;
-import io.swagger.model.User;
+import io.swagger.dao.*;
+import io.swagger.model.*;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,13 +27,15 @@ public class MyAppRunnerConfig implements ApplicationRunner {
     private RepositoryUser repositoryUser;
     private PropertyConfig properties;
     private RepositoryApiKey apiKeyRepository;
+    private RepositoryLogin repositoryLogin;
 
-    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, RepositoryUser repositoryUser, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
+    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, RepositoryUser repositoryUser, PropertyConfig properties, RepositoryApiKey apiKeyRepository, RepositoryLogin repositoryLogin) {
         this.repositoryAccount = accountRepository;
         this.repositoryTransaction = repositoryTransaction;
         this.repositoryUser = repositoryUser;
         this.properties = properties;
         this.apiKeyRepository = apiKeyRepository;
+        this.repositoryLogin = repositoryLogin;
     }
 
     @Override
@@ -54,6 +52,22 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         accounts.forEach(repositoryAccount::save);
 
+        List<Login> logins = new ArrayList<>(
+                Arrays.asList(
+                        new Login("test", "test")
+                )
+        );
+        logins.forEach(repositoryLogin::save);
+
+        List<ApiKey> apiKeys = new ArrayList<>(
+                Arrays.asList(
+                        new ApiKey(1L,"100001", "bill")
+                )
+        );
+        apiKeys.forEach(apiKeyRepository::save);
+
+        repositoryLogin.findAll().forEach(System.out::println);
+
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
                         new Transaction("NL11INHO11111111", "NL22INHO222222", "GPOSSEL", "03/04/2020", 140D),
@@ -64,7 +78,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         transactions.forEach(repositoryTransaction::save);
 
-        repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
+//        repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
 
         List<User> users =
                 Arrays.asList(
@@ -73,15 +87,17 @@ public class MyAppRunnerConfig implements ApplicationRunner {
                         new User((long) 3, "Klaas", "Vaak", "klaasvaak@email.com", "test", "0600112233", "02-12-1993", "10-03-2020", User.RankEnum.CUSTOMER, User.StatusEnum.ACTIVE));
 
         users.forEach(repositoryUser::save);
+//        repositoryUser.findAll().forEach(System.out::println);
 
         System.out.println("Application name: " + properties.getApplicationName());
     /*
     Generate random API Keys
     */
-        for (int i = 0; i < 5; i++) {
-            UUID uuid = UUID.randomUUID();
-            apiKeyRepository.save(new ApiKey(uuid.toString()));
-        }
+//        for (int i = 0; i < 5; i++) {
+//            UUID uuid = UUID.randomUUID();
+//            apiKeyRepository.save(new ApiKey(uuid.toString()));
+//        }
+//        apiKeyRepository.findAll().forEach(System.out::println);
     }
 
 }

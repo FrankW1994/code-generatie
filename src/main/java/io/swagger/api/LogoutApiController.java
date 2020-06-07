@@ -2,8 +2,11 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.service.LoginApiService;
+import io.swagger.service.LogoutApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +28,9 @@ import java.util.Map;
 @Controller
 public class LogoutApiController implements LogoutApi {
 
+    @Autowired
+    private LogoutApiService logoutApiService;
+
     private static final Logger log = LoggerFactory.getLogger(LogoutApiController.class);
 
     private final ObjectMapper objectMapper;
@@ -37,9 +43,10 @@ public class LogoutApiController implements LogoutApi {
         this.request = request;
     }
 
-    public ResponseEntity<Void> logout() {
+    public ResponseEntity<Void> logout(@ApiParam(value = "The userId that needs to be loggedout",required=true) @PathVariable("username") String username
+    ) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        logoutApiService.logoutUser(username);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
-
 }
