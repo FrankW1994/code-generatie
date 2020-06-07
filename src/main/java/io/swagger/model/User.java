@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Validated
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-18T09:28:40.437Z[GMT]")
 public class User {
   @Id
@@ -48,7 +51,7 @@ public class User {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
-    this.password = password;
+    this.password = /*password*/new BCryptPasswordEncoder().encode(password);
     this.phone = phone;
     this.birthdate = birthdate;
     this.registrationdate = registrationdate;

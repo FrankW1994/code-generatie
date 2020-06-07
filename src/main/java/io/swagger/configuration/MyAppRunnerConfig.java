@@ -1,17 +1,13 @@
 package io.swagger.configuration;
 
-import io.swagger.dao.RepositoryAccount;
-import io.swagger.dao.RepositoryApiKey;
-import io.swagger.dao.RepositoryTransaction;
-import io.swagger.dao.RepositoryUser;
-import io.swagger.model.Account;
-import io.swagger.model.ApiKey;
-import io.swagger.model.Transaction;
-import io.swagger.model.User;
+import io.swagger.dao.*;
+import io.swagger.model.*;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
@@ -21,7 +17,7 @@ import static io.swagger.model.Account.StatusEnum.ACTIVE;
 import static io.swagger.model.Account.StatusEnum.BLOCKED;
 
 @Component
-@ConditionalOnProperty(prefix = "swagger2springboot.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
+//@ConditionalOnProperty(prefix = "guitarshop.autorun", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MyAppRunnerConfig implements ApplicationRunner {
 
     private RepositoryAccount repositoryAccount;
@@ -29,13 +25,15 @@ public class MyAppRunnerConfig implements ApplicationRunner {
     private RepositoryUser repositoryUser;
     private PropertyConfig properties;
     private RepositoryApiKey apiKeyRepository;
+    private RepositoryLogin repositoryLogin;
 
-    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, RepositoryUser repositoryUser, PropertyConfig properties, RepositoryApiKey apiKeyRepository) {
+    public MyAppRunnerConfig(RepositoryAccount accountRepository, RepositoryTransaction repositoryTransaction, RepositoryUser repositoryUser, PropertyConfig properties, RepositoryApiKey apiKeyRepository, RepositoryLogin repositoryLogin) {
         this.repositoryAccount = accountRepository;
         this.repositoryTransaction = repositoryTransaction;
         this.repositoryUser = repositoryUser;
         this.properties = properties;
         this.apiKeyRepository = apiKeyRepository;
+        this.repositoryLogin = repositoryLogin;
     }
 
     @Override
@@ -52,6 +50,22 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         accounts.forEach(repositoryAccount::save);
 
+        List<Login> logins = new ArrayList<>(
+                Arrays.asList(
+                        new Login("test", "test")
+                )
+        );
+        logins.forEach(repositoryLogin::save);
+
+        List<ApiKey> apiKeys = new ArrayList<>(
+                Arrays.asList(
+                        new ApiKey(1L,"100001", "bill")
+                )
+        );
+        apiKeys.forEach(apiKeyRepository::save);
+
+        repositoryLogin.findAll().forEach(System.out::println);
+
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
                         new Transaction("NL77INHO0123456789", "NL11INHO1111111111", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
@@ -62,7 +76,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         transactions.forEach(repositoryTransaction::save);
 
-        //     repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
+        repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
 
         List<User> users =
                 Arrays.asList(

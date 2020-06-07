@@ -6,6 +6,8 @@
 package io.swagger.api;
 
 import io.swagger.annotations.*;
+import io.swagger.model.ApiKey;
+import io.swagger.model.Login;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,18 +24,19 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-02T09:24:14.507Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-01T15:53:22.523Z[GMT]")
 @Api(value = "login", description = "the login API")
 public interface LoginApi {
 
-    @ApiOperation(value = "The login for the user", nickname = "login", notes = "", tags={ "user", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful login."),
-        @ApiResponse(code = 400, message = "Invalid username or password.") })
+    @ApiOperation(value = "The login for the user", nickname = "login", notes = "", response = ApiKey.class, tags={ "user", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful login.", response = ApiKey.class),
+            @ApiResponse(code = 400, message = "Invalid username or password.") })
     @RequestMapping(value = "/login",
-        method = RequestMethod.GET)
-    ResponseEntity<Void> login(@NotNull @ApiParam(value = "User name", required = true) @Valid @RequestParam(value = "username", required = true) String username
-,@NotNull @ApiParam(value = "User password", required = true) @Valid @RequestParam(value = "password", required = true) String password
-);
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<ApiKey> login(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Login body
+    );
 
 }

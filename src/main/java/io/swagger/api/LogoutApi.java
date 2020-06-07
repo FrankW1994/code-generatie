@@ -26,11 +26,14 @@ import java.util.Map;
 @Api(value = "logout", description = "the logout API")
 public interface LogoutApi {
 
-    @ApiOperation(value = "The logout for the user", nickname = "logout", notes = "", tags={ "user", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful logout.") })
+    @ApiOperation(value = "Logout", nickname = "logout", notes = "Log the user out.", authorizations = {
+            @Authorization(value = "ApiKeyAuth")    }, tags={ "users", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "succesfull logout"),
+            @ApiResponse(code = 404, message = "User not found") })
     @RequestMapping(value = "/logout",
-        method = RequestMethod.GET)
-    ResponseEntity<Void> logout();
-
+            method = RequestMethod.DELETE)
+    ResponseEntity<Void> logout(@ApiParam(value = "The userId that needs to be loggedout",required=true) @PathVariable("username") String username
+    );
 }
+
