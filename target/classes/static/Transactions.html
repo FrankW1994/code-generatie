@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        th, td, p, input, h3 {
-            font:15px 'Segoe UI';
-        }
-        table, th, td {
-            border: solid 1px #ddd;
-            border-collapse: collapse;
-            padding: 2px 3px;
-            text-align: center;
-        }
-        th {
-            font-weight:bold;
-        }
-    </style>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="TransactionsJSON.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://localhost:8080/">Bank api</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="user/AllUsers.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="user/AddUser.html">Add Users</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="Transactions.html">Transactions</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <form id="transaction-form">
     <input id="ibanSender"> ibanSender </input> <br><br>
     <input id="ibanReceiver"> ibanReceiver </input> <br><br>
@@ -39,7 +45,7 @@
     <h4>
         <div id="result" class="col-lg-12 text-center"></div>
     </h4>
-    <table id="showData" border='1' class="col-lg-12 text-center"> </table>
+    <table id="showData" border='1' class="col-lg-12 text-center table"> </table>
 </section>
 </body>
 </html>
