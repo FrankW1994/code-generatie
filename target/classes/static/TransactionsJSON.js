@@ -12,6 +12,7 @@ window.addEventListener("load", function () {
         xhr.send();
     });
 
+
     document.getElementById('btn_sendTransaction').addEventListener('click', function (e) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:8080/transactions');
@@ -43,10 +44,6 @@ window.addEventListener("load", function () {
             "nameSender": document.getElementById('nameSender').value,
             "transferAmount": document.getElementById('transferAmount').value
         }, ));
-
-        //  xhr.send(document)
-        // xhr.send(new Int8Array());
-        // xhr.send(document);
     });
 });
 
