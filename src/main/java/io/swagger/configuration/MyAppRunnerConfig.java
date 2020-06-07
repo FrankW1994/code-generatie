@@ -90,10 +90,10 @@ public class MyAppRunnerConfig implements ApplicationRunner {
     /*
     Generate random API Keys
     */
-        for (int i = 0; i < 5; i++) {
-            UUID uuid = UUID.randomUUID();
-            apiKeyRepository.save(new ApiKey(uuid.toString()));
-        }
+ //       for (int i = 0; i < 5; i++) {
+ //           UUID uuid = UUID.randomUUID();
+ //           apiKeyRepository.save(new ApiKey(uuid.toString()));
+  //      }
     }
 
 }
