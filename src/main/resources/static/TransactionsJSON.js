@@ -12,6 +12,7 @@ window.addEventListener("load", function () {
         xhr.send();
     });
 
+
     document.getElementById('btn_sendTransaction').addEventListener('click', function (e) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:8080/transactions');
@@ -21,6 +22,21 @@ window.addEventListener("load", function () {
         xhr.onload= (e) => {
             //haal transactie op
             alert(xhr.status);
+            switch (xhr.status) {
+                case 201:
+                    alert("Successful made transaction.");
+                    break;
+                case 401:
+                    alert("Unauthorized action.");
+                    break;
+                case 500:
+                case 501:
+                    alert("Internal server error!");
+                    break;
+                default:
+                    alert(xhr.status);
+                    break;
+            }
         }
         xhr.send(JSON.stringify({
             "ibanSender": document.getElementById('ibanSender').value,
@@ -28,10 +44,6 @@ window.addEventListener("load", function () {
             "nameSender": document.getElementById('nameSender').value,
             "transferAmount": document.getElementById('transferAmount').value
         }, ));
-
-        //  xhr.send(document)
-        // xhr.send(new Int8Array());
-        // xhr.send(document);
     });
 });
 

@@ -123,7 +123,6 @@ public class TransactionsApiController implements TransactionsApi {
                 if (myList.size() == 0) {
                     myList = transactionApiService.getTransactions();
                 }
-
                 return new ResponseEntity<List<Transaction>>(objectMapper.readValue(objectMapper.writeValueAsString(myList), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -142,37 +141,28 @@ public class TransactionsApiController implements TransactionsApi {
                 Account accountSender = accountApiService.getAccountFromIBAN(body.getIbanSender());
                 Account accountReceiver = accountApiService.getAccountFromIBAN(body.getIbanReceiver());
                 if ((accountSender == null) || accountReceiver == null) {
-                    throw new Exception("Account sender does not exists!");
+                    return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
+                //  Account sender does not exists!
                 }
-                //	All money flows are done with transactions, depositing and withdrawing being special cases (why?)
-                //	A transaction contains timestampf, account from, account to, amount, user performing (can be customer, can be employee)
-                //	A customer transaction is limited by certain rules:
-                //	Balance cannot become lower than a predefined number, referred to as absolute limit
-                //	Cumulative transactions per day cannot surpass a predefined number, referred to as day limit
                 //	The maximum amount per transaction cannot be higher than a predefined number, referred to a transaction limit
                 if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= 700)) {
-                    throw new Exception("Transaction must be between 0 and 700");
+                    return new ResponseEntity<Transaction>(HttpStatus.BAD_REQUEST);
+                //    Transaction must be between 0 and 700
                 } else if (body.getTransferAmount() > accountSender.getBalance()) {
-                    throw new Exception("Account has nog enough money");
+                    return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
+               //     Account has nog enough money
                 }
 
                 Transaction transaction = new Transaction(body.getIbanSender(), body.getIbanReceiver(), body.getNameSender(), body.getTransferAmount());
                 transactionApiService.makeTransaction(transaction);
                 return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
+
             } catch (Exception e) {
-                StackTraceElement elements[] = e.getStackTrace();
-                for (int i = 0, n = elements.length; i < n; i++) {
-                    System.err.println(elements[i].getFileName()
-                            + ":" + elements[i].getLineNumber()
-                            + ">> "
-                            + elements[i].getMethodName() + "()");
                     log.error("Couldn't serialize response for content type application/json");
                     return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
-            }
         }
         else { return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED); }
-        return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     protected Transaction mapTransactionData(Transaction body) {

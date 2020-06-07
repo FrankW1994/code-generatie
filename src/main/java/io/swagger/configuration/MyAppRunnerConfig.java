@@ -43,10 +43,10 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         List<Account> accounts = new ArrayList<>(
                 Arrays.asList(
-                        new Account(1L, "NL77INHO77777777", CURRENT, ACTIVE, 1660.00D, "EUR"),
-                        new Account(2L, "NL22INHO22222222", SAVING, ACTIVE, 5504.00D, "EUR"),
-                        new Account(3L, "NL33INHO33333333", CURRENT, BLOCKED, 604.00D, "EUR"),
-                        new Account(14L, "NL11INHO11111111", CURRENT, ACTIVE, 1700.00D, "EUR")
+                        new Account(1L, "NL77INHO0123456789", CURRENT, ACTIVE, 1660.00D, "EUR"),
+                        new Account(2L, "NL22INHO9876543210", SAVING, ACTIVE, 5504.00D, "EUR"),
+                        new Account(3L, "NL33INHO3333333333", CURRENT, BLOCKED, 604.00D, "EUR"),
+                        new Account(14L, "NL11INHO1111111111", CURRENT, ACTIVE, 1700.00D, "EUR")
                 )
         );
 
@@ -54,9 +54,9 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         List<Transaction> transactions = new ArrayList<>(
                 Arrays.asList(
-                        new Transaction("NL11INHO11111111", "NL22INHO22222222", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
-                        new Transaction("NL77INHO77777777", "NL22INHO22222222", "SBOERE", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 9D),
-                        new Transaction("NL33INHO33333333", "NL44INHO44444444", "TWUBBEN", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 100D)
+                        new Transaction("NL77INHO0123456789", "NL11INHO1111111111", "GPOSSEL", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 140D),
+                        new Transaction("NL22INHO9876543210", "NL33INHO3333333333", "SBOERE", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 9D),
+                        new Transaction("NL11INHO1111111111", "NL22INHO9876543210", "TWUBBEN", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()), 100D)
                 )
         );
 
