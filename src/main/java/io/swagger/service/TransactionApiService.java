@@ -36,24 +36,51 @@ public class TransactionApiService {
             Account receiver = accountApiService.getAccountFromIBAN(transaction.getIbanReceiver());
             Account sender = accountApiService.getAccountFromIBAN(transaction.getIbanSender());
 
-            // Calculate new balance for account receiver
-            Double Rbalance = receiver.getBalance();
-            Double Sbalance = sender.getBalance();
+            if((sender.getRank() == Account.RankEnum.SAVING) || (receiver.getRank() == Account.RankEnum.SAVING))
+            {
+               if(receiver.getUserId() == sender.getUserId())
+               {
+                   // Calculate new balance for account receiver
+                   Double Rbalance = receiver.getBalance();
+                   Double Sbalance = sender.getBalance();
 
-            Rbalance += transaction.getTransferAmount();
-            Sbalance -= transaction.getTransferAmount();
+                   Rbalance += transaction.getTransferAmount();
+                   Sbalance -= transaction.getTransferAmount();
 
-            receiver.setBalance(Rbalance);
-            sender.setBalance(Sbalance);
+                   receiver.setBalance(Rbalance);
+                   sender.setBalance(Sbalance);
 
-            // UPDATE accounts in database with included new balance
-            accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
-            accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
+                   // UPDATE accounts in database with included new balance
+                   accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
+                   accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
 
-            // now the transaction was successful save the transaction
-            return repositoryTransaction.save(transaction);
+                   // now the transaction was successful save the transaction
+                   return repositoryTransaction.save(transaction);
+
+               }
+               else { throw new Exception("Can't transfer from or to SAVINGS account from an extern account."); }
+            }
+            else
+            {
+                // Calculate new balance for account receiver
+                Double Rbalance = receiver.getBalance();
+                Double Sbalance = sender.getBalance();
+
+                Rbalance += transaction.getTransferAmount();
+                Sbalance -= transaction.getTransferAmount();
+
+                receiver.setBalance(Rbalance);
+                sender.setBalance(Sbalance);
+
+                // UPDATE accounts in database with included new balance
+                accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
+                accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
+
+                // now the transaction was successful save the transaction
+                return repositoryTransaction.save(transaction);
+            }
         }catch(Exception ex){
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
             return null;
         }
     }

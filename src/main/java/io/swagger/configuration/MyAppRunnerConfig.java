@@ -43,6 +43,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
                 Arrays.asList(
                         new Account(1L, "NL77INHO0123456789", CURRENT, ACTIVE, 1660.00D, "EUR"),
                         new Account(2L, "NL22INHO9876543210", SAVING, ACTIVE, 5504.00D, "EUR"),
+                        new Account(2L, "NL22INHO9999999999", CURRENT, ACTIVE, 904.00D, "EUR"),
                         new Account(3L, "NL33INHO3333333333", CURRENT, BLOCKED, 604.00D, "EUR"),
                         new Account(14L, "NL11INHO1111111111", CURRENT, ACTIVE, 1700.00D, "EUR")
                 )
