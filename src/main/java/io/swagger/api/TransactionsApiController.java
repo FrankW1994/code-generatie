@@ -153,7 +153,7 @@ public class TransactionsApiController implements TransactionsApi {
                 if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= 700)) {
                     return new ResponseEntity<Transaction>(HttpStatus.BAD_REQUEST);
                     //    Transaction must be between 0 and 700
-                } else if (body.getTransferAmount() > accountSender.getBalance()) {
+                } else if (body.getTransferAmount() > (accountSender.getBalance() -500)) {
                     return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
                     //     Account has nog enough money
                 }
