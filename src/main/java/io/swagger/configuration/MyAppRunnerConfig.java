@@ -76,8 +76,6 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         transactions.forEach(repositoryTransaction::save);
 
-        repositoryTransaction.FindTransactionsOver(100).forEach(System.out::println);
-
         List<User> users =
                 Arrays.asList(
                         new User("Bill", "Nye", "billnye@email.com", "test", "0612345678", "1990-11-20", "20-10-2019", User.RankEnum.EMPLOYEE, User.StatusEnum.ACTIVE),

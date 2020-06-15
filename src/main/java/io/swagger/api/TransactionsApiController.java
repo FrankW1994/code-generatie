@@ -9,18 +9,28 @@ import io.swagger.service.TransactionApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,26 +90,24 @@ public class TransactionsApiController implements TransactionsApi {
         return status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
-
     public ResponseEntity<List<Transaction>> searchTansaction
-            (@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username,
-             @ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId,
+            (@ApiParam(value = "") @Valid @RequestParam(value = "nameSender", required = false) String nameSender,
+             @ApiParam(value = "") @Valid @RequestParam(value = "transactionId", required = false) Long transactionId,
              @ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN,
-             @ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateStart", required = false) LocalDate transactionSearchDateStart,
-             @ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateEnd", required = false) LocalDate transactionSearchDateEnd,
              @ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount,
              @ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults) {
         String accept = request.getHeader("Accept");
+
         if (accept != null) {
             try {
                 List<Transaction> myList = new ArrayList<Transaction>();
-/*                if (username != null) {
-                    for (Transaction t : transactionApiService.getTransactionsFromName(username)) {
+                if (nameSender != null) {
+                    for (Transaction t : transactionApiService.getTransactionsFromName(nameSender)) {
                         myList.add(t);
                     }
                 }
-                if (userId != null) {
-                    for(Transaction t : transactionApiService.getTransactionsFromUserId(userId))
+                if (transactionId != null) {
+                    for(Transaction t : transactionApiService.getTransactionsFromTransactionId(transactionId))
                     { myList.add(t); }
                 }
                 if (IBAN != null) {
@@ -108,20 +116,17 @@ public class TransactionsApiController implements TransactionsApi {
                         myList.add(t);
                     }
                 }
-                if ((transactionSearchDateStart != null) || (transactionSearchDateEnd != null)) {
-                    //                myList.add(transactionApiService.getTransactionsFromDates(transactionSearchDateStart, transactionSearchDateEnd));
-                }
                 if (transactionAmount != null) {
                     List<Transaction> transactions = transactionApiService.getTransactionsFromAmount(transactionAmount);
                     for(Transaction t : transactions) {
                         myList.add(t);
                     }
                 }
-                if (maxNumberOfResults != null) {
-                    myList.subList(0, maxNumberOfResults);
-                }*/
                 if (myList.size() == 0) {
                     myList = transactionApiService.getTransactions();
+                }
+                if ((maxNumberOfResults != null) && (maxNumberOfResults < myList.size())) {
+                    myList = myList.subList(0, maxNumberOfResults);
                 }
                 return new ResponseEntity<List<Transaction>>(objectMapper.readValue(objectMapper.writeValueAsString(myList), List.class), HttpStatus.OK);
             } catch (IOException e) {
@@ -142,15 +147,15 @@ public class TransactionsApiController implements TransactionsApi {
                 Account accountReceiver = accountApiService.getAccountFromIBAN(body.getIbanReceiver());
                 if ((accountSender == null) || accountReceiver == null) {
                     return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
-                //  Account sender does not exists!
+                    //  Account sender does not exists!
                 }
                 //	The maximum amount per transaction cannot be higher than a predefined number, referred to a transaction limit
                 if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= 700)) {
                     return new ResponseEntity<Transaction>(HttpStatus.BAD_REQUEST);
-                //    Transaction must be between 0 and 700
+                    //    Transaction must be between 0 and 700
                 } else if (body.getTransferAmount() > accountSender.getBalance()) {
                     return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
-               //     Account has nog enough money
+                    //     Account has nog enough money
                 }
 
                 Transaction transaction = new Transaction(body.getIbanSender(), body.getIbanReceiver(), body.getNameSender(), body.getTransferAmount());
@@ -158,9 +163,9 @@ public class TransactionsApiController implements TransactionsApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
 
             } catch (Exception e) {
-                    log.error("Couldn't serialize response for content type application/json");
-                    return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+                log.error("Couldn't serialize response for content type application/json");
+                return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         else { return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED); }
     }

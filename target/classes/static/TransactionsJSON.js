@@ -1,14 +1,29 @@
 var xhr;
-window.addEventListener("load", function () {
+window.addEventListener("load", function (name, value) {
 
     document.getElementById('btn_allTransactions').addEventListener('click',function (e) {
         xhr = new XMLHttpRequest();
+        var url = 'http://localhost:8080/transactions'
+        console.log(url);
+
+        var nameSender = document.getElementById('nameSender_search').value;
+        var transactionId = document.getElementById('transactionId_search').value;
+        var IBAN = document.getElementById('IBAN_search').value;
+        var transactionAmount = document.getElementById('transferAmount_search').value;
+        var MaxNumberOfResults = document.getElementById('MaxNumberOfResults_search').value;
+        url = url + '?transactionId='+transactionId+
+            '&IBAN='+IBAN+
+            '&nameSender='+nameSender+
+            '&transactionAmount='+transactionAmount+
+            '&MaxNumberOfResults='+MaxNumberOfResults;
+
+        console.log(url);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4){
                 CreateTableFromJSON();
             }
         };
-        xhr.open('GET', 'http://localhost:8080/transactions');
+        xhr.open('GET', url);
         xhr.send();
     });
 

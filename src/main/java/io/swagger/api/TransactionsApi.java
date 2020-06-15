@@ -7,12 +7,15 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Transaction;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-02T09:24:14.507Z[GMT]")
@@ -42,13 +45,12 @@ public interface TransactionsApi {
     @RequestMapping(value = "transactions",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "") @Valid @RequestParam(value = "username", required = false) String username
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "userId", required = false) String userId
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateStart", required = false) LocalDate transactionSearchDateStart
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionSearchDateEnd", required = false) LocalDate transactionSearchDateEnd
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
-            ,@ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
+
+    ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "nameSender") @Valid @RequestParam(value = "nameSender", required = false) String nameSender
+            ,@ApiParam(value = "transactionId") @Valid @RequestParam(value = "transactionId", required = false) Long transactionId
+            ,@ApiParam(value = "IBAN") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
+            ,@ApiParam(value = "transactionAmount") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
+            ,@ApiParam(value = "MaxNumberOfResults") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
     );
 
 

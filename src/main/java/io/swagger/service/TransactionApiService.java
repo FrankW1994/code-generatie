@@ -29,7 +29,7 @@ public class TransactionApiService {
     }
 
     public Transaction makeTransaction(Transaction transaction) {
-   //      check if account exists AND if account is not BLOCKED
+        //      check if account exists AND if account is not BLOCKED
         try{
             /// Use account services to
             /// Find account receiver & sender
@@ -62,12 +62,12 @@ public class TransactionApiService {
         return repositoryTransaction.findAllWithUsername(username);
     }
 
-    public List<Transaction> getTransactionsFromUserId(String userId) {
-        return repositoryTransaction.getTransactionsFromUserId(userId);
+    public List<Transaction> getTransactionsFromTransactionId(Long transactionId) {
+        return repositoryTransaction.getTransactionsFromTransactionId(transactionId);
     }
 
-    public List<Transaction> getTransactionsFromIBAN(String iban) {
-        return repositoryTransaction.getTransactionsFromIBAN(iban);
+    public List<Transaction> getTransactionsFromIBAN(String IBAN) {
+        return repositoryTransaction.getTransactionsFromIBAN(IBAN);
     }
 
     public List<Transaction> getTransactionsFromAmount(Double transactionAmount) {
