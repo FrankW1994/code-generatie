@@ -155,12 +155,13 @@ public class TransactionsApiController implements TransactionsApi {
                     //    Transaction must be between 0 and 700
                 } else if (body.getTransferAmount() > (accountSender.getBalance() -500)) {
                     return new ResponseEntity<Transaction>(HttpStatus.INTERNAL_SERVER_ERROR);
-                    //     Account has nog enough money
+                    //     Account has not enough money
                 }
 
                 Transaction transaction = new Transaction(body.getIbanSender(), body.getIbanReceiver(), body.getNameSender(), body.getTransferAmount());
-                transactionApiService.makeTransaction(transaction);
-                return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
+                Boolean transSucces = transactionApiService.makeTransaction(transaction);
+                if(transSucces == true){ return ResponseEntity.status(HttpStatus.CREATED).body(transaction); }
+                else { return new ResponseEntity<Transaction>(HttpStatus.PRECONDITION_FAILED); }
 
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json");

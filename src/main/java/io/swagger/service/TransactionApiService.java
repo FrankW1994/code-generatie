@@ -28,7 +28,7 @@ public class TransactionApiService {
         return repositoryTransaction.findOne(transactionId);
     }
 
-    public Transaction makeTransaction(Transaction transaction) {
+    public Boolean makeTransaction(Transaction transaction) {
         //      check if account exists AND if account is not BLOCKED
         try{
             /// Use account services to
@@ -36,10 +36,10 @@ public class TransactionApiService {
             Account receiver = accountApiService.getAccountFromIBAN(transaction.getIbanReceiver());
             Account sender = accountApiService.getAccountFromIBAN(transaction.getIbanSender());
 
-            if((sender.getRank() == Account.RankEnum.SAVING) || (receiver.getRank() == Account.RankEnum.SAVING))
+            Boolean allowTransaction = IsTransactionAllowed(sender, receiver);
+
+            if(allowTransaction == true)
             {
-               if(receiver.getUserId() == sender.getUserId())
-               {
                    // Calculate new balance for account receiver
                    Double Rbalance = receiver.getBalance();
                    Double Sbalance = sender.getBalance();
@@ -55,34 +55,31 @@ public class TransactionApiService {
                    accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
 
                    // now the transaction was successful save the transaction
-                   return repositoryTransaction.save(transaction);
-
-               }
-               else { throw new Exception("Can't transfer from or to SAVINGS account from an extern account."); }
-            }
-            else
-            {
-                // Calculate new balance for account receiver
-                Double Rbalance = receiver.getBalance();
-                Double Sbalance = sender.getBalance();
-
-                Rbalance += transaction.getTransferAmount();
-                Sbalance -= transaction.getTransferAmount();
-
-                receiver.setBalance(Rbalance);
-                sender.setBalance(Sbalance);
-
-                // UPDATE accounts in database with included new balance
-                accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
-                accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
-
-                // now the transaction was successful save the transaction
-                return repositoryTransaction.save(transaction);
-            }
+                   repositoryTransaction.save(transaction);
+                   return true;
+            } else
+                { throw new Exception("Can't transfer from or to SAVINGS account from an extern account.");  }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            return null;
+            return false;
         }
+    }
+
+    // Checks if account is a saving or else allowed to proceed transaction,
+    private Boolean IsTransactionAllowed(Account sender, Account receiver) {
+        if((sender.getRank() == Account.RankEnum.SAVING) || (receiver.getRank() == Account.RankEnum.SAVING))
+        {
+            if(receiver.getUserId() == sender.getUserId())
+            {
+                // Account is linked with same owner. Allow transactions to be made
+                return true;
+            }
+
+            // Saving does NOT  have same owner, must return false
+            return false;
+        }
+        // Account is not saving
+        return true;
     }
 
     public List<Transaction> getTransactionsFromName(String username) {
