@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.service.AccountApiService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -97,12 +98,9 @@ public class Transaction {
   @ApiModelProperty(value = "")
 
   public String getIbanReceiver() {
-
-    if(!ibanReceiver.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d"))
-    {
-      throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXXXX");
-    }
-
+  if (!ibanReceiver.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+    throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXXXX");
+  }
     return ibanReceiver;
   }
 

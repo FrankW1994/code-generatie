@@ -7,15 +7,12 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Transaction;
-import org.springframework.format.annotation.DateTimeFormat;
+import io.swagger.service.ResponseStatusException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-02T09:24:14.507Z[GMT]")
@@ -32,7 +29,7 @@ public interface TransactionsApi {
     @RequestMapping(value = "/transactions/{accountId}",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<Transaction>> getTransactions(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("accountId") Long accountId
+    ResponseEntity<List<Transaction>> getTransactions(@Min(0L)@ApiParam(value = "",required=true, allowableValues="") @PathVariable("transactionId") Long transactionId
     );
 
     @ApiOperation(value = "Getting a transaction by seach", nickname = "searchTansaction", notes = "", response = Transaction.class, responseContainer = "List", authorizations = {
@@ -57,7 +54,7 @@ public interface TransactionsApi {
     @ApiOperation(value = "Making a transaction", nickname = "transferFunds", notes = "", response = Transaction.class, responseContainer = "List", authorizations = {
             @Authorization(value = "ApiKeyAuth")    }, tags={ "transactions", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Succesful post.", response = Transaction.class, responseContainer = "List"),
+            @ApiResponse(code = 201, message = "Succesful post.", response = Transaction.class, responseContainer = "List"),
             @ApiResponse(code = 401, message = "Authorization information is missing or invalid."),
             @ApiResponse(code = 404, message = "An account with the specified IBAN was not found."),
             @ApiResponse(code = 500, message = "Unexpected error.") })

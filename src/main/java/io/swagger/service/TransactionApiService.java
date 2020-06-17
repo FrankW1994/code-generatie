@@ -3,10 +3,17 @@ package io.swagger.service;
 import io.swagger.dao.RepositoryTransaction;
 import io.swagger.model.Account;
 import io.swagger.model.Transaction;
+import org.apache.coyote.http2.Http2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TransactionApiService {
@@ -29,40 +36,59 @@ public class TransactionApiService {
     }
 
     public Boolean makeTransaction(Transaction transaction) {
-        //      check if account exists AND if account is not BLOCKED
         try{
             /// Use account services to
             /// Find account receiver & sender
             Account receiver = accountApiService.getAccountFromIBAN(transaction.getIbanReceiver());
             Account sender = accountApiService.getAccountFromIBAN(transaction.getIbanSender());
 
-            Boolean allowTransaction = IsTransactionAllowed(sender, receiver);
+            // Calculate new balance for account receiver
+            Double Rbalance = receiver.getBalance();
+            Double Sbalance = sender.getBalance();
 
-            if(allowTransaction == true)
-            {
-                   // Calculate new balance for account receiver
-                   Double Rbalance = receiver.getBalance();
-                   Double Sbalance = sender.getBalance();
+            Rbalance += transaction.getTransferAmount();
+            Sbalance -= transaction.getTransferAmount();
 
-                   Rbalance += transaction.getTransferAmount();
-                   Sbalance -= transaction.getTransferAmount();
+            receiver.setBalance(Rbalance);
+            sender.setBalance(Sbalance);
 
-                   receiver.setBalance(Rbalance);
-                   sender.setBalance(Sbalance);
+            // UPDATE accounts in database with included new balance
+            accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
+            accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
 
-                   // UPDATE accounts in database with included new balance
-                   accountApiService.updateNewBalanceServiceAccounts(receiver.getBalance(), receiver.getIBAN());
-                   accountApiService.updateNewBalanceServiceAccounts(sender.getBalance(), sender.getIBAN());
-
-                   // now the transaction was successful save the transaction
-                   repositoryTransaction.save(transaction);
-                   return true;
-            } else
-                { throw new Exception("Can't transfer from or to SAVINGS account from an extern account.");  }
-        }catch(Exception ex){
+            // now the transaction was successful save the transaction
+            repositoryTransaction.save(transaction);
+            return true;
+            }catch(Exception ex)
+        {
             System.out.println(ex.getMessage());
             return false;
         }
+    }
+
+
+    public void IsValidTransaction(Transaction body) throws Exception {
+        Account accountSender = accountApiService.getAccountFromIBAN(body.getIbanSender());
+        Account accountReceiver = accountApiService.getAccountFromIBAN(body.getIbanReceiver());
+        if ((accountSender == null) || accountReceiver == null) {
+            throw new Exception("Account sender or receiver does not exists!");
+            //  Account does not exists!
+        }
+        //	The maximum amount per transaction cannot be higher than a predefined number, referred to a transaction limit
+
+        // Make more transaction daily limit
+
+        if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= accountSender.getDailyLimit())) {
+            throw new Exception("Transaction must be between 0 and " + accountSender.getDailyLimit().toString() + "!");
+            //    Transaction must be between 0 and the daily limet
+
+        } else if (body.getTransferAmount() > (accountSender.getBalance() - 500)) {
+            throw new Exception("Sender account has not enough money");
+            //     Account has not enough money
+        }
+        // Checks if accounts are from type saving and if so, has same owner then proceed transaction,
+        if(!IsTransactionAllowed(accountSender, accountReceiver))
+        { throw new Exception("Transactions from or to a savings account must be from the owner"); }
     }
 
     // Checks if account is a saving or else allowed to proceed transaction,
@@ -96,5 +122,38 @@ public class TransactionApiService {
 
     public List<Transaction> getTransactionsFromAmount(Double transactionAmount) {
         return repositoryTransaction.getTransactionsFromAmount(transactionAmount);
+    }
+
+    public List<Transaction> FindAllMatches(String nameSender, Long transactionId, String IBAN, Double transactionAmount, Integer maxNumberOfResults) {
+        List<Transaction> myList = new ArrayList<Transaction>();
+        if (nameSender != null) {
+            for (Transaction t : getTransactionsFromName(nameSender)) {
+                myList.add(t);
+            }
+        }
+        if (transactionId != null) {
+            for(Transaction t : getTransactionsFromTransactionId(transactionId))
+            { myList.add(t); }
+        }
+        if (IBAN != null) {
+            for(Transaction t : getTransactionsFromIBAN(IBAN))
+            {
+                myList.add(t);
+            }
+        }
+        if (transactionAmount != null) {
+            List<Transaction> transactions = getTransactionsFromAmount(transactionAmount);
+            for(Transaction t : transactions) {
+                myList.add(t);
+            }
+        }
+        if (myList.size() == 0) {
+            myList = getTransactions();
+        }
+        if ((maxNumberOfResults != null) && (maxNumberOfResults < myList.size())) {
+            myList = myList.subList(0, maxNumberOfResults);
+        }
+
+        return myList;
     }
 }

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TransactionsApiControllerTest {
+public class TransactionsApiControllerTest{
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -40,10 +40,10 @@ public class TransactionsApiControllerTest {
         this.mvc = webAppContextSetup(webApplicationContext).build();
     }
 
-//    @Test
-//    public void transactionsControllerTest() throws Exception {
-//        mvc.perform(get("/transactions")
-//                .header("Accept", "application/json"))
-//                .andExpect(status().isOk());
-//    }
+ //   @Test
+ //   public void transactionsControllerTest() throws Exception {
+ //       mvc.perform(get("/transactions")
+  //              .header("Accept", "application/json"))
+  //              .andExpect(status().isOk());
+ //   }
 }

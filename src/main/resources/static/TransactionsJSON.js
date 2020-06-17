@@ -34,24 +34,30 @@ window.addEventListener("load", function (name, value) {
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-type", "application/json")
-        xhr.onload= (e) => {
-            //haal transactie op
-            alert(xhr.status);
-            switch (xhr.status) {
-                case 201:
-                    alert("Successful made transaction.");
-                    break;
-                case 401:
-                    alert("Unauthorized action.");
-                    break;
-                case 500:
-                case 501:
-                    alert("Internal server error!");
-                    break;
-                default:
-                    alert(xhr.status);
-                    break;
+        xhr.onload = function () {
+                switch (xhr.status) {
+                    case 201:
+                 //       alert(xhr.status + ":" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        break;
+                    case 400:
+                 //       alert(xhr.status + ":" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
+                        break;
+                    case 422:
+                 //       alert(xhr.status + ":" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        break;
+                    case 500:
+               //         alert(xhr.status + ":" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        break;
+                    default:
+                //        alert(xhr.status + ":" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        break;
             }
+            console.log(xhr.responseText);
         }
         xhr.send(JSON.stringify({
             "ibanSender": document.getElementById('ibanSender').value,
@@ -59,9 +65,9 @@ window.addEventListener("load", function (name, value) {
             "nameSender": document.getElementById('nameSender').value,
             "transferAmount": document.getElementById('transferAmount').value
         }, ));
+
     });
 });
-
 
 function CreateTableFromJSON() {
     var myItems = JSON.parse(xhr.responseText);

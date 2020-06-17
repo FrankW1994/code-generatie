@@ -48,7 +48,11 @@ public class Account {
     this.IBAN = nlfout;
   }
 
-  /**
+    public Double getDailyLimit() {
+    return 500d;
+    }
+
+    /**
    * Gets or Sets rank
    */
   public enum RankEnum {
