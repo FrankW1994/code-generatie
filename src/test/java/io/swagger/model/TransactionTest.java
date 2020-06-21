@@ -33,6 +33,6 @@ class TransactionTest {
     {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> transaction.setIbanReceiver("abababbaba"));
-        assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX", exception.getMessage());
+        assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXXXX", exception.getMessage());
     }
 }

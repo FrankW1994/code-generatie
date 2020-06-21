@@ -28,11 +28,11 @@ public class LoginApiService {
 
     public ApiKey loginUser(Login login){
         System.out.println(login);
-        Login currentLogin = repositoryLogin.findOne(login.getUsername());
+        Login currentLogin = repositoryLogin.findById(login.getUsername()).get();
         if (!currentLogin.getUsername().isEmpty()){
             if (BCrypt.checkpw(login.getPassword(), currentLogin.getPassword()))
             {
-                repositoryLogin.findOne(login.getUsername());
+                repositoryLogin.findById(login.getUsername());
                 //repositoryLogin.save(login);
                 UUID uuid = UUID.randomUUID();
                 ApiKey apiKey = new ApiKey(2L, uuid.toString(), login.getUsername());

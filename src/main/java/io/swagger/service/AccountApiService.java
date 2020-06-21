@@ -54,14 +54,14 @@ public class AccountApiService {
     public Account depositAccount(String ibanReceiver, double deposit){
         double balance = repositoryAccount.GetBalance(ibanReceiver) + deposit;
         repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
-        return repositoryAccount.findOne(ibanReceiver);
+        return repositoryAccount.findById(ibanReceiver).get();
     }
 
     // Post /accounts/iban/deposit
     public Account withdrawAccount(String ibanReceiver, double withdraw){
         double balance = repositoryAccount.GetBalance(ibanReceiver) - withdraw;
         repositoryAccount.UpdateNewBalance(balance,ibanReceiver);
-        return repositoryAccount.findOne(ibanReceiver);
+        return repositoryAccount.findById(ibanReceiver).get();
     }
 
     public void updateNewBalanceServiceAccounts(double NewBalance, String IBAN) {

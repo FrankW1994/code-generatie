@@ -3,17 +3,10 @@ package io.swagger.service;
 import io.swagger.dao.RepositoryTransaction;
 import io.swagger.model.Account;
 import io.swagger.model.Transaction;
-import org.apache.coyote.http2.Http2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TransactionApiService {
@@ -32,7 +25,7 @@ public class TransactionApiService {
     }
 
     public Transaction getTransaction(Long transactionId) {
-        return repositoryTransaction.findOne(transactionId);
+        return repositoryTransaction.findById(transactionId).get();
     }
 
     public Boolean makeTransaction(Transaction transaction) {

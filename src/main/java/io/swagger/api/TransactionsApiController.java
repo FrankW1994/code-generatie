@@ -39,10 +39,8 @@ public class TransactionsApiController implements TransactionsApi {
 
     private final HttpServletRequest request;
 
-    @Autowired
     private TransactionApiService transactionApiService;
 
-    @Autowired
     private AccountApiService accountApiService;
 
     @org.springframework.beans.factory.annotation.Autowired

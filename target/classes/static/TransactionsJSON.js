@@ -34,35 +34,31 @@ window.addEventListener("load", function (name, value) {
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-type", "application/json")
-        var text = "";
-        xhr.onstatechange = function (e) {
+        xhr.onload = function () {
                 switch (xhr.status) {
                     case 201:
                  //       alert(xhr.status + ":" + xhr.responseText);
-                        text = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 400:
                  //       alert(xhr.status + ":" + xhr.responseText);
-                        text =JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 422:
                  //       alert(xhr.status + ":" + xhr.responseText);
-                        text = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 500:
                //         alert(xhr.status + ":" + xhr.responseText);
-                        text =  JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     default:
                 //        alert(xhr.status + ":" + xhr.responseText);
-                        text = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
             }
-            document.getElementById('errorResponses').innerHTML = text;
-            console.log(text);
+            console.log(xhr.responseText);
         }
-        document.getElementById('errorResponses').innerHTML = text;
-
         xhr.send(JSON.stringify({
             "ibanSender": document.getElementById('ibanSender').value,
             "ibanReceiver": document.getElementById('ibanReceiver').value,

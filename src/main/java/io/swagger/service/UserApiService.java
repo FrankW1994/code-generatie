@@ -28,7 +28,7 @@ public class UserApiService {
     }
 
     public User getById(Long userId) {
-        return repositoryUser.findOne(userId);
+        return repositoryUser.findById(userId).get();
     }
 
     public HttpStatus delete(String userId){
@@ -41,7 +41,7 @@ public class UserApiService {
         }
         if (!userIdLong.equals(null)) {
             try {
-                repositoryUser.delete(userIdLong);
+                repositoryUser.deleteById(userIdLong);
                 return HttpStatus.OK;
             } catch (Exception e){
                 return HttpStatus.NOT_FOUND;
