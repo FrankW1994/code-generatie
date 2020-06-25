@@ -84,7 +84,7 @@ public class TransactionApiService {
         { throw new Exception("Transactions from or to a savings account must be from the owner"); }
     }
 
-    // Checks if account is a saving or else allowed to proceed transaction,
+    // Checks if account is a saving and if so is account from same owner allowed to proceed,
     private Boolean IsTransactionAllowed(Account sender, Account receiver) {
         if((sender.getRank() == Account.RankEnum.SAVING) || (receiver.getRank() == Account.RankEnum.SAVING))
         {
