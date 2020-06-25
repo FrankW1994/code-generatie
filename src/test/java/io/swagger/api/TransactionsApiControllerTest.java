@@ -3,6 +3,7 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.swagger.model.Transaction;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Calendar;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -113,15 +117,17 @@ public class TransactionsApiControllerTest{
     @Test
     public void searchTransactionOn_MaxNumberOfResults_ShouldReturnTransaction() throws Exception {
         Integer MaxNumberOfResults = 2;
-        ObjectMapper mapper = new ObjectMapper();
 
         MvcResult result = mvc.perform(get("/transactions?MaxNumberOfResults=" + MaxNumberOfResults)
                 .header("Accept", "application/json"))
-                .andExpect(status().isOk())
+                .andExpect(ResultMatcher.matchAll(status().isOk(),
+                        MockMvcResultMatchers.jsonPath("$").isArray(),
+                        MockMvcResultMatchers.jsonPath("$", hasSize(MaxNumberOfResults))))
                 .andReturn();
 
-        List<Transaction> pp3 = mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<Transaction>>() {});
-        pp3.forEach(System.out::println);
+//        ObjectMapper mapper = new ObjectMapper();
+//        List<Transaction> transactionsList = mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<Transaction>>() {});
+//        transactionsList.forEach(System.out::println);
     }
 
 
