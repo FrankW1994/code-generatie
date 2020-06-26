@@ -9,12 +9,13 @@ window.addEventListener("load", function (name, value) {
         var nameSender = document.getElementById('nameSender_search').value;
         var transactionId = document.getElementById('transactionId_search').value;
         var IBAN = document.getElementById('IBAN_search').value;
-        var transactionAmount = document.getElementById('transferAmount_search').value;
+        var transferAmount = document.getElementById('transferAmount_search').value;
+        console.log(transferAmount);
         var MaxNumberOfResults = document.getElementById('MaxNumberOfResults_search').value;
         url = url + '?transactionId='+transactionId+
             '&IBAN='+IBAN+
             '&nameSender='+nameSender+
-            '&transactionAmount='+transactionAmount+
+            '&transferAmount='+transferAmount+
             '&MaxNumberOfResults='+MaxNumberOfResults;
 
         console.log(url);
@@ -37,24 +38,24 @@ window.addEventListener("load", function (name, value) {
         xhr.onload = function () {
                 switch (xhr.status) {
                     case 201:
-                 //       alert(xhr.status + ":" + xhr.responseText);
-                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        alert(xhr.status + ":" + xhr.responseText);
+                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 400:
-                 //       alert(xhr.status + ":" + xhr.responseText);
-                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
+                        alert(xhr.status + ":" + xhr.responseText);
+                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 422:
-                 //       alert(xhr.status + ":" + xhr.responseText);
-                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        alert(xhr.status + ":" + xhr.responseText);
+                 //       document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 500:
-               //         alert(xhr.status + ":" + xhr.responseText);
-                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        alert(xhr.status + ":" + xhr.responseText);
+                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     default:
-                //        alert(xhr.status + ":" + xhr.responseText);
-                        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                        alert(xhr.status + ":" + xhr.responseText);
+                 //       document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
             }
             console.log(xhr.responseText);

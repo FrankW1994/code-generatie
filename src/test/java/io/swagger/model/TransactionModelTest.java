@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransactionTest {
+class TransactionModelTest {
 
     private Transaction transaction;
 
@@ -35,4 +35,7 @@ class TransactionTest {
                 () -> transaction.setIbanReceiver("abababbaba"));
         assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXXXX", exception.getMessage());
     }
+
+
+
 }

@@ -60,7 +60,7 @@ public class TransactionApiService {
     }
 
 
-    public void IsValidTransaction(Transaction body) throws Exception {
+    public void checkValidTransaction(Transaction body) throws Exception {
         Account accountSender = accountApiService.getAccountFromIBAN(body.getIbanSender());
         Account accountReceiver = accountApiService.getAccountFromIBAN(body.getIbanReceiver());
         if ((accountSender == null) || accountReceiver == null) {
@@ -73,7 +73,7 @@ public class TransactionApiService {
 
         if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= accountSender.getDailyLimit())) {
             throw new Exception("Transaction must be between 0 and " + accountSender.getDailyLimit().toString() + "!");
-            //    Transaction must be between 0 and the daily limet
+            //    Transaction must be between 0 and the daily limit
 
         } else if (body.getTransferAmount() > (accountSender.getBalance() - 500)) {
             throw new Exception("Sender account has not enough money");
@@ -105,19 +105,15 @@ public class TransactionApiService {
         return repositoryTransaction.findAllWithUsername(username);
     }
 
-    public List<Transaction> getTransactionsFromTransactionId(Long transactionId) {
-        return repositoryTransaction.getTransactionsFromTransactionId(transactionId);
-    }
-
     public List<Transaction> getTransactionsFromIBAN(String IBAN) {
         return repositoryTransaction.getTransactionsFromIBAN(IBAN);
     }
 
-    public List<Transaction> getTransactionsFromAmount(Double transactionAmount) {
-        return repositoryTransaction.getTransactionsFromAmount(transactionAmount);
+    public List<Transaction> getTransactionsFromAmount(Double transferAmount) {
+        return repositoryTransaction.getTransactionsFromAmount(transferAmount);
     }
 
-    public List<Transaction> FindAllMatches(String nameSender, Long transactionId, String IBAN, Double transactionAmount, Integer maxNumberOfResults) {
+    public List<Transaction> FindAllMatches(String nameSender, Long transactionId, String IBAN, Double transferAmount, Integer maxNumberOfResults) {
         List<Transaction> myList = new ArrayList<Transaction>();
         if (nameSender != null) {
             for (Transaction t : getTransactionsFromName(nameSender)) {
@@ -125,8 +121,8 @@ public class TransactionApiService {
             }
         }
         if (transactionId != null) {
-            for(Transaction t : getTransactionsFromTransactionId(transactionId))
-            { myList.add(t); }
+             Transaction transaction = repositoryTransaction.findById(transactionId).get();
+            if(transaction != null) { myList.add(transaction);  }
         }
         if (IBAN != null) {
             for(Transaction t : getTransactionsFromIBAN(IBAN))
@@ -134,8 +130,8 @@ public class TransactionApiService {
                 myList.add(t);
             }
         }
-        if (transactionAmount != null) {
-            List<Transaction> transactions = getTransactionsFromAmount(transactionAmount);
+        if (transferAmount != null) {
+            List<Transaction> transactions = getTransactionsFromAmount(transferAmount);
             for(Transaction t : transactions) {
                 myList.add(t);
             }

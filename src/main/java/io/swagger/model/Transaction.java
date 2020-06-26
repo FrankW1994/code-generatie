@@ -84,11 +84,6 @@ public class Transaction {
     this.ibanSender = ibanSender;
   }
 
-  public Transaction ibanReceiver(String ibanReceiver) {
-    this.ibanReceiver = ibanReceiver;
-    return this;
-  }
-
   /**
    * Get ibanReceiver
    *
@@ -112,11 +107,6 @@ public class Transaction {
     }
     this.ibanReceiver = ibanReceiver;
   }
-
-  public Transaction transactionId(Long transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
   /**
    * Get transactionId
    *
@@ -131,13 +121,6 @@ public class Transaction {
     this.transactionId = transactionId;
   }
 
-
-
-  public Transaction nameSender(String nameSender) {
-    this.nameSender = nameSender;
-    return this;
-  }
-
   /**
    * Get nameSender
    * @return nameSender
@@ -150,11 +133,6 @@ public class Transaction {
 
   public void setNameSender(String nameSender) {
     this.nameSender = nameSender;
-  }
-
-  public Transaction transactionDate(Timestamp transactionDate) {
-    this.transactionDate = transactionDate;
-    return this;
   }
 
   /**

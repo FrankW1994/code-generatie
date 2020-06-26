@@ -1,17 +1,13 @@
 package io.swagger.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Transaction;
 import io.swagger.service.AccountApiService;
-import io.swagger.service.ResponseStatusException;
 import io.swagger.service.TransactionApiService;
-import org.h2.util.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,13 +80,13 @@ public class TransactionsApiController implements TransactionsApi {
             (@ApiParam(value = "") @Valid @RequestParam(value = "nameSender", required = false) String nameSender,
              @ApiParam(value = "") @Valid @RequestParam(value = "transactionId", required = false) Long transactionId,
              @ApiParam(value = "") @Valid @RequestParam(value = "IBAN", required = false) String IBAN,
-             @ApiParam(value = "") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount,
+             @ApiParam(value = "") @Valid @RequestParam(value = "transferAmount", required = false) Double transferAmount,
              @ApiParam(value = "") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults) {
         String accept = request.getHeader("Accept");
 
         if (accept != null) {
             try {
-                List<Transaction> myList = transactionApiService.FindAllMatches(nameSender, transactionId, IBAN, transactionAmount, maxNumberOfResults);
+                List<Transaction> myList = transactionApiService.FindAllMatches(nameSender, transactionId, IBAN, transferAmount, maxNumberOfResults);
                 return new ResponseEntity<List<Transaction>>(objectMapper.readValue(objectMapper.writeValueAsString(myList), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -106,7 +102,7 @@ public class TransactionsApiController implements TransactionsApi {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (accept != null && accept.contains("application/json")) {
             try {
-                transactionApiService.IsValidTransaction(body);
+                transactionApiService.checkValidTransaction(body);
                 Transaction transaction = new Transaction(body.getIbanSender(), body.getIbanReceiver(), body.getNameSender(), body.getTransferAmount());
                 Boolean transSucces = transactionApiService.makeTransaction(transaction);
                 if (transSucces == true) {

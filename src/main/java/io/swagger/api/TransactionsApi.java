@@ -7,7 +7,6 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Transaction;
-import io.swagger.service.ResponseStatusException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +45,7 @@ public interface TransactionsApi {
     ResponseEntity<List<Transaction>> searchTansaction(@ApiParam(value = "nameSender") @Valid @RequestParam(value = "nameSender", required = false) String nameSender
             ,@ApiParam(value = "transactionId") @Valid @RequestParam(value = "transactionId", required = false) Long transactionId
             ,@ApiParam(value = "IBAN") @Valid @RequestParam(value = "IBAN", required = false) String IBAN
-            ,@ApiParam(value = "transactionAmount") @Valid @RequestParam(value = "transactionAmount", required = false) Double transactionAmount
+            ,@ApiParam(value = "transferAmount") @Valid @RequestParam(value = "transferAmount", required = false) Double transferAmount
             ,@ApiParam(value = "MaxNumberOfResults") @Valid @RequestParam(value = "MaxNumberOfResults", required = false) Integer maxNumberOfResults
     );
 
