@@ -1,46 +1,39 @@
 package io.swagger.service;
 
 import io.swagger.dao.RepositoryApiKey;
-import io.swagger.dao.RepositoryLogin;
-import io.swagger.dao.RepositoryUser;
 import io.swagger.model.ApiKey;
 import io.swagger.model.Login;
 import io.swagger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.UUID;
 
 @Service
 public class LoginApiService {
 
     @Autowired
-    private RepositoryLogin repositoryLogin;
-
-    @Autowired
     private RepositoryApiKey repositoryApiKey;
 
-    //public UserApiService{}
+    @Autowired
+    private UserApiService userApiService;
+
+    public LoginApiService(){}
 
     public ApiKey loginUser(Login login){
-        System.out.println(login);
-        Login currentLogin = repositoryLogin.findById(login.getUsername()).get();
-        if (!currentLogin.getUsername().isEmpty()){
-            if (BCrypt.checkpw(login.getPassword(), currentLogin.getPassword()))
-            {
-                repositoryLogin.findById(login.getUsername());
-                //repositoryLogin.save(login);
-                UUID uuid = UUID.randomUUID();
-                ApiKey apiKey = new ApiKey(2L, uuid.toString(), login.getUsername());
+        if (!login.getUsername().isEmpty()){
+            User user =  userApiService.getUser(login.getUsername(), login.getPassword());
 
-                repositoryApiKey.save(apiKey);
-                //repositoryLogin.findAll().forEach(System.out::println);
-                System.out.println("login succes");
-                return apiKey;
+            if (BCrypt.checkpw(login.getPassword(), user.getPassword()))
+            {
+                if(user != null) {
+                    UUID uuid = UUID.randomUUID();
+                    ApiKey apiKey = new ApiKey(uuid.toString(), user.getId());
+                    repositoryApiKey.save(apiKey);
+                    System.out.println("login succes");
+                    return apiKey;
+                }
             }
         }
         System.out.println("login failed");

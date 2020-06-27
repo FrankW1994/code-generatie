@@ -5,38 +5,34 @@
  */
 package io.swagger.api;
 
-import io.swagger.annotations.*;
 import io.swagger.model.ApiKey;
 import io.swagger.model.Login;
+import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
-import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-01T15:53:22.523Z[GMT]")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-03T10:32:36.707Z[GMT]")
 @Api(value = "login", description = "the login API")
 public interface LoginApi {
 
-    @ApiOperation(value = "The login for the user", nickname = "login", notes = "", response = ApiKey.class, tags={ "user", })
+    @ApiOperation(value = "Logges in user", nickname = "loginUser", notes = "Authenticates a user with a given username/password combination, and returns an authentication token for future requests.", response = ApiKey.class, tags={ "Authentication","Customer operation", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful login.", response = ApiKey.class),
-            @ApiResponse(code = 400, message = "Invalid username or password.") })
+            @ApiResponse(code = 200, message = "You have succesfully logged in. Your authtoken can be found in the response. header", response = ApiKey.class),
+            @ApiResponse(code = 400, message = "Something went wrong, your request could not be understood."),
+            @ApiResponse(code = 401, message = "Something went wrong with your username or password. Please try again."),
+            @ApiResponse(code = 403, message = "You are not allowed to access this page."),
+            @ApiResponse(code = 404, message = "The page that you are trying to enter does not exist anymore. Please redirect to the log in page."),
+            @ApiResponse(code = 406, message = "Username or password is incorrect, please try again."),
+            @ApiResponse(code = 429, message = "You have tried to login too many times! Please try again in 15 minutes.") })
     @RequestMapping(value = "/login",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<ApiKey> login(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Login body
+    ResponseEntity<ApiKey> loginUser(@ApiParam(value = ""  )  @Valid @RequestBody Login body
     );
 
 }

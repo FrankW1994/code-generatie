@@ -2,7 +2,6 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
-import io.swagger.service.LoginApiService;
 import io.swagger.service.LogoutApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

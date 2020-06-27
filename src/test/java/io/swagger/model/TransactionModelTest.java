@@ -36,6 +36,4 @@ class TransactionModelTest {
         assertEquals("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXXXX", exception.getMessage());
     }
 
-
-
 }

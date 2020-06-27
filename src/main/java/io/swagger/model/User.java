@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 
@@ -24,7 +23,7 @@ public class User {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("id")
   @Column(unique = true, nullable = false)
-  private Long id = null;
+  private Integer id = null;
 
   @JsonProperty("firstname")
   private String firstname = null;
@@ -72,7 +71,7 @@ public class User {
   public User() {
   }
 
-  /**
+    /**
    * User Rank
    */
   public enum RankEnum {
@@ -140,7 +139,7 @@ public class User {
   @JsonProperty("status")
   private StatusEnum status = null;
 
-  public User id(Long id) {
+  public User id(Integer id) {
     this.id = id;
     return this;
   }
@@ -151,11 +150,11 @@ public class User {
   **/
   @ApiModelProperty(value = "")
   
-    public Long getId() {
+    public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

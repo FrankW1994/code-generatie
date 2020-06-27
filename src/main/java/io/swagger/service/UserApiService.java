@@ -52,7 +52,7 @@ public class UserApiService {
 
     public User update(String userId, User body){
         try {
-            body.setId(Long.parseLong(userId));
+            body.setId(Integer.parseInt(userId));
             repositoryUser.updateUser(body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPhone(), body.getBirthdate(), body.getRank(), body.getStatus());
         }
         catch (NumberFormatException nfe){
@@ -62,4 +62,8 @@ public class UserApiService {
         return userError;
     }
 
+    public User getUser(String username, String password) {
+
+        return repositoryUser.findByUserName(username);
+    }
 }

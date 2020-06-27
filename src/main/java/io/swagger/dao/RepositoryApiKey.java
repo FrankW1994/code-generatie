@@ -13,8 +13,6 @@ import java.util.List;
 
 @Repository
 public interface RepositoryApiKey extends CrudRepository<ApiKey, String> {
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM ApiKey key where key.username = :username")
-    void deleteByUsername(@Param("username") String username);
+    @Query("SELECT t FROM ApiKey t WHERE t.userId =:userId")
+    ApiKey findApiKeyByUser(@Param("userId") int userId);
 }

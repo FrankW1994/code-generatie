@@ -24,6 +24,12 @@ window.addEventListener("load", function (name, value) {
             }
         };
         xhr.open('GET', url);
+        // sessionStorage.getItem("X-AUTHENTICATION", response.auth);
+        // hard coded want er is geen login of logout
+        var response = xhr.response;
+        var session = sessionStorage.getItem("X-AUTHENTICATION", response.apiKey);
+        // anders hard coded want er is was nog geen login
+        xhr.setRequestHeader("X-AUTHENTICATION", session.apiKey)
         xhr.send();
     });
 
@@ -34,6 +40,10 @@ window.addEventListener("load", function (name, value) {
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-type", "application/json")
+        var response = xhr.response;
+        var session = sessionStorage.getItem("X-AUTHENTICATION", response.apiKey);
+        // hard coded want er is geen login
+        xhr.setRequestHeader("X-AUTHENTICATION", session.apiKey)
         xhr.onload = function () {
                 switch (xhr.status) {
                     case 201:
