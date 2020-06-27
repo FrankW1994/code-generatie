@@ -38,7 +38,7 @@ window.addEventListener("load", function (name, value) {
                 switch (xhr.status) {
                     case 201:
                         alert(xhr.status + ":" + xhr.responseText);
-                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                    //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 400:
                         alert(xhr.status + ":" + xhr.responseText);

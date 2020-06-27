@@ -68,8 +68,6 @@ public interface UsersApi {
         method = RequestMethod.GET)
     ResponseEntity<List<User>> getUsers(@ApiParam(value = "") @Valid @RequestParam(value = "firstname", required = false) String firstname
 , @ApiParam(value = "") @Valid @RequestParam(value = "lastname", required = false) String lastname
-, @ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) LocalDate registrationDateStart
-, @ApiParam(value = "") @Valid @RequestParam(value = "registrationDateEnd", required = false) LocalDate registrationDateEnd
 , @ApiParam(value = "", allowableValues = "Customer, Employee, Admin") @Valid @RequestParam(value = "RankOfUser", required = false) String rankOfUser
 , @ApiParam(value = "", allowableValues = "Active, Blocked") @Valid @RequestParam(value = "StatusOfUser", required = false) String statusOfUser
 );

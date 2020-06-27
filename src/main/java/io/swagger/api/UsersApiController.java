@@ -1,5 +1,6 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.User;
@@ -44,13 +45,14 @@ public class UsersApiController implements UsersApi {
             try {
                 if (body != null && body.getFirstname() != null)
                 {
-                    System.out.println(body);
-
                     return new ResponseEntity<User>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.postUser(body)), User.class), HttpStatus.CREATED);
                 }
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (Exception e) {
+                ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body((JsonNode) objectMapper.createObjectNode().put("message",e.getMessage()));
+                return responseEntity;
             }
         }
 
@@ -85,15 +87,13 @@ public class UsersApiController implements UsersApi {
 
     public ResponseEntity<List<User>> getUsers(@ApiParam(value = "") @Valid @RequestParam(value = "firstname", required = false) String firstname
 , @ApiParam(value = "") @Valid @RequestParam(value = "lastname", required = false) String lastname
-, @ApiParam(value = "") @Valid @RequestParam(value = "registrationDateStart", required = false) LocalDate registrationDateStart
-, @ApiParam(value = "") @Valid @RequestParam(value = "registrationDateEnd", required = false) LocalDate registrationDateEnd
 , @ApiParam(value = "", allowableValues = "Customer, Employee, Admin") @Valid @RequestParam(value = "RankOfUser", required = false) String rankOfUser
 , @ApiParam(value = "", allowableValues = "Active, Blocked") @Valid @RequestParam(value = "StatusOfUser", required = false) String statusOfUser
 ) {
         String accept = request.getHeader("Accept");
         if (accept != null /*&& accept.contains("application/json")*/) {
             try {
-                return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getUsers()), List.class), HttpStatus.OK);
+                return new ResponseEntity<List<User>>(objectMapper.readValue(objectMapper.writeValueAsString(userApiService.getUsersWithFilters(firstname, lastname, rankOfUser, statusOfUser)), List.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<User>>(HttpStatus.INTERNAL_SERVER_ERROR);

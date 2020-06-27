@@ -10,7 +10,6 @@ window.addEventListener("load", function (name, value) {
         var transactionId = document.getElementById('transactionId_search').value;
         var IBAN = document.getElementById('IBAN_search').value;
         var transferAmount = document.getElementById('transferAmount_search').value;
-        console.log(transferAmount);
         var MaxNumberOfResults = document.getElementById('MaxNumberOfResults_search').value;
         url = url + '?transactionId='+transactionId+
             '&IBAN='+IBAN+
@@ -39,7 +38,7 @@ window.addEventListener("load", function (name, value) {
                 switch (xhr.status) {
                     case 201:
                         alert(xhr.status + ":" + xhr.responseText);
-                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
+                    //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 400:
                         alert(xhr.status + ":" + xhr.responseText);
