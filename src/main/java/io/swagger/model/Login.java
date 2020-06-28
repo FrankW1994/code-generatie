@@ -31,7 +31,7 @@ public class Login   {
 
   public Login(String username, String password) {
     this.username = username;
-    this.password = new BCrypt().hashpw(password, BCrypt.gensalt());
+    setPasswordEncrypt(password);
   }
 
   public Login(){}
@@ -67,7 +67,10 @@ public class Login   {
     this.password = password/*new BCryptPasswordEncoder().encode(password)*/;
   }
 
-
+  public void setPasswordEncrypt(String password){
+    String passwordEncrypted = new BCryptPasswordEncoder().encode(password);
+    setPassword(passwordEncrypted);
+  }
   @Override
   public boolean equals(Object o) {
     if (this == o) {

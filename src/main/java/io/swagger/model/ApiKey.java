@@ -27,7 +27,7 @@ public class ApiKey {
   private String apiKey;
 
   @JsonProperty("userId")
-  Integer userId = null;
+  Long userId = null;
 
   private LocalDateTime apiKeyCreated = null;
   private LocalDateTime apiKeyExpires = null;
@@ -41,12 +41,12 @@ public class ApiKey {
     this.apiKey = apiKey;
   }
 
-  public ApiKey(String apiKey, Integer userId) {
+  public ApiKey(String apiKey, Long userId) {
     this.apiKey = apiKey;
     this.userId = userId;
   }
 
-  public ApiKey(String apiKey, Integer userId, LocalDateTime apiKeyCreated, LocalDateTime apiKeyExpires) {
+  public ApiKey(String apiKey, Long userId, LocalDateTime apiKeyCreated, LocalDateTime apiKeyExpires) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.apiKeyCreated = apiKeyCreated;
@@ -74,7 +74,7 @@ public class ApiKey {
     this.apiKey = apiKey;
   }
 
-  public ApiKey username(Integer userId) {
+  public ApiKey username(Long userId) {
     this.userId = userId;
     return this;
   }
@@ -125,11 +125,11 @@ public class ApiKey {
    * Get userId
    * @return userId
    **/
-  public void setUserId(Integer userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 
-  public Integer getUserId() {
+  public Long getUserId() {
     return userId;
   }
 

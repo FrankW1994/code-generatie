@@ -54,14 +54,19 @@ public class UsersApiControllerTest {
     @Test
     public void usersControllerTest() throws Exception {
         mvc.perform(get("/users?firstname=&lastname=&RankOfUser=&StatusOfUser=")
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(status().isOk());
     }
     @Test
     public void getUserByIdShouldReturnISOK() throws Exception {
-        long userId =  1000103;
+        long userId =  1000052;
+
+        repositoryUser.findAll().forEach(System.out::println);
+
         mvc.perform(get("/users/" + userId)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(status().isOk());
     }
 
@@ -73,6 +78,8 @@ public class UsersApiControllerTest {
                 "0615022324", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -83,7 +90,8 @@ public class UsersApiControllerTest {
     public void deleteCorrectUserShouldReturnDeleted() throws Exception{
         long userId =  1000105;
         mvc.perform(delete("/users/" + userId)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(status().isOk());
     }
 
@@ -94,6 +102,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -106,6 +116,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -118,6 +130,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -130,6 +144,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -142,6 +158,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -154,6 +172,8 @@ public class UsersApiControllerTest {
                 "0615992392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -166,6 +186,8 @@ public class UsersApiControllerTest {
                 "261G599A2C392", "23-04-2000", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -178,6 +200,8 @@ public class UsersApiControllerTest {
                 "261G599A2C392", "16-01-2024", "16-01-2020", RankEnum.ADMIN, StatusEnum.BLOCKED);
 
         mvc.perform(MockMvcRequestBuilders.post("/users")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -191,7 +215,8 @@ public class UsersApiControllerTest {
         String firstname = "Henk";
 
         mvc.perform(get("/users?firstname=" + firstname)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].firstname").value("Henk")));
     }
@@ -201,7 +226,8 @@ public class UsersApiControllerTest {
         String lastname = "Anders";
 
         mvc.perform(get("/users?lastname=" + lastname)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].lastname").value("Anders")));
     }
@@ -212,7 +238,8 @@ public class UsersApiControllerTest {
         List<String> expectedResult = new ArrayList<>(Arrays.asList("Customer", "Customer"));
 
         mvc.perform(get("/users?RankOfUser=" + rank)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].rank").value(expectedResult)));
     }
@@ -220,10 +247,11 @@ public class UsersApiControllerTest {
     @Test
     public void searchUserOn_StatusOfUser_ShouldReturnUser() throws Exception {
         String status = "Active";
-        List<String> expectedResult = new ArrayList<>(Arrays.asList("Active", "Active", "Active"));
+        List<String> expectedResult = new ArrayList<>(Arrays.asList("Active", "Active", "Active", "Active"));
 
         mvc.perform(get("/users?StatusOfUser=" + status)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].status").value(expectedResult)));
     }

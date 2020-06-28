@@ -12,7 +12,6 @@ window.addEventListener("load", function (name, value) {
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-type", "application/json");
-        xhr.setRequestHeader("X-AUTHENTICATION", "");
         xhr.onload = function () {
             if (xhr.status == 200) {
                 alert(xhr.status + ":" + xhr.responseText);

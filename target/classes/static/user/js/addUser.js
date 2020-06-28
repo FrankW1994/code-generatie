@@ -24,8 +24,10 @@
 
        let xhr = new XMLHttpRequest();
        xhr.open("POST", "http://localhost:8080/users");
-       xhr.setRequestHeader("Accept", "application/json");
-       xhr.setRequestHeader("Content-type", "application/json");
+        const session = sessionStorage.getItem("X-AUTHENTICATION");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-AUTHENTICATION", session);
        xhr.onload = (e) => {
            alert("Successful added User.");
            $(location).attr('href', 'http://localhost:8080/user/AllUsers.html');

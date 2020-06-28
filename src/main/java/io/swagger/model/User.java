@@ -23,7 +23,7 @@ public class User {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="transaction_seq")
   @JsonProperty("id")
   @Column(unique = true, nullable = false)
-  private Integer id = null;
+  private Long id = null;
 
   @JsonProperty("firstname")
   private String firstname = null;
@@ -139,7 +139,7 @@ public class User {
   @JsonProperty("status")
   private StatusEnum status = null;
 
-  public User id(Integer id) {
+  public User id(Long id) {
     this.id = id;
     return this;
   }
@@ -150,11 +150,11 @@ public class User {
   **/
   @ApiModelProperty(value = "")
   
-    public Integer getId() {
+    public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

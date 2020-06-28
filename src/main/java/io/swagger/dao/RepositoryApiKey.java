@@ -14,5 +14,5 @@ import java.util.List;
 @Repository
 public interface RepositoryApiKey extends CrudRepository<ApiKey, String> {
     @Query("SELECT t FROM ApiKey t WHERE t.userId =:userId")
-    ApiKey findApiKeyByUser(@Param("userId") int userId);
+    ApiKey findApiKeyByUser(@Param("userId") Long userId);
 }

@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -66,12 +68,14 @@ public class TransactionsApiControllerTest{
     @Test
     public void searchTransactionOn_nameSender_ShouldReturnTransaction() throws Exception {
         String nameSender = "GPOSSEL";
+        List<String> expectedResult = new ArrayList<>(Arrays.asList("GPOSSEL", "GPOSSEL"));
+
 
         mvc.perform(get("/transactions?nameSender=" + nameSender)
                 .header("Accept", "application/json")
                 .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
-                MockMvcResultMatchers.jsonPath("$.[*].nameSender").value("GPOSSEL")));
+                MockMvcResultMatchers.jsonPath("$.[*].nameSender").value(expectedResult)));
     }
 
     @Test

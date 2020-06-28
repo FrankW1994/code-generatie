@@ -76,8 +76,9 @@ public class MyAppRunnerConfig implements ApplicationRunner {
         }
         // tes@email.com heeft user Id 1000055 en daarmee apikey 1234-abcd-5678-efgh
         repositoryUser.save(new User("Test", "Nye", "tes@email.com", "test", "0612345678", "1990-11-20", "20-10-2019", User.RankEnum.EMPLOYEE, User.StatusEnum.ACTIVE));
-        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 1000055, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
+        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 1000055L, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
 
+        System.out.println(repositoryUser.findByFirstname("Test"));
         System.out.println("Application name: " + properties.getApplicationName());
     }
 }

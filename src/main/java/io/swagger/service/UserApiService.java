@@ -156,7 +156,7 @@ public class UserApiService {
 
     public User update(String userId, User body) {
         try {
-            body.setId(Integer.parseInt(userId));
+            body.setId(Long.parseLong(userId));
             repositoryUser.updateUser(body.getId(), body.getFirstname(), body.getLastname(), body.getEmail(), body.getPhone(), body.getBirthdate(), body.getRank(), body.getStatus());
         } catch (NumberFormatException nfe) {
             return userError;

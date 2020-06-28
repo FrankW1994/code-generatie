@@ -40,8 +40,10 @@
 
         let xhr = new XMLHttpRequest();
         xhr.open("PUT", "http://localhost:8080/users/"+ urlParam("id"));
+        const session = sessionStorage.getItem("X-AUTHENTICATION");
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-AUTHENTICATION", session);
         xhr.onload = (e) => {
             switch (xhr.status) {
                 case 201:
