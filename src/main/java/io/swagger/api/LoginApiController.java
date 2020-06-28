@@ -55,7 +55,7 @@ public class LoginApiController implements LoginApi {
     }
 
     protected ApiKey mapApiKeyData(ApiKey body) {
-        ApiKey apikey = new ApiKey(body.getApiKey(), body.getUserId(), body.getTokenCreated(), body.getTokenExpires());
+        ApiKey apikey = new ApiKey(body.getApiKey(), body.getUserId(), body.getApiKeyCreated(), body.getApiKeyExpires());
         return apikey;
     }
 

@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -52,7 +53,8 @@ public class Account {
     return 500d;
     }
 
-    /**
+
+  /**
    * Gets or Sets rank
    */
   public enum RankEnum {
@@ -293,5 +295,33 @@ public class Account {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public int cumulativeTransactions = 0;
+  public LocalDateTime start = null;
+  public LocalDateTime end = null;
+
+  public boolean isPassedCumulativeTransactions() {
+    if(cumulativeTransactions < 3)
+    {
+      cumulativeTransactions++;
+    }else {
+      if(start == null){
+        start = LocalDateTime.now();
+        end = LocalDateTime.now().plusHours(24);
+        return true;
+      }else{
+        start = LocalDateTime.now();
+        if(start.isAfter(end))
+        {
+          cumulativeTransactions = 0;
+          start = null;
+          end = null;
+          return false;
+        }
+      }
+    }
+    return false;
   }
 }

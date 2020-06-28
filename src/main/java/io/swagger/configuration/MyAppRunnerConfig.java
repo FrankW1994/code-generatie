@@ -60,6 +60,7 @@ public class MyAppRunnerConfig implements ApplicationRunner {
         );
 
         transactions.forEach(repositoryTransaction::save);
+        repositoryTransaction.findAll().forEach(System.out::println);
 
         List<User> users =
                 Arrays.asList(
@@ -73,10 +74,9 @@ public class MyAppRunnerConfig implements ApplicationRunner {
             UUID uuid = UUID.randomUUID();
             apiKeyRepository.save(new ApiKey(uuid.toString(), u.getId()));
         }
-
-        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 1000001, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
-        apiKeyRepository.findAll()
-                .forEach(System.out::println);
+        // tes@email.com heeft user Id 1000055 en daarmee apikey 1234-abcd-5678-efgh
+        repositoryUser.save(new User("Test", "Nye", "tes@email.com", "test", "0612345678", "1990-11-20", "20-10-2019", User.RankEnum.EMPLOYEE, User.StatusEnum.ACTIVE));
+        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 1000055, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
 
         System.out.println("Application name: " + properties.getApplicationName());
     }

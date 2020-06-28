@@ -6,6 +6,7 @@ import io.swagger.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -69,6 +70,9 @@ public class TransactionApiService {
         }
         //	The maximum amount per transaction cannot be higher than a predefined number, referred to a transaction limit
 
+        if(accountSender.isPassedCumulativeTransactions()) {
+            throw new Exception("Account sender overstayed transactions per day.");
+        }
         // Make more transaction daily limit
 
         if ((body.getTransferAmount() < 0) || (body.getTransferAmount() >= accountSender.getDailyLimit())) {

@@ -40,8 +40,38 @@ public class TransactionsApiControllerTest{
     @Test
     public void transactionsControllerTest() throws Exception {
         mvc.perform(get("/transactions")
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void makeWrongAmountTransactionsShouldReturnINTERNAL_SERVER_ERROR() throws Exception {
+        Transaction newObjectInstance = new Transaction("NL22INHO9876543210",
+                "NL33INHO3333333333", "GPOSSEL",
+                new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()),
+                40000D);
+
+        mvc.perform(MockMvcRequestBuilders.post("/transactions")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
+                .content(asJsonString(newObjectInstance))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+
+    /* all parameter for search for transaction */
+    @Test
+    public void searchTransactionOn_nameSender_ShouldReturnTransaction() throws Exception {
+        String nameSender = "GPOSSEL";
+
+        mvc.perform(get("/transactions?nameSender=" + nameSender)
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
+                .andExpect(ResultMatcher.matchAll(status().isOk(),
+                MockMvcResultMatchers.jsonPath("$.[*].nameSender").value("GPOSSEL")));
     }
 
     @Test
@@ -52,6 +82,8 @@ public class TransactionsApiControllerTest{
                 140D);
 
         mvc.perform(MockMvcRequestBuilders.post("/transactions")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -68,46 +100,23 @@ public class TransactionsApiControllerTest{
                 40D);
 
         mvc.perform(MockMvcRequestBuilders.post("/transactions")
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh")
                 .content(asJsonString(newObjectInstance))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    public void makeWrongAmountTransactionsShouldReturnINTERNAL_SERVER_ERROR() throws Exception {
-        Transaction newObjectInstance = new Transaction("NL22INHO9876543210",
-                "NL33INHO3333333333", "GPOSSEL",
-                new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()),
-                40000D);
-
-        mvc.perform(MockMvcRequestBuilders.post("/transactions")
-                .content(asJsonString(newObjectInstance))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnprocessableEntity());
-    }
-
-
-    /* all parameter for search for transaction */
-    @Test
-    public void searchTransactionOn_nameSender_ShouldReturnTransaction() throws Exception {
-        String nameSender = "GPOSSEL";
-
-        mvc.perform(get("/transactions?nameSender=" + nameSender)
-                .header("Accept", "application/json"))
-                .andExpect(ResultMatcher.matchAll(status().isOk(),
-                MockMvcResultMatchers.jsonPath("$.[*].nameSender").value("GPOSSEL")));
     }
 
     @Test
     public void searchTransactionOn_transactionId_ShouldReturnTransaction() throws Exception {
-        int transactionId = 1000052;
+        int transactionId = 1000001;
 
         mvc.perform(get("/transactions?transactionId=" + transactionId)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
-                        MockMvcResultMatchers.jsonPath("$.*.transactionId").value(1000052)));
+                        MockMvcResultMatchers.jsonPath("$.*.transactionId").value(1000001)));
     }
 
     @Test
@@ -115,7 +124,8 @@ public class TransactionsApiControllerTest{
         String ibanSender = "NL77INHO0123456789";
 
         mvc.perform(get("/transactions?IBAN=" + ibanSender)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].ibanSender").value("NL77INHO0123456789")));
         }
@@ -124,7 +134,8 @@ public class TransactionsApiControllerTest{
     public void searchTransactionOn_transactionAmount_ShouldReturnTransaction() throws Exception {
         Double transactionAmount = 100D;
         mvc.perform(get("/transactions?transferAmount=" + transactionAmount.doubleValue())
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.[*].transferAmount").value(100.0)));
     }
@@ -134,7 +145,8 @@ public class TransactionsApiControllerTest{
         Integer MaxNumberOfResults = 2;
 
         MvcResult result = mvc.perform(get("/transactions?MaxNumberOfResults=" + MaxNumberOfResults)
-                .header("Accept", "application/json"))
+                .header("Accept", "application/json")
+                .header("X-AUTHENTICATION", "1234-abcd-5678-efgh"))
                 .andExpect(ResultMatcher.matchAll(status().isOk(),
                         MockMvcResultMatchers.jsonPath("$").isArray(),
                         MockMvcResultMatchers.jsonPath("$", hasSize(2))))

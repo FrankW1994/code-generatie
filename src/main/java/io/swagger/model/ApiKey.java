@@ -2,14 +2,10 @@ package io.swagger.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -33,8 +29,8 @@ public class ApiKey {
   @JsonProperty("userId")
   Integer userId = null;
 
-  private LocalDateTime tokenCreated = null;
-  private LocalDateTime tokenExpires = null;
+  private LocalDateTime apiKeyCreated = null;
+  private LocalDateTime apiKeyExpires = null;
 
   public ApiKey(){
     this.apiKey = UUID.randomUUID().toString();
@@ -50,11 +46,11 @@ public class ApiKey {
     this.userId = userId;
   }
 
-  public ApiKey(String apiKey, Integer userId, LocalDateTime tokenCreated, LocalDateTime tokenExpires) {
+  public ApiKey(String apiKey, Integer userId, LocalDateTime apiKeyCreated, LocalDateTime apiKeyExpires) {
     this.apiKey = apiKey;
     this.userId = userId;
-    this.tokenCreated = tokenCreated;
-    this.tokenExpires = tokenExpires;
+    this.apiKeyCreated = apiKeyCreated;
+    this.apiKeyExpires = apiKeyExpires;
   }
 
   /**
@@ -137,20 +133,20 @@ public class ApiKey {
     return userId;
   }
 
-  public LocalDateTime getTokenCreated() {
-    return tokenCreated;
+  public LocalDateTime getApiKeyCreated() {
+    return apiKeyCreated;
   }
 
-  public void setTokenCreated(LocalDateTime tokenCreated) {
-    this.tokenCreated = tokenCreated;
+  public void setApiKeyCreated(LocalDateTime tokenCreated) {
+    this.apiKeyCreated = tokenCreated;
   }
 
-  public LocalDateTime getTokenExpires() {
-    return tokenExpires;
+  public LocalDateTime getApiKeyExpires() {
+    return apiKeyExpires;
   }
 
-  public void setTokenExpires(LocalDateTime tokenExpires) {
-    this.tokenExpires = tokenExpires;
+  public void setApiKeyExpires(LocalDateTime tokenExpires) {
+    this.apiKeyExpires = tokenExpires;
   }
 
 

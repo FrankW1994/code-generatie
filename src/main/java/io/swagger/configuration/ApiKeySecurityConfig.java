@@ -73,22 +73,24 @@ public class ApiKeySecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public ApiKey ValidateUserAndReturnApiKey(Login login) throws Exception {
-        if (!login.getUsername().isEmpty()){
-            User user =  userApiService.getUser(login.getUsername());
-
-            if (BCrypt.checkpw(login.getPassword(), user.getPassword())) {
-                ApiKey apiKey = repositoryApiKey.findApiKeyByUser(user.getId());
-                //user already has token
-                if(apiKey != null) {
-                    //token will expire after 30min from now
-                    apiKey = new ApiKey(apiKey.getApiKey(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusMinutes(30));
-                    return apiKey;
+        if (!login.getUsername().isEmpty()) {
+            User user = userApiService.getUser(login.getUsername());
+            if (user != null) {
+                if (BCrypt.checkpw(login.getPassword(), user.getPassword())) {
+                    ApiKey apiKey = repositoryApiKey.findApiKeyByUser(user.getId());
+                    //user already has token
+                    if (apiKey != null) {
+                        //token will expire after 30min from now
+                        apiKey = new ApiKey(apiKey.getApiKey(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusMinutes(30));
+                        return apiKey;
+                    }
+                    throw new Exception("No ApiKey made for user!");
                 }
-                return apiKey;
+                throw new Exception("Bad password!");
             }
-            throw new Exception("Bad password!");
+            throw new Exception("No user found with username!");
         }
-        throw new Exception("No user found with username!");
+        throw new Exception("Username is empty!");
     }
 
 
