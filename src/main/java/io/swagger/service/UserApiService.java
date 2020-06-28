@@ -4,6 +4,7 @@ import io.swagger.dao.RepositoryUser;
 import io.swagger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,8 +22,11 @@ public class UserApiService {
 
     public List<User> getUsersWithFilters(String firstname, String lastname, String rank, String status) {
         List<User> userList = new ArrayList<>();
+        boolean paramsFilled = false;
+
         if ((firstname != null) && !(firstname.equals(""))) {
             userList.addAll(getUsersFromFirstName(firstname));
+            paramsFilled = true;
 /*            for (User u : getUsersFromFirstName(firstname)) {
                 userList.add(u);
             }*/
@@ -32,20 +36,23 @@ public class UserApiService {
                 if (!userList.contains(u))
                     userList.add(u);
             }
+            paramsFilled = true;
         }
         if ((rank != null) && !(rank.equals(""))) {
             for (User u : getUsersFromRank(rank)) {
                 if (!userList.contains(u))
                     userList.add(u);
             }
+            paramsFilled = true;
         }
         if ((status != null) && !(status.equals(""))) {
             for (User u : getUsersFromStatus(status)) {
                 if (!userList.contains(u))
                     userList.add(u);
             }
+            paramsFilled = true;
         }
-        if (userList.size() == 0) {
+        if (!paramsFilled){
             userList = getUsers();
         }
         return userList;
@@ -86,7 +93,6 @@ public class UserApiService {
 
         if (!valid)
             throw new Exception("The Email is not valid!");
-
     }
 
     private void checkPassword(String password) throws Exception {
@@ -105,7 +111,7 @@ public class UserApiService {
     }
 
     private void checkBirthDate(String date) throws Exception {
-        boolean valid = date.matches("^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)(19|20)\\d{2}$");
+        boolean valid = date.matches("^([1-9]|(0)[1-9]|[1-2][0-9]|(3)[0-1])(-)(((0)[1-9])|([1-9])|((1)[0-2]))(-)(19|20)\\d{2}$");
 
         if (!valid)
             throw new Exception("The birthdate is invalid");
@@ -121,6 +127,8 @@ public class UserApiService {
         checkPhoneNumber(user.getPhone());
         checkBirthDate(user.getBirthdate());
 
+        user.setPasswordEncrypt(user.getPassword());
+
         repositoryUser.save(user);
         return user;
     }
@@ -129,12 +137,11 @@ public class UserApiService {
         return repositoryUser.findById(userId).get();
     }
 
-    public HttpStatus delete(String userId) {
+    public HttpStatus delete(String userId) throws NumberFormatException, Exception {
         Long userIdLong = null;
-        try {
-            userIdLong = Long.parseLong(userId);
-        } catch (NumberFormatException nfe) {
-        }
+
+        userIdLong = Long.parseLong(userId);
+
         if (userIdLong != null) {
             try {
                 repositoryUser.deleteById(userIdLong);

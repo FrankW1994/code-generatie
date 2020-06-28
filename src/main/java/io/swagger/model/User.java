@@ -51,7 +51,7 @@ public class User {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
-    this.password = /*password*/new BCryptPasswordEncoder().encode(password);
+    this.password = password;
     this.phone = phone;
     this.birthdate = birthdate;
     this.registrationdate = registrationdate;
@@ -233,6 +233,11 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public void setPasswordEncrypt(String password){
+    String passwordEncrypted = new BCryptPasswordEncoder().encode(password);
+    setPassword(passwordEncrypted);
   }
 
   public User phone(String phone) {

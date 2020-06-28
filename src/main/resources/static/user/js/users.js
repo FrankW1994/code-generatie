@@ -1,10 +1,12 @@
 
 $(document).ready(function (){
 
-    function loadUsers() {
+    function loadUsers(url = 'http://localhost:8080/users') {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(result) {
             if (xhr.readyState === 4){
+
+                $("#result thead tr  td").parent().remove();
 
                 let responsData = JSON.parse(xhr.responseText);
                 let table =  document.getElementById('result');
@@ -37,7 +39,7 @@ $(document).ready(function (){
                 }
             }
         };
-        xhr.open('GET', 'http://localhost:8080/users');
+        xhr.open('GET', url);
         xhr.send();
     }
 
@@ -60,7 +62,6 @@ $(document).ready(function (){
             if (xhr.readyState === 4){
 
                 let responsData = JSON.parse(xhr.responseText);
-                console.log(responsData);
 
                 $("#result-success").append("<p>test</p>");
 
@@ -89,7 +90,7 @@ $(document).ready(function (){
 
     $('body').on('click', '#filters', function(){
 
-        let url = "http://localhost:8080/user/AllUsers.html?firstname=&lastname=&rank=&status=";
+        let url = "http://localhost:8080/users";
 
         let firstname = $("#firstname").val();
         let lastname = $("#lastname").val();
@@ -98,43 +99,7 @@ $(document).ready(function (){
 
         url += "?firstname=" + firstname + "&lastname=" + lastname + "&RankOfUser=" + rank + "&StatusOfUser=" + status;
 
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(result) {
-            if (xhr.readyState === 4){
-                window.location.href = "http://localhost:8080/transactions.html";
-                let responsData = JSON.parse(xhr.responseText);
-                let table =  document.getElementById('result');
-                let row, arrayData, editUrlStr, i, j;
-
-                //Iterate through every row off the response data
-                for (i = 0; i < responsData.length; i++) {
-                    //Make associative array off the object with data
-                    arrayData = Object.entries(responsData[i]);
-                    row = table.insertRow(i+1);
-                    editUrlStr = "";
-                    //Iterate through the fields of the response data && Add new Cell in table with data
-                    for (j = 0; j < arrayData.length; j++) {
-
-                        if (arrayData[j][0] !== "password") {
-                            row.insertCell(j).innerHTML = arrayData[j][1];
-                            //create urlParameters for the edit url
-                            if (j !== 0) {
-                                editUrlStr += "&";
-                            }
-                            editUrlStr += arrayData[j][0] + "=" + arrayData[j][1];
-                        }
-                        else{
-                            row.insertCell(j).innerHTML = "****";
-                        }
-                }
-
-                    row.insertCell(j).innerHTML = "<a class='edit' href='UpdateUsers.html?" + editUrlStr + "'>edit</a>";
-                    row.insertCell(j + 1).innerHTML = "<a class='delete' rel='" + responsData[i].id + "' href=''>delete</a>";
-                }
-            }
-        };
-        xhr.open('GET', url);
-        xhr.send();
+        loadUsers(url);
     });
 
 });
