@@ -69,20 +69,16 @@ public class MyAppRunnerConfig implements ApplicationRunner {
 
         users.forEach(repositoryUser::save);
 
-        System.out.println("Application name: " + properties.getApplicationName());
+        for(User u : users){
+            UUID uuid = UUID.randomUUID();
+            apiKeyRepository.save(new ApiKey(uuid.toString(), u.getId()));
+        }
 
-        // Generating ApiKeys
-   //     for (int i = 0; i < 5; i++) {
-   //         UUID uuid = UUID.randomUUID();
-    //        apiKeyRepository.save(new ApiKey(uuid.toString()));
-        //}
-
-        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 100001, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
-        apiKeyRepository.save(new ApiKey("1111-abcd-5678-efgh", 100003, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
+        apiKeyRepository.save(new ApiKey("1234-abcd-5678-efgh", 1000001, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30)));
         apiKeyRepository.findAll()
                 .forEach(System.out::println);
 
-        apiKeyRepository.findAll().forEach(System.out::println);
+        System.out.println("Application name: " + properties.getApplicationName());
     }
 }
 

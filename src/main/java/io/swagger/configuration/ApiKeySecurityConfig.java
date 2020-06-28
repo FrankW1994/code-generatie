@@ -5,7 +5,9 @@ import io.swagger.dao.RepositoryUser;
 import io.swagger.model.ApiKey;
 import io.swagger.model.Login;
 import io.swagger.model.User;
+import io.swagger.service.UserApiService;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,6 +30,9 @@ public class ApiKeySecurityConfig extends WebSecurityConfigurerAdapter {
     private RepositoryApiKey repositoryApiKey;
 
     private RepositoryUser repositoryUser;
+
+    @Autowired
+    public UserApiService userApiService;
 
     public ApiKeySecurityConfig(RepositoryApiKey repository, RepositoryUser repositoryUser)
     {
@@ -66,21 +72,23 @@ public class ApiKeySecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    public ApiKey ValidateUserAndReturnApiKey(Login login)
-    {
-        User user;
-        if((user = repositoryUser.findUserByUserCredentials(login.getUsername(), login.getPassword())) == null)
-            return null;
-        ApiKey apiKey = repositoryApiKey.findApiKeyByUser(user.getId());
-        //user already has token
-        if(apiKey != null) {
-            return apiKey;
-        }
-        //token will expire after 30min from now
-        apiKey = new ApiKey(CreateApiKey(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusMinutes(30));
-        repositoryApiKey.save(apiKey);
+    public ApiKey ValidateUserAndReturnApiKey(Login login) throws Exception {
+        if (!login.getUsername().isEmpty()){
+            User user =  userApiService.getUser(login.getUsername());
 
-        return apiKey;
+            if (BCrypt.checkpw(login.getPassword(), user.getPassword())) {
+                ApiKey apiKey = repositoryApiKey.findApiKeyByUser(user.getId());
+                //user already has token
+                if(apiKey != null) {
+                    //token will expire after 30min from now
+                    apiKey = new ApiKey(apiKey.getApiKey(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusMinutes(30));
+                    return apiKey;
+                }
+                return apiKey;
+            }
+            throw new Exception("Bad password!");
+        }
+        throw new Exception("No user found with username!");
     }
 
 

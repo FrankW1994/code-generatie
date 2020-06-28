@@ -24,12 +24,10 @@ window.addEventListener("load", function (name, value) {
             }
         };
         xhr.open('GET', url);
-        // sessionStorage.getItem("X-AUTHENTICATION", response.auth);
-        // hard coded want er is geen login of logout
-        var response = xhr.response;
-        var session = sessionStorage.getItem("X-AUTHENTICATION", response.apiKey);
-        // anders hard coded want er is was nog geen login
-        xhr.setRequestHeader("X-AUTHENTICATION", session.apiKey)
+        const session = sessionStorage.getItem("X-AUTHENTICATION");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-AUTHENTICATION", session);
         xhr.send();
     });
 
@@ -39,32 +37,25 @@ window.addEventListener("load", function (name, value) {
         xhr.open('POST', 'http://localhost:8080/transactions');
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Content-type", "application/json")
-        var response = xhr.response;
-        var session = sessionStorage.getItem("X-AUTHENTICATION", response.apiKey);
-        // hard coded want er is geen login
-        xhr.setRequestHeader("X-AUTHENTICATION", session.apiKey)
+        xhr.setRequestHeader("Content-type", "application/json");
+        const session = sessionStorage.getItem("X-AUTHENTICATION");
+        xhr.setRequestHeader("X-AUTHENTICATION", session)
         xhr.onload = function () {
                 switch (xhr.status) {
                     case 201:
                         alert(xhr.status + ":" + xhr.responseText);
-                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 400:
                         alert(xhr.status + ":" + xhr.responseText);
-                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Oops" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 422:
                         alert(xhr.status + ":" + xhr.responseText);
-                 //       document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     case 500:
                         alert(xhr.status + ":" + xhr.responseText);
-                //        document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
                     default:
                         alert(xhr.status + ":" + xhr.responseText);
-                 //       document.getElementById('errorResponses').innerHTML = JSON.stringify("Transaction created" + xhr.status + "Message:" + xhr.responseText);
                         break;
             }
             console.log(xhr.responseText);

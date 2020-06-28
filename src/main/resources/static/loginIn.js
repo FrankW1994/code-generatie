@@ -2,41 +2,24 @@ var xhr;
 window.addEventListener("load", function (name, value) {
 
     function RedirectPage() {
-        window.location.replace("http://localhost:8080/transactions.html");
-    //    var URL = "http://localhost:8080/transactions.html";
-     //   var win = window.open(URL);
+        var URL = "/Transactions.html";
+        window.open(URL);
     }
 
     document.getElementById('button_login').addEventListener('click', function (e) {
-
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:8080/login');
         //Send the proper header information along with the request
         xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Content-type", "application/json")
-        xhr.setRequestHeader("X-AUTHENTICATION", "")
-
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-AUTHENTICATION", "");
         xhr.onload = function () {
-            switch (xhr.status) {
-                case 200:
-                    alert(xhr.status + ":" + xhr.responseText);
-                    let response = JSON.parse(xhr.response);
-                    console.log(response);
-                    sessionStorage.setItem("X-AUTHENTICATION", response.apiKey);
-                    RedirectPage();
-                    break;
-                case 400:
-                    alert(xhr.status + ":" + xhr.responseText);
-                    break;
-                case 422:
-                    alert(xhr.status + ":" + xhr.responseText);
-                    break;
-                case 500:
-                    alert(xhr.status + ":" + xhr.responseText);
-                    break;
-                default:
-                    alert(xhr.status + ":" + xhr.responseText);
-                    break;
+            if (xhr.status == 200) {
+                alert(xhr.status + ":" + xhr.responseText);
+                let response = JSON.parse(xhr.response);
+                console.log(response);
+                sessionStorage.setItem("X-AUTHENTICATION", response.apiKey);
+                RedirectPage();
             }
         }
         xhr.send(JSON.stringify({
@@ -50,7 +33,7 @@ window.addEventListener("load", function (name, value) {
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', 'http://localhost:8080/logout');
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("ApiKeyAuth", sessionStorage.getItem("AuthToken"));
+        xhr.setRequestHeader("X-AUTHENTICATION", sessionStorage.getItem("ApiKey"));
         xhr.onload = (e) => {
             alert(xhr.status);
             sessionStorage.setItem("ApiKey", "");

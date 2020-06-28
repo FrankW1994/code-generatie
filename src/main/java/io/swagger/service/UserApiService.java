@@ -66,4 +66,8 @@ public class UserApiService {
 
         return repositoryUser.findByUserName(username);
     }
+
+    public User getUser(String username) {
+        return repositoryUser.findByUserName(username);
+    }
 }

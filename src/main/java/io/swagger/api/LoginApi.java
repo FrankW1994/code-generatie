@@ -33,6 +33,6 @@ public interface LoginApi {
             consumes = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<ApiKey> loginUser(@ApiParam(value = ""  )  @Valid @RequestBody Login body
-    );
+    ) throws Exception;
 
 }
