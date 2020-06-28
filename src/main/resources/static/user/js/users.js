@@ -1,11 +1,12 @@
 
 $(document).ready(function (){
-    loadUsers();
 
-    function loadUsers() {
+    function loadUsers(url = 'http://localhost:8080/users') {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(result) {
             if (xhr.readyState === 4){
+
+                $("#result thead tr  td").parent().remove();
 
                 let responsData = JSON.parse(xhr.responseText);
                 let table =  document.getElementById('result');
@@ -38,14 +39,14 @@ $(document).ready(function (){
                 }
             }
         };
-        xhr.open('GET', 'http://localhost:8080/users');
+        xhr.open('GET', url);
         xhr.send();
     }
 
     $('body').on('click', '.delete', function(){
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(result){
-            console.log(xhr);
+            loadUsers();
         };
         let userId = $(this).attr('rel');
         xhr.open('DELETE', 'http://localhost:8080/users/' + userId);
@@ -61,7 +62,6 @@ $(document).ready(function (){
             if (xhr.readyState === 4){
 
                 let responsData = JSON.parse(xhr.responseText);
-                console.log(responsData);
 
                 $("#result-success").append("<p>test</p>");
 
@@ -88,7 +88,20 @@ $(document).ready(function (){
         xhr.send();
     });
 
-    
+    $('body').on('click', '#filters', function(){
+
+        let url = "http://localhost:8080/users";
+
+        let firstname = $("#firstname").val();
+        let lastname = $("#lastname").val();
+        let rank = $("#rank").val();
+        let status = $("#status").val();
+
+        url += "?firstname=" + firstname + "&lastname=" + lastname + "&RankOfUser=" + rank + "&StatusOfUser=" + status;
+
+        loadUsers(url);
+    });
+
 });
 
 
