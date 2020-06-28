@@ -84,7 +84,6 @@ public class TransactionsApiController implements TransactionsApi {
         if (accept != null) {
             try {
                 return status(HttpStatus.OK).body(transaction);
-                //     return new ResponseEntity<Transaction>(objectMapper.readValue(objectMapper.writeValueAsString(transactionApiService.getTransaction(transactionId)), Transaction.class), HttpStatus.OK);
             } catch (IllegalArgumentException iae) {
                 return status(HttpStatus.NOT_FOUND).build();
             }

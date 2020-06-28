@@ -33,8 +33,8 @@ public class Account {
   @Column(name = "IBAN")
   private String IBAN = null;
 
-  public Account()
-  {}
+  public Account() {
+  }
 
   public Account(Long userId, String IBAN, RankEnum rank, StatusEnum status, Double balance, String currency) {
     this.userId = userId;
@@ -49,9 +49,9 @@ public class Account {
     this.IBAN = nlfout;
   }
 
-    public Double getDailyLimit() {
+  public Double getDailyLimit() {
     return 500d;
-    }
+  }
 
 
   /**
@@ -84,6 +84,7 @@ public class Account {
       return null;
     }
   }
+
   @JsonProperty("rank")
   private RankEnum rank = null;
 
@@ -123,6 +124,7 @@ public class Account {
       return null;
     }
   }
+
   @JsonProperty("status")
   private StatusEnum status = null;
 
@@ -133,6 +135,7 @@ public class Account {
 
   /**
    * Get userId
+   *
    * @return userId
    **/
   @ApiModelProperty(example = "2", required = true, value = "")
@@ -153,6 +156,7 @@ public class Account {
 
   /**
    * Get IBAN
+   *
    * @return IBAN
    **/
   @ApiModelProperty(example = "NLxxINHO0xxxxxxxxx", required = true, value = "")
@@ -163,8 +167,7 @@ public class Account {
   }
 
   public void setIBAN(String IBAN) {
-    if(!IBAN.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d"))
-    {
+    if (!IBAN.matches("NL\\d\\dINHO\\d\\d\\d\\d\\d\\d\\d\\d")) {
       throw new IllegalArgumentException("IBAN MUST BE TYPE OF NLXXINHOXXXXXXXX");
     }
     this.IBAN = IBAN;
@@ -177,6 +180,7 @@ public class Account {
 
   /**
    * Get rank
+   *
    * @return rank
    **/
   @ApiModelProperty(example = "Current", value = "")
@@ -197,12 +201,14 @@ public class Account {
   /**
    * Get balance
    * minimum: 0
+   *
    * @return balance
    **/
   @ApiModelProperty(example = "100", required = true, value = "")
   @NotNull
 
-  @DecimalMin("0")  public Double getBalance() {
+  @DecimalMin("0")
+  public Double getBalance() {
     return balance;
   }
 
@@ -217,6 +223,7 @@ public class Account {
 
   /**
    * Get currency
+   *
    * @return currency
    **/
   @ApiModelProperty(example = "EUR", value = "")
@@ -236,6 +243,7 @@ public class Account {
 
   /**
    * Get status
+   *
    * @return status
    **/
   @ApiModelProperty(example = "Active", value = "")
@@ -297,31 +305,29 @@ public class Account {
     return o.toString().replace("\n", "\n    ");
   }
 
-
   public int cumulativeTransactions = 0;
   public LocalDateTime start = null;
   public LocalDateTime end = null;
 
   public boolean isPassedCumulativeTransactions() {
-    if(cumulativeTransactions < 3)
-    {
+
+    if (start == null) {
+      start = LocalDateTime.now();
+      end = LocalDateTime.now().plusHours(24);
+    }
+
+    if (cumulativeTransactions < 3) {
       cumulativeTransactions++;
-    }else {
-      if(start == null){
-        start = LocalDateTime.now();
-        end = LocalDateTime.now().plusHours(24);
-        return true;
-      }else{
-        start = LocalDateTime.now();
-        if(start.isAfter(end))
-        {
-          cumulativeTransactions = 0;
-          start = null;
-          end = null;
-          return false;
-        }
+    } else {
+      start = LocalDateTime.now();
+      if (start.isAfter(end)) {
+        cumulativeTransactions = 0;
+        start = null;
+        end = null;
+        return false;
       }
     }
     return false;
   }
+
 }
