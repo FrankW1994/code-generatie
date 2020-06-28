@@ -3,6 +3,7 @@ package io.swagger.service;
 import io.swagger.dao.RepositoryTransaction;
 import io.swagger.model.Account;
 import io.swagger.model.Transaction;
+import io.swagger.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class TransactionApiService {
 
     @Autowired
     private AccountApiService accountApiService;
+
+    @Autowired
+    private  UserApiService userApiService;
 
     public TransactionApiService() {
     }
@@ -69,9 +73,10 @@ public class TransactionApiService {
             //  Account does not exists!
         }
         //	The maximum amount per transaction cannot be higher than a predefined number, referred to a transaction limit
-
-        if(accountSender.isPassedCumulativeTransactions()) {
-            throw new Exception("Account sender overstayed transactions per day.");
+        if(userApiService.getById(accountSender.getUserId()).getRank() == User.RankEnum.CUSTOMER){
+            if(accountSender.isPassedCumulativeTransactions()) {
+                throw new Exception("Account sender overstayed transactions per day.");
+            }
         }
         // Make more transaction daily limit
 
