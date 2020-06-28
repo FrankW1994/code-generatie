@@ -14,6 +14,7 @@ import java.util.List;
 public class UserApiService {
 
     User userError = new User();
+
     @Autowired
     private RepositoryUser repositoryUser;
 
@@ -161,11 +162,6 @@ public class UserApiService {
             return userError;
         }
         return userError;
-    }
-
-    public User getUser(String username, String password) {
-
-        return repositoryUser.findByUserName(username);
     }
 
     public User getUser(String username) {

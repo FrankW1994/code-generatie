@@ -29,15 +29,12 @@ public class ApiKeySecurityConfig extends WebSecurityConfigurerAdapter {
 
     private RepositoryApiKey repositoryApiKey;
 
-    private RepositoryUser repositoryUser;
+    public final UserApiService userApiService;
 
-    @Autowired
-    public UserApiService userApiService;
-
-    public ApiKeySecurityConfig(RepositoryApiKey repository, RepositoryUser repositoryUser)
+    public ApiKeySecurityConfig(RepositoryApiKey repository, UserApiService userApiService)
     {
         this.repositoryApiKey = repository;
-        this.repositoryUser = repositoryUser;
+        this.userApiService = userApiService;
     }
 
     @Value("${bankshop.api.token.header-name}")
